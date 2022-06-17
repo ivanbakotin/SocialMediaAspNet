@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background-color: var(--color-tertiary);
+
+  h1 {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    font-size: var(--font-size-md);
+  }
+}

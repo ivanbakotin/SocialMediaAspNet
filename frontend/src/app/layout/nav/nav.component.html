@@ -1,0 +1,13 @@
+<nav class="mobile-menu" (click)="handleNav()">
+  <div [ngClass]="activeNav ? 'burger crossed' : 'burger'">
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+  </div>
+
+  <ul [ngClass]="activeNav ? 'mobile-aside' : 'mobile-aside hidden'">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">Friends</a></li>
+  </ul>
+</nav>

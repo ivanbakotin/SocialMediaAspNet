@@ -1,0 +1,68 @@
+.mobile-menu {
+  position: relative;
+  top: 0;
+
+  .burger {
+    padding: 0.5rem;
+    position: relative;
+    z-index: 2;
+
+    &:focus {
+      outline: none;
+    }
+
+    .div1,
+    .div2,
+    .div3 {
+      margin: 1rem;
+      width: 3.5rem;
+      height: 0.5rem;
+      background-color: black;
+      transition: 0.5s;
+    }
+  }
+
+  .crossed {
+    .div1 {
+      transform: rotate(-45deg) translate(-1.1rem, 1rem);
+    }
+    .div2 {
+      opacity: 0;
+    }
+    .div3 {
+      transform: rotate(45deg) translate(-1.1rem, -1rem);
+    }
+  }
+
+  .mobile-aside {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10rem;
+    background-color: var(--color-tertiary);
+    position: absolute;
+    height: 100vh;
+    width: min(400px, 60vw);
+    border-right: 1px solid black;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+
+    a {
+      font-weight: 700;
+      text-decoration: none;
+      font-size: var(--font-size-md);
+      color: black;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .hidden {
+    transform: translateX(-100%);
+  }
+}

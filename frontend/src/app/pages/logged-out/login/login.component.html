@@ -1,0 +1,34 @@
+<form #loginForm="ngForm" (ngSubmit)="submitForm(loginForm)">
+  <fieldset>
+    <legend>Login</legend>
+
+    <div>
+      <div>
+        <label for="email">Email:</label>
+        <input
+          ngModel
+          type="email"
+          name="email"
+          id="email"
+          placeholder="ivan@gmail.com"
+        />
+      </div>
+
+      <div>
+        <label for="password">Password:</label>
+        <input
+          ngModel
+          type="password"
+          name="password"
+          id="password"
+          placeholder="pass123"
+        />
+      </div>
+    </div>
+
+    <button type="submit">Login</button>
+  </fieldset>
+</form>
+<div class="error">{{ error }}</div>
+<a routerLink="/auth/register">Dont have an account? Register!</a>
+<a routerLink="/auth/forgot">Forgot your password?</a>

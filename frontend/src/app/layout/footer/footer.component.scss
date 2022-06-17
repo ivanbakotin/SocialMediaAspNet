@@ -1,0 +1,28 @@
+footer {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  flex-wrap: wrap;
+  background-color: var(--color-secondary);
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    li {
+      text-align: center;
+      padding: 2.5rem;
+
+      a {
+        font-size: var(--font-size-sm);
+        color: var(--color-primary);
+        text-decoration: none;
+
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: var(--font-size-md);
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-size: var(--font-size-md);
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+
+  fieldset {
+    padding: 1rem;
+    border: none;
+  }
+
+  legend {
+    width: 100%;
+    font-size: var(--font-size-lg);
+    border-bottom: solid 5rem var(--color-primary);
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  label {
+    font-size: var(--font-size-md);
+    cursor: pointer;
+  }
+
+  input {
+    outline: none;
+    font-size: var(--font-size-md);
+    border: none;
+    border-bottom: 1px solid black;
+  }
+
+  button {
+    text-align: center;
+    font-size: var(--font-size-md);
+    margin-top: 2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+}

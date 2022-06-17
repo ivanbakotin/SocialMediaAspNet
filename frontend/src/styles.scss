@@ -1,0 +1,39 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  font-size: inherit;
+}
+
+:root {
+  --color-primary: #d9e2eb;
+  --color-secondary: #373535;
+  --color-tertiary: #b2d1f0;
+
+  --font-size-sm: clamp(1.3rem, 2vw, 2rem);
+  --font-size-md: clamp(2rem, 2.2vw, 2.5rem);
+  --font-size-lg: clamp(2.5rem, 2.5vw, 3.5rem);
+}
