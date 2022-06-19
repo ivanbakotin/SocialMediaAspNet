@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/logged-out/login/login.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -24,6 +24,7 @@ import { PostComponent } from './components/post/post.component';
 import { SearchComponent } from './components/search/search.component';
 import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { CreatePostComponent } from './components/create-post/create-post.compon
     SearchComponent,
     BookmarkedComponent,
     CreatePostComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,

@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit {
     }
 
     const body = {
+      username: form.value.username,
       email: form.value.email,
       password: form.value.password,
     };

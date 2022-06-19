@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { AuthUser } from 'src/interfaces/AuthUser';
+import { LoginUser } from 'src/app/interfaces/LoginUser';
+import { RegisterUser } from 'src/app/interfaces/RegisterUser';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +23,11 @@ export class AuthService {
   loginURL = 'https://localhost:44344/api/Auth/login';
   registerUrl = 'https://localhost:44344/api/Auth/register';
 
-  login(data: AuthUser): Observable<any> {
+  login(data: LoginUser): Observable<any> {
     return this.http.post(this.loginURL, data);
   }
 
-  register(data: AuthUser): Observable<any> {
+  register(data: RegisterUser): Observable<any> {
     return this.http.post(this.registerUrl, data);
   }
 

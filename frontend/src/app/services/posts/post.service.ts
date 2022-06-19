@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { Post } from 'src/interfaces/Post';
+import { Post } from 'src/app/interfaces/Post';
 
 @Injectable({
   providedIn: 'root',

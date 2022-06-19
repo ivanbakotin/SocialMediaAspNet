@@ -1,17 +1,32 @@
 <li class="post__list">
   <article class="post__article">
-    <div>
-      <div>UPVOTE</div>
-      <div>CIRCLE</div>
-      <div>DOWNVOTE</div>
+    <div class="post__votes">
+      <div class="post__vote">
+        <div class="post__upvote">UPVOTE</div>
+        <div class="post__circle"></div>
+        <div class="post__downvote">DOWNVOTE</div>
+      </div>
+      <div class="post__score">VOTES NUMBER</div>
     </div>
-    <div>
-      <header>
-        <h3>{{ post.title }}</h3>
-        <div>{{ post.creator }}</div>
-      </header>
-      <div>
-        <p>{{ post.body }}</p>
+
+    <div class="post__body">
+      <div class="post__header">
+        <div class="post__info">
+          <h3 class="post__title">{{ post.title }}</h3>
+          <div class="post__creator">{{ post.creator }}</div>
+        </div>
+
+        <div class="post__buttons">
+          <button class="post__edit">Edit</button>
+          <button class="post__delete">Delete</button>
+        </div>
+      </div>
+
+      <p class="post__paragraph">{{ post.body }}</p>
+
+      <div class="post__info">
+        <div class="post__time">Time since post</div>
+        <div class="post__comments">See comments number</div>
       </div>
     </div>
   </article>

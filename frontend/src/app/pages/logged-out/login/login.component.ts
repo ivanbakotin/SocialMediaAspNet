@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     const data = {
       email: form.value.email,
       password: form.value.password,
+      rememberMe: form.value.rememberMe,
     };
 
     this.loginService.login(data).subscribe(
