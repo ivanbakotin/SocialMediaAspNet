@@ -24,11 +24,11 @@
   }
 
   &__score {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__upvote {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__circle {
@@ -39,7 +39,7 @@
   }
 
   &__downvote {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__body {
@@ -62,11 +62,11 @@
   }
 
   &__title {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__creator {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__buttons {
@@ -76,7 +76,7 @@
 
   &__btn {
     padding: 0.5rem;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
     cursor: pointer;
 
     &:hover {
@@ -93,14 +93,14 @@
   }
 
   &__paragraph {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__time {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 
   &__comments {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xsm);
   }
 }

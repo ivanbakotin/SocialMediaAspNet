@@ -24,4 +24,5 @@ namespace MyAppBackend
     store in session ask user remember me
     comments as tree
     google auth
+    fix jwt always the same
  */

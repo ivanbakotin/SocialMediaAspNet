@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyAppBackend.Middleware
 {
-    public class CheckIsOwner
+    public class CheckIsOwnerOrAdmin
     {
         private readonly RequestDelegate _next;
 
-        public CheckIsOwner(RequestDelegate next)
+        public CheckIsOwnerOrAdmin(RequestDelegate next)
         {
             _next = next;
         }

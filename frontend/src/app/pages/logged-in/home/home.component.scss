@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}

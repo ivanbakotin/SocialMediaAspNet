@@ -43,26 +43,30 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("update"), Authorize]
-        public IActionResult UpdatePost()
+        public IActionResult UpdatePost(int PostID)
         {
+            postService.UpdatePost(context, GetCurrentUserID(), PostID);
             return Ok();
         }
 
         [HttpGet("delete"), Authorize]
-        public IActionResult DeletePost()
+        public IActionResult DeletePost(int PostID)
         {
+            postService.DeletePost(context, GetCurrentUserID(), PostID);
             return Ok();
         }
 
         [HttpGet("upvote"), Authorize]
-        public IActionResult UpvotePost()
+        public IActionResult UpvotePost(int PostID)
         {
+            postService.UpvotePost(context, GetCurrentUserID(), PostID);
             return Ok();
         }
 
         [HttpGet("downvote"), Authorize]
-        public IActionResult Downvote()
+        public IActionResult Downvote(int PostID)
         {
+            postService.DownvotePost(context, GetCurrentUserID(), PostID);
             return Ok();
         }
     }

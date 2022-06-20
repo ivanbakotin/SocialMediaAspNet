@@ -25,6 +25,7 @@ import { SearchComponent } from './components/search/search.component';
 import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { EditPostComponent } from './components/edit-post/edit-post.component';
+import { ProfilepreviewComponent } from './components/profilepreview/profilepreview.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { EditPostComponent } from './components/edit-post/edit-post.component';
     BookmarkedComponent,
     CreatePostComponent,
     EditPostComponent,
+    ProfilepreviewComponent,
   ],
   imports: [
     BrowserModule,

@@ -33,6 +33,7 @@ a {
   --color-secondary: #373535;
   --color-tertiary: #b2d1f0;
 
+  --font-size-xsm: clamp(1rem, 1.2vw, 1.5rem);
   --font-size-sm: clamp(1.3rem, 2vw, 2rem);
   --font-size-md: clamp(2rem, 2.2vw, 2.5rem);
   --font-size-lg: clamp(2.5rem, 2.5vw, 3.5rem);
