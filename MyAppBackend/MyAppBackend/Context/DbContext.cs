@@ -46,7 +46,7 @@ namespace MyAppBackend.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VotedPost>()
-                .HasOne(e => e.post)
+                .HasOne(e => e.Post)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -54,6 +54,14 @@ namespace MyAppBackend.Data
                 .HasOne(e => e.follower)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Post>()
+                        .HasMany(c => c.Votes)
+                        .WithOne(e => e.Post);
+
+            modelBuilder.Entity<VotedPost>()
+                        .HasOne(c => c.Post)
+                        .WithMany(e => e.Votes);
         }
     }
 }

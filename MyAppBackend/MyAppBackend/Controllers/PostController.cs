@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Data;
-using MyAppBackend.Models;
-using MyAppBackend.Services.Post;
+using MyAppBackend.Services.PostService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,14 +29,39 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("posts"), Authorize]
-        public List<PostModel> GetPosts()
+        public dynamic GetPosts()
         {
             var posts = postService.GetPosts(context, GetCurrentUserID());
             return posts;
         }
 
         [HttpGet("post"), Authorize]
-        public IActionResult GetPost()
+        public PostModel GetPost(int PostID)
+        {
+            var post = postService.GetPost(context, GetCurrentUserID(), PostID);
+            return post;
+        }
+
+        [HttpGet("update"), Authorize]
+        public IActionResult UpdatePost()
+        {
+            return Ok();
+        }
+
+        [HttpGet("delete"), Authorize]
+        public IActionResult DeletePost()
+        {
+            return Ok();
+        }
+
+        [HttpGet("upvote"), Authorize]
+        public IActionResult UpvotePost()
+        {
+            return Ok();
+        }
+
+        [HttpGet("downvote"), Authorize]
+        public IActionResult Downvote()
         {
             return Ok();
         }

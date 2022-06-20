@@ -8350,11 +8350,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ibakotin\\source\\repos\\MyAppBackend\\MyAppBackend\\MyAppBackend.csproj",
+      "projectUniqueName": "C:\\Users\\ibakotin\\WebDev\\SocialMedia\\MyAppBackend\\MyAppBackend\\MyAppBackend.csproj",
       "projectName": "MyAppBackend",
-      "projectPath": "C:\\Users\\ibakotin\\source\\repos\\MyAppBackend\\MyAppBackend\\MyAppBackend.csproj",
+      "projectPath": "C:\\Users\\ibakotin\\WebDev\\SocialMedia\\MyAppBackend\\MyAppBackend\\MyAppBackend.csproj",
       "packagesPath": "C:\\Users\\ibakotin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ibakotin\\source\\repos\\MyAppBackend\\MyAppBackend\\obj\\",
+      "outputPath": "C:\\Users\\ibakotin\\WebDev\\SocialMedia\\MyAppBackend\\MyAppBackend\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ibakotin\\AppData\\Roaming\\NuGet\\NuGet.Config",

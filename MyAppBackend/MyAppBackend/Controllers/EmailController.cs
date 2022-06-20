@@ -3,6 +3,7 @@ using MyAppBackend.Models;
 using MyAppBackend.Data;
 using System.Threading.Tasks;
 using MyAppBackend.Services.Email;
+using System;
 
 namespace MyAppBackend.Controllers
 {
@@ -17,7 +18,7 @@ namespace MyAppBackend.Controllers
         public EmailController(DataContext context, IEmailService emailService)
         {
             this.context = context;
-            this.emailService = emailService;
+            this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         }
 
         [HttpPost("sendemail")]

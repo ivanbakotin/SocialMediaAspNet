@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(data).subscribe(
       (response) => {
+        console.log(response);
         const token = (<any>response).token;
         localStorage.setItem('token', token);
-        this.router.navigate(['/']);
+        this.router.navigate(['']);
       },
       (error) => {
+        console.log(error);
         this.error = error.error;
       }
     );

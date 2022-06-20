@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OIzExm1GisCatlMpaaX782WwH917Egfuc7+LE4Yg87/qPzhoVjerspqrvcFRDuPDzNto44QV9indsITRDseH2w==",
+  "dgSpecHash": "PtNTt4Y7esShR9tjsWjIImGlM9QAVNsMd47yPon0LumGnuYcvyfBZqVJYJKSwK5Xnc0jRitDKtrx0tN2Q1vxXg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ibakotin\\source\\repos\\MyAppBackend\\MyAppBackend\\MyAppBackend.csproj",
+  "projectFilePath": "C:\\Users\\ibakotin\\WebDev\\SocialMedia\\MyAppBackend\\MyAppBackend\\MyAppBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ibakotin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\ibakotin\\.nuget\\packages\\mailkit\\3.3.0\\mailkit.3.3.0.nupkg.sha512",

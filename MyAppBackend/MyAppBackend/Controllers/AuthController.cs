@@ -28,23 +28,13 @@ namespace MyAppBackend.Controllers
 
             if (token == null)
             {
-                return CustomHttp.CustomHttpResponse("Wrong email or password", 409);
+                return CustomHttp.HttpResponse("Wrong email or password", 409);
             } 
 
             return Ok(new AuthenticatedResponse { Token = token });                
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
-        {
-             bool flag = authService.Register(user, context);
-         
-            if (!flag)
-            {
-                return CustomHttp.CustomHttpResponse("Email taken!", 409);
-            }
-
-            return Ok();
-        }
+        public Task Register([FromBody] User user) => authService.Register(user, context);
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyAppBackend.Migrations
 {
-    public partial class InitCreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,7 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     roleID = table.Column<int>(type: "int", nullable: false),
+                    username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -123,7 +124,6 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     userID = table.Column<int>(type: "int", nullable: false),
-                    nickname = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     age = table.Column<int>(type: "int", nullable: false),
@@ -222,7 +222,7 @@ namespace MyAppBackend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     PostID = table.Column<int>(type: "int", nullable: false),
-                    liked = table.Column<bool>(type: "bit", nullable: false)
+                    Liked = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {

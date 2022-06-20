@@ -9,7 +9,8 @@ namespace MyAppBackend.Models
     {
         public int ID { get; set; }
         public int roleID { get; set; }
-        public Role role { get; set; }
+        public virtual Role role { get; set; }
+        public string username { get; set; }
         public string email { get; set; }
         public string password { get; set; }
     }

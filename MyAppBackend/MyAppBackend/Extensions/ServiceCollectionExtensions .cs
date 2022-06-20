@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Models;
 using MyAppBackend.Services.Auth;
 using MyAppBackend.Services.Email;
-using MyAppBackend.Services.Post;
+using MyAppBackend.Services.PostService;
 
 namespace MyAppBackend.Extensions
 {
@@ -87,7 +87,7 @@ namespace MyAppBackend.Extensions
         {
             services.AddTransient<IEmailService, Services.Email.EmailService>();
             services.AddTransient<IAuthService, Services.Auth.AuthService>();
-            services.AddTransient<IPostService, Services.Post.PostService>();
+            services.AddTransient<IPostService, Services.PostService.PostService>();
 
             return services;
         }

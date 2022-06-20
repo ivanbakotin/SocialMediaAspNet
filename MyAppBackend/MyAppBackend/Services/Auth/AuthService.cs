@@ -8,6 +8,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using MyAppBackend.Utilities;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.Auth
 {
@@ -59,21 +61,22 @@ namespace MyAppBackend.Services.Auth
             return tokenString;
         }
 
-        public bool Register(User user, DataContext context)
+        public IActionResult Register(User user, DataContext context)
         {
             //check password, email regex
 
-            bool emailExists = context.Users.Any(u => u.email == user.email);
+            bool userExists = context.Users.Any(u => u.email == user.email || u.username == user.username);
 
-            if (emailExists)
+            if (userExists)
             {
-                return false;
+                return CustomHttp.HttpResponse("Wrong email or password", 409);
             }
 
             string hashedPassword = CustomHash.HashString(user.password);
 
             User newUser = new User
             {
+                username = user.username,
                 email = user.email,
                 password = hashedPassword,
                 roleID = 2
@@ -90,7 +93,7 @@ namespace MyAppBackend.Services.Auth
             context.Profiles.Add(newProfile);
             context.SaveChanges();
 
-            return true;
+            return CustomHttp.HttpResponse("Success", 200);
         }
     }
 }

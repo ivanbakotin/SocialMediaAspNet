@@ -141,9 +141,6 @@ namespace MyAppBackend.Migrations
                     b.Property<string>("gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("nickname")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("userID")
                         .HasColumnType("int");
 
@@ -225,6 +222,9 @@ namespace MyAppBackend.Migrations
                     b.Property<int>("roleID")
                         .HasColumnType("int");
 
+                    b.Property<string>("username")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ID");
 
                     b.HasIndex("roleID");
@@ -264,14 +264,14 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("Liked")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("liked")
-                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
@@ -418,21 +418,26 @@ namespace MyAppBackend.Migrations
 
             modelBuilder.Entity("MyAppBackend.Models.VotedPost", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.Post", "post")
-                        .WithMany()
+                    b.HasOne("MyAppBackend.Models.Post", "Post")
+                        .WithMany("Votes")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyAppBackend.Models.User", "user")
+                    b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("post");
+                    b.Navigation("Post");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyAppBackend.Models.Post", b =>
+                {
+                    b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
         }

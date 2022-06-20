@@ -22,6 +22,7 @@ export class PostService {
   };
 
   getPosts(): Observable<any> {
+    console.log(this.header);
     return this.http.get(this.getPostsUrl, this.header);
   }
 }

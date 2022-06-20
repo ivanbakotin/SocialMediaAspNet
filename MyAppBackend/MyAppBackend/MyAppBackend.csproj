@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Services\User\" />
-    <Folder Include="Services\Profile\" />
   </ItemGroup>
 
 </Project>

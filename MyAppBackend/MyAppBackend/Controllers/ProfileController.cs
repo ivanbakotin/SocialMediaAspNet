@@ -19,5 +19,11 @@ namespace MyAppBackend.Controllers
         {
             return Ok();
         }
+
+        [HttpDelete, Authorize]
+        public IActionResult DeleteProfile([FromBody] Profile profile)
+        {
+            return Ok();
+        }
     }
 }
