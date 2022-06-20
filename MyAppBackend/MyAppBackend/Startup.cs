@@ -4,8 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyAppBackend.Extensions;
-using MyAppBackend.Services.Email;
-using MyAppBackend.Services.Auth;
 using MyAppBackend.Settings;
 
 namespace MyAppBackend

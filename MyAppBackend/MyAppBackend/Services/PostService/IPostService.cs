@@ -1,6 +1,4 @@
 ﻿using MyAppBackend.Data;
-using MyAppBackend.Services.PostService;
-using System.Collections.Generic;
 
 namespace MyAppBackend.Services.PostService
 {

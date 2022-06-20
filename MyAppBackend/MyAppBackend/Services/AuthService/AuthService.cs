@@ -9,7 +9,6 @@ using System.Security.Claims;
 using System.Text;
 using MyAppBackend.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.Auth
 {

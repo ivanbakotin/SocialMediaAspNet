@@ -35,6 +35,6 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("register")]
-        public Task Register([FromBody] User user) => authService.Register(user, context);
+        public IActionResult Register([FromBody] User user) => authService.Register(user, context);
     }
 }
