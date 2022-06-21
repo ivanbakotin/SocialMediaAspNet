@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Models;
+using MyAppBackend.Services.ProfileService;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace MyAppBackend.Controllers
 {
@@ -8,21 +13,37 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-        [HttpGet, Authorize]
-        public IActionResult GetProfile([FromBody] User user)
+        private readonly IProfileService profileService;
+        public ProfileController(IProfileService profileService)
         {
-            return Ok();
+            this.profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
+        }
+        private int GetCurrentUserID()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
+            return Int32.Parse(userID);
+        }
+
+        [HttpGet, Authorize]
+        public Profile GetProfile([FromBody] int id)
+        {
+            var profile = profileService.Get(GetCurrentUserID());
+            return profile;
         }
 
         [HttpPut("put"), Authorize]
         public IActionResult UpdateProfile([FromBody] Profile profile)
         {
+            profileService.Update(GetCurrentUserID());
             return Ok();
         }
 
         [HttpDelete("delete"), Authorize]
         public IActionResult DeleteProfile([FromBody] Profile profile)
         {
+            profileService.Delete(GetCurrentUserID());
             return Ok();
         }
     }

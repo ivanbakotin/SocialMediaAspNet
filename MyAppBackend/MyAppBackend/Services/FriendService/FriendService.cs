@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyAppBackend.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,13 @@ namespace MyAppBackend.Services.FriendService
 {
     public class FriendService : IFriendService
     {
+        private readonly DataContext context;
+
+        public FriendService(DataContext context)
+        {
+            this.context = context;
+        }
+
         public void SendFriendRequest() 
         {
             throw new NotImplementedException();

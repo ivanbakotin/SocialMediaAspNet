@@ -8,7 +8,7 @@ namespace MyAppBackend.Services.UserService
     public interface IUserService
     {
         public void SearchUsers();
-        public void ResetPasswordEmail();
+        public void ResetPassword();
         public void ChangePassword();
         public void ChangeEmail();
     }

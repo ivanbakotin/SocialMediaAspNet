@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.Services.UserService;
+using System;
 
 namespace MyAppBackend.Controllers
 {
@@ -7,10 +9,34 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        [HttpGet("posts"), Authorize]
-        public string SearchUsers()
+        private readonly IUserService userService;
+        public UserController(IUserService userService)
         {
-            return "";
+            this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
+        }
+
+        [HttpGet("search"), Authorize]
+        public void SearchUsers()
+        {
+
+        }
+
+        [HttpGet("posts"), Authorize]
+        public void ResetPassword()
+        {
+
+        }
+
+        [HttpGet("changepassword"), Authorize]
+        public void ChangePassword()
+        {
+
+        }
+
+        [HttpGet("changeemail"), Authorize]
+        public void ChangeEmail()
+        {
+
         }
     }
 }
