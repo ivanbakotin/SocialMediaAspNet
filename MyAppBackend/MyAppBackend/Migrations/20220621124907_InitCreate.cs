@@ -289,9 +289,10 @@ namespace MyAppBackend.Migrations
                 column: "FollowerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendRequests_UserID",
+                name: "IX_FriendRequests_UserID_FollowerID",
                 table: "FriendRequests",
-                column: "UserID");
+                columns: new[] { "UserID", "FollowerID" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Friends_User1ID",

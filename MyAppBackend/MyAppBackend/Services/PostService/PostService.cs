@@ -6,38 +6,35 @@ using MyAppBackend.ViewModels;
 using AutoMapper;
 
 namespace MyAppBackend.Services.PostService
-{   
+{
     public class PostService : IPostService
     {
         private readonly IMapper mapper;
         private readonly DataContext context;
 
-        public PostService(IMapper mapper, DataContext context) 
+        public PostService(IMapper mapper, DataContext context)
         {
             this.mapper = mapper;
             this.context = context;
         }
 
         public List<PostViewModel> GetPosts(int UserID)
-        {  
+        {
             var result = mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
-                                join user in context.Users
-                                on post.UserID equals user.ID
-                                where post.UserID == UserID || 
+                                where post.UserID == UserID ||
                                 context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
                                                        || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
                                 select post)
                                 .ToList();
 
-            return result;       
+            return result;
         }
 
         public PostViewModel GetPost(int UserID, int PostID)
         {
-            var result = mapper.ProjectTo<PostViewModel>(from post in context.Posts
-                          join user in context.Users
-                          on post.UserID equals user.ID
+            var result = mapper.ProjectTo<PostViewModel>(
+                          from post in context.Posts
                           where post.ID == PostID
                           select post)
                           .FirstOrDefault();
@@ -97,7 +94,8 @@ namespace MyAppBackend.Services.PostService
                 };
 
                 context.VotedPosts.Add(newVotedPost);
-            } else
+            }
+            else
             {
                 context.VotedPosts.Remove(votedPost);
             }

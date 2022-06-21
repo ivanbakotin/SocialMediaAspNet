@@ -41,7 +41,15 @@ namespace MyAppBackend.Services.FriendService
 
         public void AcceptFriendRequest(int UserID, int id)
         {
-            RemoveFriendRequest(UserID, id);
+            var toDeleteRequest = context.FriendRequests
+                                            .Where(f => ((f.UserID == UserID && f.FollowerID == id)
+                                                      || (f.FollowerID == UserID && f.UserID == id)))
+                                            .FirstOrDefault();
+
+            if (toDeleteRequest != null)
+            {
+                context.FriendRequests.Remove(toDeleteRequest);
+            }
 
             var newFriend = new Friend
             {

@@ -94,7 +94,8 @@ namespace MyAppBackend.Migrations
 
                     b.HasIndex("FollowerID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID", "FollowerID")
+                        .IsUnique();
 
                     b.ToTable("FriendRequests");
                 });

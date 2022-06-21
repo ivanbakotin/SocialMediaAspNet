@@ -2,6 +2,6 @@
 {
     public class AuthenticatedResponse
     {
-        public string Token { get; set; }
+        public virtual string Token { get; set; }
     }
 }

@@ -62,6 +62,9 @@ namespace MyAppBackend.Data
             modelBuilder.Entity<VotedPost>()
                         .HasOne(c => c.Post)
                         .WithMany(e => e.Votes);
+
+            modelBuilder.Entity<FriendRequest>()
+                        .HasIndex(p => new { p.UserID, p.FollowerID }).IsUnique();
         }
     }
 }

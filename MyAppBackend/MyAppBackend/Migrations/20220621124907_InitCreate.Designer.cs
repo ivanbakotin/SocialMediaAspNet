@@ -10,7 +10,7 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220621120314_InitCreate")]
+    [Migration("20220621124907_InitCreate")]
     partial class InitCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,7 +96,8 @@ namespace MyAppBackend.Migrations
 
                     b.HasIndex("FollowerID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID", "FollowerID")
+                        .IsUnique();
 
                     b.ToTable("FriendRequests");
                 });
