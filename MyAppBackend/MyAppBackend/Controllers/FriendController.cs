@@ -27,25 +27,25 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
-        [HttpPost("send"), Authorize]
+        [HttpPost("send/{id}"), Authorize]
         public void SendFriendRequest()
         {
 
         }
 
-        [HttpDelete("remove"), Authorize]
+        [HttpDelete("remove/{id}"), Authorize]
         public void RemoveFriend()
         {
 
         }
 
-        [HttpPost("accept"), Authorize]
+        [HttpPost("accept/{id}"), Authorize]
         public void AcceptFriendRequest()
         {
 
         }
 
-        [HttpDelete("decline"), Authorize]
+        [HttpDelete("decline/{id}"), Authorize]
         public void DeclineFriendRequest()
         {
 

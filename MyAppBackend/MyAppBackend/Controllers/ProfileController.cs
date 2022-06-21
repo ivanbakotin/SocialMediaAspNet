@@ -27,7 +27,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("{id}"), Authorize]
-        public Profile GetProfile([FromBody] int id)
+        public Profile GetProfile(int id)
         {
             var profile = profileService.Get(id);
             return profile;
@@ -36,12 +36,12 @@ namespace MyAppBackend.Controllers
         [HttpPut("put"), Authorize]
         public IActionResult UpdateProfile([FromBody] Profile profile)
         {
-            profileService.Update(GetCurrentUserID());
+            profileService.Update(profile, GetCurrentUserID());
             return Ok();
         }
 
-        [HttpDelete("delete"), Authorize]
-        public IActionResult DeleteProfile([FromBody] Profile profile)
+        [HttpDelete("delete/{id}"), Authorize]
+        public IActionResult DeleteProfile([FromBody] Profile profile, int id)
         {
             profileService.Delete(GetCurrentUserID());
             return Ok();

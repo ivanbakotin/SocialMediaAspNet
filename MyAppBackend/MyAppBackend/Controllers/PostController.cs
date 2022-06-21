@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.Models;
 using MyAppBackend.Services.PostService;
 using MyAppBackend.ViewModels;
 using System;
@@ -26,42 +27,49 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
-        [HttpGet("posts"), Authorize]
+        [HttpGet, Authorize]
         public List<PostViewModel> GetPosts()
         {
             var posts = postService.GetPosts(GetCurrentUserID());
             return posts;
         }
 
-        [HttpGet("post"), Authorize]
+        [HttpGet("{id}"), Authorize]
         public PostViewModel GetPost(int PostID)
         {
             var post = postService.GetPost(GetCurrentUserID(), PostID);
             return post;
         }
 
-        [HttpPut("update"), Authorize]
-        public IActionResult UpdatePost(int PostID)
+        [HttpPost, Authorize]
+        public PostViewModel CreatePost([FromBody] Post post, int PostID)
         {
-            postService.UpdatePost(GetCurrentUserID(), PostID);
+            var createdPost = postService.CreatePost(post, GetCurrentUserID());
+            return createdPost;
+        }
+
+        [HttpPut("update/{id}"), Authorize]
+        public IActionResult UpdatePost([FromBody] Post post, int PostID)
+        {
+            var flag = postService.UpdatePost(post, GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpDelete("delete"), Authorize]
+        [HttpDelete("delete/{id}"), Authorize]
         public IActionResult DeletePost(int PostID)
         {
             postService.DeletePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpPost("upvote"), Authorize]
+        [HttpPost("upvote/{id}"), Authorize]
         public IActionResult UpvotePost(int PostID)
         {
             postService.UpvotePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpPost("downvote"), Authorize]
+        [HttpPost("downvote/{id}"), Authorize]
         public IActionResult Downvote(int PostID)
         {
             postService.DownvotePost(GetCurrentUserID(), PostID);

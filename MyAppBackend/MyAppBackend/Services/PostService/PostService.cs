@@ -21,16 +21,15 @@ namespace MyAppBackend.Services.PostService
 
         public List<PostViewModel> GetPosts(int UserID)
         {  
-            var result = mapper
-                          .ProjectTo<PostViewModel>(
-                          from post in context.Posts
-                          join user in context.Users
-                          on post.UserID equals user.ID
-                          where post.UserID == UserID || 
-                          context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
-                                                      || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
-                          select post)
-                          .ToList();
+            var result = mapper.ProjectTo<PostViewModel>(
+                                from post in context.Posts
+                                join user in context.Users
+                                on post.UserID equals user.ID
+                                where post.UserID == UserID || 
+                                context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
+                                                       || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
+                                select post)
+                                .ToList();
 
             return result;       
         }
@@ -47,14 +46,42 @@ namespace MyAppBackend.Services.PostService
             return result;
         }
 
-        public int UpdatePost(int UserID, int PostID)
+        public PostViewModel CreatePost(Post post, int UserID)
         {
-            throw new NotImplementedException();
+            context.Posts.Add(post);
+            context.SaveChanges();
+
+            PostViewModel createdPost = mapper.Map<PostViewModel>(post);
+
+            return createdPost;
         }
 
-        public int DeletePost(int UserID, int PostID)
+        public bool UpdatePost(Post post, int UserID, int PostID)
         {
-            throw new NotImplementedException();
+            var postToUpdate = context.Posts.Where(p => p.ID == PostID).FirstOrDefault();
+
+            if (postToUpdate != null)
+            {
+                postToUpdate.Body = post.Body;
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool DeletePost(int UserID, int PostID)
+        {
+            var postToDelete = context.Posts.Where(p => p.ID == PostID).FirstOrDefault();
+
+            if (postToDelete != null)
+            {
+                context.Posts.Remove(postToDelete);
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
 
         public bool UpvotePost(int UserID, int PostID)

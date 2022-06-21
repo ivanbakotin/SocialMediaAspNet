@@ -8,7 +8,7 @@ namespace MyAppBackend.Services.ProfileService
     public interface IProfileService
     {
         Profile Get(int UserID);
-        void Update(int UserID);
+        void Update(Profile profile, int UserID);
         void Delete(int UserID);
     }
 }

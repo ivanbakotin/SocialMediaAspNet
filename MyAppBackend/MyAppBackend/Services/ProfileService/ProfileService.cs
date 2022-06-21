@@ -19,18 +19,16 @@ namespace MyAppBackend.Services.ProfileService
             return result;
         }
 
-        public void Update(int UserID)
+        public void Update(Profile profile, int UserID)
         {
             //write middleware
         }
 
         public void Delete(int UserID)
         {
-
             var deleteProfile = context.Profiles.Where(p => p.UserID == UserID);
             context.Remove(deleteProfile);
-            context.SaveChanges();
-            
+            context.SaveChanges();           
         }
     }
 }
