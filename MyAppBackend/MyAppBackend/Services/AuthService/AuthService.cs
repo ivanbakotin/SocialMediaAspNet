@@ -91,10 +91,7 @@ namespace MyAppBackend.Services.Auth
             context.Users.Add(newUser);
             context.SaveChanges();
 
-            Profile newProfile = new Profile
-            {
-                userID = newUser.ID
-            };
+            Profile newProfile = new Profile { userID = newUser.ID };
 
             context.Profiles.Add(newProfile);
             context.SaveChanges();
