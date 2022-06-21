@@ -27,10 +27,10 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("{id}"), Authorize]
-        public Profile GetProfile(int id)
+        public IActionResult GetProfile(int id)
         {
             var profile = profileService.Get(id);
-            return profile;
+            return Ok(profile);
         }
 
         [HttpPut("put"), Authorize]

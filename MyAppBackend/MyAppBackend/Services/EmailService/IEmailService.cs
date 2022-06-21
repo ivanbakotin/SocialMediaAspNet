@@ -1,5 +1,4 @@
-﻿using MyAppBackend.Data;
-using MyAppBackend.Models;
+﻿using MyAppBackend.Models;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.Email

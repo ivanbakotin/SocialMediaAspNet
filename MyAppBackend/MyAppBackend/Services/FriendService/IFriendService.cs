@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyAppBackend.Services.FriendService
+﻿namespace MyAppBackend.Services.FriendService
 {
     public interface IFriendService
     {
-        public void SendFriendRequest();
-        public void RemoveFriend();
-        public void AcceptFriendRequest();
-        public void DeclineFriendRequest();
+        public void SendFriendRequest(int UserID, int id);
+        public void RemoveFriend(int UserID, int id);
+        public void AcceptFriendRequest(int UserID, int id);
+        public void RemoveFriendRequest(int UserID, int id);
     }
 }

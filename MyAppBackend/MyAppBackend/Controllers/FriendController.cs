@@ -28,25 +28,25 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("send/{id}"), Authorize]
-        public void SendFriendRequest()
+        public void SendFriendRequest(int id)
         {
 
         }
 
         [HttpDelete("remove/{id}"), Authorize]
-        public void RemoveFriend()
+        public void RemoveFriend(int id)
         {
 
         }
 
         [HttpPost("accept/{id}"), Authorize]
-        public void AcceptFriendRequest()
+        public void AcceptFriendRequest(int id)
         {
 
         }
 
         [HttpDelete("decline/{id}"), Authorize]
-        public void DeclineFriendRequest()
+        public void RemoveFriendRequest(int id)
         {
 
         }

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using MyAppBackend.Utilities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace MyAppBackend.Services.Auth
 {

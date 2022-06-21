@@ -19,16 +19,35 @@ namespace MyAppBackend.Services.ProfileService
             return result;
         }
 
-        public void Update(Profile profile, int UserID)
+        public bool Update(Profile profile, int UserID)
         {
-            //write middleware
+            var profileToUpdate = context.Profiles.Where(p => p.UserID == UserID).FirstOrDefault();
+
+            if (profileToUpdate != null)
+            {
+                profileToUpdate.Bio = profile.Bio;
+                profileToUpdate.Age = profile.Age;
+                profileToUpdate.Gender = profile.Gender;
+                profileToUpdate.Birthday = profile.Birthday;
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
 
-        public void Delete(int UserID)
+        public bool Delete(int UserID)
         {
             var deleteProfile = context.Profiles.Where(p => p.UserID == UserID);
-            context.Remove(deleteProfile);
-            context.SaveChanges();           
+
+            if (deleteProfile == null)
+            {
+                context.Remove(deleteProfile);
+                context.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }

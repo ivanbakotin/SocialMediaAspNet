@@ -1,8 +1,7 @@
 ﻿using MyAppBackend.Data;
+using MyAppBackend.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.FriendService
 {
@@ -15,21 +14,57 @@ namespace MyAppBackend.Services.FriendService
             this.context = context;
         }
 
-        public void SendFriendRequest() 
+        public void SendFriendRequest(int UserID, int id) 
         {
-            throw new NotImplementedException();
+            var newFriendRequest = new FriendRequest
+            {
+                UserID = id,
+                FollowerID = UserID
+            };
+
+            context.FriendRequests.Add(newFriendRequest);
         }
-        public void RemoveFriend()
+
+        public void RemoveFriend(int UserID, int id)
         {
-            throw new NotImplementedException();
+            var toDeleteFriend = context.Friends
+                                            .Where(f => ((f.UserID2 == UserID && f.UserID1 == id)
+                                                      || (f.UserID1 == UserID && f.UserID2 == id)))
+                                            .FirstOrDefault();
+
+            if (toDeleteFriend != null)
+            {
+                context.Friends.Remove(toDeleteFriend);
+                context.SaveChanges();
+            }
         }
-        public void AcceptFriendRequest()
+
+        public void AcceptFriendRequest(int UserID, int id)
         {
-            throw new NotImplementedException();
+            RemoveFriendRequest(UserID, id);
+
+            var newFriend = new Friend
+            {
+                UserID1 = id,
+                UserID2 = UserID
+            };
+
+            context.Friends.Add(newFriend);
+            context.SaveChanges();
         }
-        public void DeclineFriendRequest()
+
+        public void RemoveFriendRequest(int UserID, int id)
         {
-            throw new NotImplementedException();
+            var toDeleteRequest = context.FriendRequests
+                                            .Where(f => ((f.UserID == UserID && f.FollowerID == id)
+                                                      || (f.FollowerID == UserID && f.UserID == id)))
+                                            .FirstOrDefault();
+
+            if (toDeleteRequest != null)
+            {
+                context.FriendRequests.Remove(toDeleteRequest);
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -28,17 +28,23 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet, Authorize]
-        public List<PostViewModel> GetPosts()
+        public IActionResult GetPosts()
         {
             var posts = postService.GetPosts(GetCurrentUserID());
-            return posts;
+            return Ok(posts);
         }
 
         [HttpGet("{id}"), Authorize]
-        public PostViewModel GetPost(int PostID)
+        public IActionResult GetPost(int PostID)
         {
             var post = postService.GetPost(GetCurrentUserID(), PostID);
-            return post;
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(post);
         }
 
         [HttpPost, Authorize]

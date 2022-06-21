@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyAppBackend.Migrations
 {
-    public partial class Init : Migration
+    public partial class InitCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace MyAppBackend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    role = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,17 +26,17 @@ namespace MyAppBackend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    roleID = table.Column<int>(type: "int", nullable: false),
-                    username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    password = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    RoleID = table.Column<int>(type: "int", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_roleID",
-                        column: x => x.roleID,
+                        name: "FK_Users_Roles_RoleID",
+                        column: x => x.RoleID,
                         principalTable: "Roles",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -75,22 +75,22 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID1 = table.Column<int>(type: "int", nullable: false),
-                    user1ID = table.Column<int>(type: "int", nullable: true),
+                    User1ID = table.Column<int>(type: "int", nullable: true),
                     UserID2 = table.Column<int>(type: "int", nullable: false),
-                    user2ID = table.Column<int>(type: "int", nullable: true)
+                    User2ID = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Friends", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Friends_Users_user1ID",
-                        column: x => x.user1ID,
+                        name: "FK_Friends_Users_User1ID",
+                        column: x => x.User1ID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Friends_Users_user2ID",
-                        column: x => x.user2ID,
+                        name: "FK_Friends_Users_User2ID",
+                        column: x => x.User2ID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -123,18 +123,18 @@ namespace MyAppBackend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userID = table.Column<int>(type: "int", nullable: false),
-                    bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    age = table.Column<int>(type: "int", nullable: false),
-                    birthday = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profiles", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Profiles_Users_userID",
-                        column: x => x.userID,
+                        name: "FK_Profiles_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -146,15 +146,15 @@ namespace MyAppBackend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    userID = table.Column<int>(type: "int", nullable: false),
-                    code = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ResetCodes", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_ResetCodes_Users_userID",
-                        column: x => x.userID,
+                        name: "FK_ResetCodes_Users_UserID",
+                        column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -167,7 +167,7 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    jwt = table.Column<int>(type: "int", nullable: false)
+                    Jwt = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,15 +188,15 @@ namespace MyAppBackend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     PostID = table.Column<int>(type: "int", nullable: false),
-                    commentID = table.Column<int>(type: "int", nullable: true),
-                    body = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CommentID = table.Column<int>(type: "int", nullable: true),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Comments_Comments_commentID",
-                        column: x => x.commentID,
+                        name: "FK_Comments_Comments_CommentID",
+                        column: x => x.CommentID,
                         principalTable: "Comments",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -249,7 +249,7 @@ namespace MyAppBackend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
                     CommentID = table.Column<int>(type: "int", nullable: false),
-                    liked = table.Column<bool>(type: "bit", nullable: false)
+                    Liked = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -269,9 +269,9 @@ namespace MyAppBackend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_commentID",
+                name: "IX_Comments_CommentID",
                 table: "Comments",
-                column: "commentID");
+                column: "CommentID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_PostID",
@@ -294,14 +294,14 @@ namespace MyAppBackend.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friends_user1ID",
+                name: "IX_Friends_User1ID",
                 table: "Friends",
-                column: "user1ID");
+                column: "User1ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friends_user2ID",
+                name: "IX_Friends_User2ID",
                 table: "Friends",
-                column: "user2ID");
+                column: "User2ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserID",
@@ -309,14 +309,14 @@ namespace MyAppBackend.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Profiles_userID",
+                name: "IX_Profiles_UserID",
                 table: "Profiles",
-                column: "userID");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResetCodes_userID",
+                name: "IX_ResetCodes_UserID",
                 table: "ResetCodes",
-                column: "userID");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_UserID",
@@ -324,9 +324,9 @@ namespace MyAppBackend.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_roleID",
+                name: "IX_Users_RoleID",
                 table: "Users",
-                column: "roleID");
+                column: "RoleID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VotedComments_CommentID",

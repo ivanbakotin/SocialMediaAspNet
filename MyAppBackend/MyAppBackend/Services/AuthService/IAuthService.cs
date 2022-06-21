@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MyAppBackend.Data;
-using MyAppBackend.Models;
+﻿using MyAppBackend.Models;
 
 namespace MyAppBackend.Services.Auth
 {

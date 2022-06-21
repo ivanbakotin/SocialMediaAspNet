@@ -10,8 +10,8 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220620114540_Init")]
-    partial class Init
+    [Migration("20220621120314_InitCreate")]
+    partial class InitCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,25 +28,25 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CommentID")
+                        .HasColumnType("int");
+
                     b.Property<int>("PostID")
                         .HasColumnType("int");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.Property<string>("body")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("commentID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
+
+                    b.HasIndex("CommentID");
 
                     b.HasIndex("PostID");
 
                     b.HasIndex("UserID");
-
-                    b.HasIndex("commentID");
 
                     b.ToTable("Comments");
                 });
@@ -58,23 +58,23 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("User1ID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("User2ID")
+                        .HasColumnType("int");
+
                     b.Property<int>("UserID1")
                         .HasColumnType("int");
 
                     b.Property<int>("UserID2")
                         .HasColumnType("int");
 
-                    b.Property<int?>("user1ID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("user2ID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
-                    b.HasIndex("user1ID");
+                    b.HasIndex("User1ID");
 
-                    b.HasIndex("user2ID");
+                    b.HasIndex("User2ID");
 
                     b.ToTable("Friends");
                 });
@@ -131,24 +131,24 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("age")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("bio")
+                    b.Property<string>("Bio")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("birthday")
+                    b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("gender")
+                    b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("userID")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("userID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("Profiles");
                 });
@@ -160,15 +160,15 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("code")
+                    b.Property<string>("Code")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("userID")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("userID");
+                    b.HasIndex("UserID");
 
                     b.ToTable("ResetCodes");
                 });
@@ -180,7 +180,7 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("role")
+                    b.Property<string>("RoleName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -195,10 +195,10 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("Jwt")
                         .HasColumnType("int");
 
-                    b.Property<int>("jwt")
+                    b.Property<int>("UserID")
                         .HasColumnType("int");
 
                     b.HasKey("ID");
@@ -215,21 +215,21 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("password")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("roleID")
+                    b.Property<int>("RoleID")
                         .HasColumnType("int");
 
-                    b.Property<string>("username")
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("roleID");
+                    b.HasIndex("RoleID");
 
                     b.ToTable("Users");
                 });
@@ -244,11 +244,11 @@ namespace MyAppBackend.Migrations
                     b.Property<int>("CommentID")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Liked")
+                        .HasColumnType("bit");
+
                     b.Property<int>("UserID")
                         .HasColumnType("int");
-
-                    b.Property<bool>("liked")
-                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
@@ -286,62 +286,62 @@ namespace MyAppBackend.Migrations
 
             modelBuilder.Entity("MyAppBackend.Models.Comment", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.Post", "post")
+                    b.HasOne("MyAppBackend.Models.Comment", "CommentVirtual")
                         .WithMany()
+                        .HasForeignKey("CommentID")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("MyAppBackend.Models.Post", "Post")
+                        .WithMany("Comments")
                         .HasForeignKey("PostID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyAppBackend.Models.User", "user")
+                    b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyAppBackend.Models.Comment", "comment")
-                        .WithMany()
-                        .HasForeignKey("commentID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.Navigation("CommentVirtual");
 
-                    b.Navigation("comment");
+                    b.Navigation("Post");
 
-                    b.Navigation("post");
-
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.Friend", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.User", "user1")
+                    b.HasOne("MyAppBackend.Models.User", "User1")
                         .WithMany()
-                        .HasForeignKey("user1ID");
+                        .HasForeignKey("User1ID");
 
-                    b.HasOne("MyAppBackend.Models.User", "user2")
+                    b.HasOne("MyAppBackend.Models.User", "User2")
                         .WithMany()
-                        .HasForeignKey("user2ID");
+                        .HasForeignKey("User2ID");
 
-                    b.Navigation("user1");
+                    b.Navigation("User1");
 
-                    b.Navigation("user2");
+                    b.Navigation("User2");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.FriendRequest", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.User", "follower")
+                    b.HasOne("MyAppBackend.Models.User", "Follower")
                         .WithMany()
                         .HasForeignKey("FollowerID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyAppBackend.Models.User", "user")
+                    b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("follower");
+                    b.Navigation("Follower");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>
@@ -357,65 +357,65 @@ namespace MyAppBackend.Migrations
 
             modelBuilder.Entity("MyAppBackend.Models.Profile", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("MyAppBackend.Models.ResetCode", b =>
-                {
-                    b.HasOne("MyAppBackend.Models.User", "user")
-                        .WithMany()
-                        .HasForeignKey("userID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("user");
-                });
-
-            modelBuilder.Entity("MyAppBackend.Models.Session", b =>
-                {
-                    b.HasOne("MyAppBackend.Models.User", "user")
+                    b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("user");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyAppBackend.Models.ResetCode", b =>
+                {
+                    b.HasOne("MyAppBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyAppBackend.Models.Session", b =>
+                {
+                    b.HasOne("MyAppBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.User", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.Role", "role")
+                    b.HasOne("MyAppBackend.Models.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("roleID")
+                        .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("role");
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.VotedComment", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.Comment", "comment")
+                    b.HasOne("MyAppBackend.Models.Comment", "Comment")
                         .WithMany()
                         .HasForeignKey("CommentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MyAppBackend.Models.User", "user")
+                    b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("comment");
+                    b.Navigation("Comment");
 
-                    b.Navigation("user");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.VotedPost", b =>
@@ -439,6 +439,8 @@ namespace MyAppBackend.Migrations
 
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
