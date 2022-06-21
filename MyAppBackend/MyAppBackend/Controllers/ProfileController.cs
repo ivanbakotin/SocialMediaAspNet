@@ -14,13 +14,13 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPut, Authorize]
+        [HttpPut("put"), Authorize]
         public IActionResult UpdateProfile([FromBody] Profile profile)
         {
             return Ok();
         }
 
-        [HttpDelete, Authorize]
+        [HttpDelete("delete"), Authorize]
         public IActionResult DeleteProfile([FromBody] Profile profile)
         {
             return Ok();

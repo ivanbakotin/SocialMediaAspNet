@@ -14,7 +14,14 @@ namespace MyAppBackend.Services.Auth
 {
     public class AuthService : IAuthService
     {
-        public string Login(User user, DataContext context)
+        private readonly DataContext context;
+
+        public AuthService(DataContext context)
+        {
+            this.context = context;
+        }
+
+        public string Login(User user)
         {
             var userObject = context.Users
                                .Join(context.Roles,
@@ -60,7 +67,7 @@ namespace MyAppBackend.Services.Auth
             return tokenString;
         }
 
-        public IActionResult Register(User user, DataContext context)
+        public bool Register(User user)
         {
             //check password, email regex
 
@@ -68,7 +75,7 @@ namespace MyAppBackend.Services.Auth
 
             if (userExists)
             {
-                return CustomHttp.HttpResponse("Wrong email or password", 409);
+                return false;
             }
 
             string hashedPassword = CustomHash.HashString(user.password);
@@ -92,7 +99,7 @@ namespace MyAppBackend.Services.Auth
             context.Profiles.Add(newProfile);
             context.SaveChanges();
 
-            return CustomHttp.HttpResponse("Success", 200);
+            return true;
         }
     }
 }

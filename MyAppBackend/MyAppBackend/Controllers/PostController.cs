@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyAppBackend.Data;
 using MyAppBackend.Services.PostService;
+using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +13,9 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly DataContext context;
         private readonly IPostService postService;
-        public PostController(DataContext context, IPostService postService)
+        public PostController(IPostService postService)
         {
-            this.context = context;
             this.postService = postService ?? throw new ArgumentNullException(nameof(postService));
         }
         private int GetCurrentUserID()
@@ -29,44 +27,44 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("posts"), Authorize]
-        public dynamic GetPosts()
+        public List<PostViewModel> GetPosts()
         {
-            var posts = postService.GetPosts(context, GetCurrentUserID());
+            var posts = postService.GetPosts(GetCurrentUserID());
             return posts;
         }
 
         [HttpGet("post"), Authorize]
-        public PostModel GetPost(int PostID)
+        public PostViewModel GetPost(int PostID)
         {
-            var post = postService.GetPost(context, GetCurrentUserID(), PostID);
+            var post = postService.GetPost(GetCurrentUserID(), PostID);
             return post;
         }
 
         [HttpGet("update"), Authorize]
         public IActionResult UpdatePost(int PostID)
         {
-            postService.UpdatePost(context, GetCurrentUserID(), PostID);
+            postService.UpdatePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
         [HttpGet("delete"), Authorize]
         public IActionResult DeletePost(int PostID)
         {
-            postService.DeletePost(context, GetCurrentUserID(), PostID);
+            postService.DeletePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
         [HttpGet("upvote"), Authorize]
         public IActionResult UpvotePost(int PostID)
         {
-            postService.UpvotePost(context, GetCurrentUserID(), PostID);
+            postService.UpvotePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
         [HttpGet("downvote"), Authorize]
         public IActionResult Downvote(int PostID)
         {
-            postService.DownvotePost(context, GetCurrentUserID(), PostID);
+            postService.DownvotePost(GetCurrentUserID(), PostID);
             return Ok();
         }
     }

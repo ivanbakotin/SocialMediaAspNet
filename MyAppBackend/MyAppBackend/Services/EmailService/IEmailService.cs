@@ -6,6 +6,6 @@ namespace MyAppBackend.Services.Email
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(ResetEmail resetEmail, DataContext context);
+        Task SendEmailAsync(ResetEmail resetEmail);
     }
 }

@@ -27,6 +27,7 @@ namespace MyAppBackend
             services.addJwtAuthenticationExtension();
             services.addDbContextExtension();
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGenExtension();
         }
 

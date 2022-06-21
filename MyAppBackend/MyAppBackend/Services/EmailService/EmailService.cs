@@ -12,14 +12,16 @@ namespace MyAppBackend.Services.Email
 {
     public class EmailService : IEmailService
     {
+        private readonly DataContext context;
         private readonly EmailSettings _mailSettings;
 
-        public EmailService(IOptions<EmailSettings> mailSettings)
+        public EmailService(IOptions<EmailSettings> mailSettings, DataContext context)
         {
+            this.context = context;
             _mailSettings = mailSettings.Value;
         }
 
-        public async Task SendEmailAsync(ResetEmail resetEmail, DataContext context)
+        public async Task SendEmailAsync(ResetEmail resetEmail)
         {
             //store code in database
             var email = new MimeMessage();

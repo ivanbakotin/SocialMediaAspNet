@@ -11,20 +11,17 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly DataContext context;
-
         private readonly IAuthService authService;
 
-        public AuthController(DataContext context, IAuthService authService)
+        public AuthController(IAuthService authService)
         {
-            this.context = context;
             this.authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] User user)
         {
-            var token = authService.Login(user, context);
+            var token = authService.Login(user);
 
             if (token == null)
             {
@@ -35,6 +32,16 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User user) => authService.Register(user, context);
+        public IActionResult Register([FromBody] User user)
+        {
+            bool flag = authService.Register(user);
+
+            if (!flag)
+            {
+                return CustomHttp.HttpResponse("Email or username taken!", 409);
+            }
+
+            return Ok();               
+        }
     }
 }

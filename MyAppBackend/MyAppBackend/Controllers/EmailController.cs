@@ -11,20 +11,17 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private readonly DataContext context;
-
         private readonly IEmailService emailService;
 
-        public EmailController(DataContext context, IEmailService emailService)
+        public EmailController(IEmailService emailService)
         {
-            this.context = context;
             this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         }
 
         [HttpPost("sendemail")]
         public async Task<IActionResult> Send([FromBody] ResetEmail resetEmail)
         {
-            await emailService.SendEmailAsync(resetEmail, context);
+            await emailService.SendEmailAsync(resetEmail);
             return Ok();
         }
 

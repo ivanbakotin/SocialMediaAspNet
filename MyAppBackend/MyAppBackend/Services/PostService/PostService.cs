@@ -3,30 +3,31 @@ using MyAppBackend.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MyAppBackend.ViewModels;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace MyAppBackend.Services.PostService
 {   
-    public class PostModel
-    {
-        public int ID { get; set; }
-        public int CreatorID { get; set; }
-        public string Creator { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public int Votes { get; set; }
-        public int Comments { get; set; }
-    }
-
     public class PostService : IPostService
     {
-        public dynamic GetPosts(DataContext context, int UserID)
+        private readonly IMapper mapper;
+        private readonly DataContext context;
+
+        public PostService(IMapper mapper, DataContext context) 
+        {
+            this.mapper = mapper;
+            this.context = context;
+        }
+
+        public List<PostViewModel> GetPosts(int UserID)
         {  
             var result = (from post in context.Posts
                           join user in context.Users
                           on post.UserID equals user.ID
                           where post.UserID == UserID || context.Friends.Any(friend => ((friend.UserID2 == UserID && friend.UserID1 == post.UserID)
                                                                                      || (friend.UserID1 == UserID && friend.UserID2 == post.UserID)))
-                          select new PostModel
+                          select new PostViewModel
                           {
                               ID = post.ID,
                               Body = post.Body,
@@ -34,19 +35,20 @@ namespace MyAppBackend.Services.PostService
                               CreatorID = post.UserID,
                               Creator = user.username,
                               Votes = post.Votes.Sum(v => v.Liked ? 1 : -1),
-                              Comments = post.Comments.Count()
-                          }).ToList();
+                              CommentsNumber = post.Comments.Count()
+                          })
+                          .ToList();
 
             return result;       
         }
 
-        public PostModel GetPost(DataContext context, int UserID, int PostID)
+        public PostViewModel GetPost(int UserID, int PostID)
         {
             var result = (from post in context.Posts
                           join user in context.Users
                           on post.UserID equals user.ID
                           where post.ID == PostID
-                          select new PostModel
+                          select new PostViewModel
                           {
                               ID = post.ID,
                               CreatorID = post.UserID,
@@ -54,23 +56,23 @@ namespace MyAppBackend.Services.PostService
                               Title = post.Title,
                               Creator = user.username,
                               Votes = post.Votes.Sum(v => v.Liked ? 1 : -1),
-                              Comments = post.Comments.Count()
+                              CommentsNumber = post.Comments.Count()
                           }).FirstOrDefault();
 
             return result;
         }
 
-        public int UpdatePost(DataContext context, int UserID, int PostID)
+        public int UpdatePost(int UserID, int PostID)
         {
             throw new NotImplementedException();
         }
 
-        public int DeletePost(DataContext context, int UserID, int PostID)
+        public int DeletePost(int UserID, int PostID)
         {
             throw new NotImplementedException();
         }
 
-        public bool UpvotePost(DataContext context, int UserID, int PostID)
+        public bool UpvotePost(int UserID, int PostID)
         {
             var votedPost = context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefault();
 
@@ -94,7 +96,7 @@ namespace MyAppBackend.Services.PostService
             return true;
         }
 
-        public bool DownvotePost(DataContext context, int UserID, int PostID)
+        public bool DownvotePost(int UserID, int PostID)
         {
             var votedPost = context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefault();
 
