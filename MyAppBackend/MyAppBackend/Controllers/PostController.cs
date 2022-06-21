@@ -40,28 +40,28 @@ namespace MyAppBackend.Controllers
             return post;
         }
 
-        [HttpGet("update"), Authorize]
+        [HttpPut("update"), Authorize]
         public IActionResult UpdatePost(int PostID)
         {
             postService.UpdatePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpGet("delete"), Authorize]
+        [HttpDelete("delete"), Authorize]
         public IActionResult DeletePost(int PostID)
         {
             postService.DeletePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpGet("upvote"), Authorize]
+        [HttpPost("upvote"), Authorize]
         public IActionResult UpvotePost(int PostID)
         {
             postService.UpvotePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpGet("downvote"), Authorize]
+        [HttpPost("downvote"), Authorize]
         public IActionResult Downvote(int PostID)
         {
             postService.DownvotePost(GetCurrentUserID(), PostID);

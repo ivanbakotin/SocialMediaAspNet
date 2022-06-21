@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class FriendController : ControllerBase
     {
         private readonly IFriendService friendService;
@@ -26,25 +28,25 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
-        [HttpGet("send"), Authorize]
+        [HttpPost("send"), Authorize]
         public void SendFriendRequest()
         {
 
         }
 
-        [HttpGet("remove"), Authorize]
+        [HttpDelete("remove"), Authorize]
         public void RemoveFriend()
         {
 
         }
 
-        [HttpGet("accept"), Authorize]
+        [HttpPost("accept"), Authorize]
         public void AcceptFriendRequest()
         {
 
         }
 
-        [HttpGet("decline"), Authorize]
+        [HttpDelete("decline"), Authorize]
         public void DeclineFriendRequest()
         {
 

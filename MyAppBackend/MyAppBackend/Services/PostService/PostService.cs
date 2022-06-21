@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MyAppBackend.ViewModels;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 
 namespace MyAppBackend.Services.PostService
 {   

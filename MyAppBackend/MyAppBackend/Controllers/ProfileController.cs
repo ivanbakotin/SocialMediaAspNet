@@ -26,10 +26,10 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
-        [HttpGet, Authorize]
+        [HttpGet("{id}"), Authorize]
         public Profile GetProfile([FromBody] int id)
         {
-            var profile = profileService.Get(GetCurrentUserID());
+            var profile = profileService.Get(id);
             return profile;
         }
 

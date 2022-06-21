@@ -17,7 +17,7 @@ namespace MyAppBackend.Controllers
             this.emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         }
 
-        [HttpPost("sendemailreset")]
+        [HttpPost("passwordreset")]
         public async Task<IActionResult> Send([FromBody] ResetEmail resetEmail)
         {
             await emailService.SendEmailAsync(resetEmail);
