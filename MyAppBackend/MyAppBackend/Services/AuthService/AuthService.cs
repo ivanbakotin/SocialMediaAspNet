@@ -25,16 +25,16 @@ namespace MyAppBackend.Services.Auth
         {
             var userObject = context.Users
                                .Join(context.Roles,
-                                       user => user.roleID,
+                                       user => user.RoleID,
                                        role => role.ID,
                                        (user, role) => new
                                        {
                                            ID = user.ID,
-                                           email = user.email,
-                                           password = user.password,
-                                           role = role.role,
+                                           email = user.Email,
+                                           password = user.Password,
+                                           role = role.RoleName,
                                        })
-                               .Where(u => u.email == user.email)
+                               .Where(u => u.email == user.Email)
                                .FirstOrDefault();
 
             if (userObject == null)
@@ -42,7 +42,7 @@ namespace MyAppBackend.Services.Auth
                 return null;
             }
 
-            string hashedPassword = CustomHash.HashString(user.password);
+            string hashedPassword = CustomHash.HashString(user.Password);
 
             if (hashedPassword != userObject.password)
             {
@@ -71,27 +71,27 @@ namespace MyAppBackend.Services.Auth
         {
             //check password, email regex
 
-            bool userExists = context.Users.Any(u => u.email == user.email || u.username == user.username);
+            bool userExists = context.Users.Any(u => u.Email == user.Email || u.Username == user.Username);
 
             if (userExists)
             {
                 return false;
             }
 
-            string hashedPassword = CustomHash.HashString(user.password);
+            string hashedPassword = CustomHash.HashString(user.Password);
 
             User newUser = new User
             {
-                username = user.username,
-                email = user.email,
-                password = hashedPassword,
-                roleID = 2
+                Username = user.Username,
+                Email = user.Email,
+                Password = hashedPassword,
+                RoleID = 2
             };
 
             context.Users.Add(newUser);
             context.SaveChanges();
 
-            Profile newProfile = new Profile { userID = newUser.ID };
+            Profile newProfile = new Profile { UserID = newUser.ID };
 
             context.Profiles.Add(newProfile);
             context.SaveChanges();

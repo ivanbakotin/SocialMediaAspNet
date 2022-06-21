@@ -1,13 +1,15 @@
-<form>
+<form #createPostForm="ngForm" (ngSubmit)="submitForm(createPostForm)">
   <fieldset>
     <legend>Whats on your mind:</legend>
     <div>
       <label for="title">Title:</label>
-      <input name="title" id="title" type="text" />
+      <input ngModel name="title" id="title" type="text" />
     </div>
     <div>
       <label for="body">Content:</label>
-      <textarea name="body" id="body" cols="30" rows="10"></textarea>
+      <textarea ngModel name="body" id="body" cols="30" rows="5"></textarea>
     </div>
+
+    <input type="submit" value="Post" />
   </fieldset>
 </form>

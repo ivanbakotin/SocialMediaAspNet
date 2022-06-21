@@ -9,7 +9,7 @@ namespace MyAppBackend.Models
     {   
         public int ID { get; set; }
         public int UserID { get; set; }
-        public virtual User user { get; set; }
-        public int jwt { get; set; }
+        public virtual User User { get; set; }
+        public int Jwt { get; set; }
     }
 }

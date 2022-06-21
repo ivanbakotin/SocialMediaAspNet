@@ -1,2 +1,31 @@
 form {
+  fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  legend {
+    font-size: var(--font-size-xsm);
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  label {
+    font-size: var(--font-size-xsm);
+  }
+
+  input {
+    font-size: var(--font-size-xsm);
+  }
+
+  textarea {
+    font-size: var(--font-size-xsm);
+  }
 }

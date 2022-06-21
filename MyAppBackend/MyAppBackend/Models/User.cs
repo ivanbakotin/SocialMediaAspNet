@@ -8,10 +8,10 @@ namespace MyAppBackend.Models
     public class User
     {
         public int ID { get; set; }
-        public int roleID { get; set; }
-        public virtual Role role { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
+        public int RoleID { get; set; }
+        public virtual Role Role { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

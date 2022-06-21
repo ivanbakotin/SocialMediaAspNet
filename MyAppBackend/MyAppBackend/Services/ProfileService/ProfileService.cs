@@ -15,7 +15,7 @@ namespace MyAppBackend.Services.ProfileService
 
         public Profile Get(int UserID)
         {
-            var result = context.Profiles.Where(p => p.userID == UserID).FirstOrDefault();
+            var result = context.Profiles.Where(p => p.UserID == UserID).FirstOrDefault();
             return result;
         }
 
@@ -27,7 +27,7 @@ namespace MyAppBackend.Services.ProfileService
         public void Delete(int UserID)
         {
 
-            var deleteProfile = context.Profiles.Where(p => p.userID == UserID);
+            var deleteProfile = context.Profiles.Where(p => p.UserID == UserID);
             context.Remove(deleteProfile);
             context.SaveChanges();
             

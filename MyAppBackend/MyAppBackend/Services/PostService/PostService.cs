@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MyAppBackend.ViewModels;
 using AutoMapper;
-using MyAppBackend.AutoMapperModels;
 
 namespace MyAppBackend.Services.PostService
 {   
@@ -22,12 +21,15 @@ namespace MyAppBackend.Services.PostService
 
         public List<PostViewModel> GetPosts(int UserID)
         {  
-            var result = mapper.ProjectTo<PostViewModel>(from post in context.Posts
+            var result = mapper
+                          .ProjectTo<PostViewModel>(
+                          from post in context.Posts
                           join user in context.Users
                           on post.UserID equals user.ID
-                          where post.UserID == UserID || context.Friends.Any(friend => ((friend.UserID2 == UserID && friend.UserID1 == post.UserID)
-                                                                                     || (friend.UserID1 == UserID && friend.UserID2 == post.UserID)))
-                          select new PostUser { Post = post, User = user })
+                          where post.UserID == UserID || 
+                          context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
+                                                      || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
+                          select post)
                           .ToList();
 
             return result;       
@@ -39,7 +41,7 @@ namespace MyAppBackend.Services.PostService
                           join user in context.Users
                           on post.UserID equals user.ID
                           where post.ID == PostID
-                          select new PostUser { Post = post, User = user })
+                          select post)
                           .FirstOrDefault();
 
             return result;

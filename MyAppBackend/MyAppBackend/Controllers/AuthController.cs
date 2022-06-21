@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Models;
-using MyAppBackend.Data;
 using MyAppBackend.Utilities;
 using MyAppBackend.Services.Auth;
 using System;

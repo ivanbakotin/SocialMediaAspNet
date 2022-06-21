@@ -9,8 +9,8 @@ namespace MyAppBackend.Models
     {
         public int ID { get; set; }
         public int UserID { get; set; }
-        public virtual User user { get; set; }
+        public virtual User User { get; set; }
         public int FollowerID { get; set; }
-        public virtual User follower { get; set; }
+        public virtual User Follower { get; set; }
     }
 }

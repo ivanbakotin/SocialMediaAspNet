@@ -31,17 +31,17 @@ namespace MyAppBackend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Comment>()
-                .HasOne(e => e.comment)
+                .HasOne(e => e.CommentVirtual)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Comment>()
-                .HasOne(e => e.user)
+                .HasOne(e => e.User)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<VotedComment>()
-                .HasOne(e => e.comment)
+                .HasOne(e => e.Comment)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -51,7 +51,7 @@ namespace MyAppBackend.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<FriendRequest>()
-                .HasOne(e => e.follower)
+                .HasOne(e => e.Follower)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 

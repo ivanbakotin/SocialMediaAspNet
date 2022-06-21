@@ -28,6 +28,10 @@ a {
   font-size: inherit;
 }
 
+textarea {
+  resize: none;
+}
+
 :root {
   --color-primary: #d9e2eb;
   --color-secondary: #373535;

@@ -1,7 +1,4 @@
-﻿using MyAppBackend.Models;
-using System.Collections.Generic;
-
-namespace MyAppBackend.ViewModels
+﻿namespace MyAppBackend.ViewModels
 {
     public class PostViewModel
     {
