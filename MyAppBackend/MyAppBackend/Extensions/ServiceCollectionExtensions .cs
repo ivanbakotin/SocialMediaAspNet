@@ -10,6 +10,9 @@ using MyAppBackend.Models;
 using MyAppBackend.Services.Auth;
 using MyAppBackend.Services.Email;
 using MyAppBackend.Services.PostService;
+using MyAppBackend.Services.FriendService;
+using MyAppBackend.Services.UserService;
+using MyAppBackend.Services.ProfileService;
 
 namespace MyAppBackend.Extensions
 {
@@ -88,6 +91,9 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IEmailService, Services.Email.EmailService>();
             services.AddTransient<IAuthService, Services.Auth.AuthService>();
             services.AddTransient<IPostService, Services.PostService.PostService>();
+            services.AddTransient<IFriendService, Services.FriendService.FriendService>();
+            services.AddTransient<IUserService, Services.UserService.UserService>();
+            services.AddTransient<IProfileService, Services.ProfileService.ProfileService>();
 
             return services;
         }

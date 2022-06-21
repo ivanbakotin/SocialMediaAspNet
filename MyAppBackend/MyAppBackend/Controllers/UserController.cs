@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.Models;
 using MyAppBackend.Services.UserService;
+using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,10 +27,11 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
-        [HttpGet("search"), Authorize]
-        public void SearchUsers()
+        [HttpGet("search/{param}")]
+        public List<UserViewModel> SearchUsers(string param)
         {
-
+            var result = userService.SearchUsers(param);
+            return result;
         }
 
         [HttpPut("resetpassword"), Authorize]

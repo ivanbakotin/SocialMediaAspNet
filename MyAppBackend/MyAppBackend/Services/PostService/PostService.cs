@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MyAppBackend.ViewModels;
 using AutoMapper;
+using MyAppBackend.AutoMapperModels;
 
 namespace MyAppBackend.Services.PostService
 {   
@@ -21,21 +22,12 @@ namespace MyAppBackend.Services.PostService
 
         public List<PostViewModel> GetPosts(int UserID)
         {  
-            var result = (from post in context.Posts
+            var result = mapper.ProjectTo<PostViewModel>(from post in context.Posts
                           join user in context.Users
                           on post.UserID equals user.ID
                           where post.UserID == UserID || context.Friends.Any(friend => ((friend.UserID2 == UserID && friend.UserID1 == post.UserID)
                                                                                      || (friend.UserID1 == UserID && friend.UserID2 == post.UserID)))
-                          select new PostViewModel
-                          {
-                              ID = post.ID,
-                              Body = post.Body,
-                              Title = post.Title,
-                              CreatorID = post.UserID,
-                              Creator = user.username,
-                              Votes = post.Votes.Sum(v => v.Liked ? 1 : -1),
-                              CommentsNumber = post.Comments.Count()
-                          })
+                          select new PostUser { Post = post, User = user })
                           .ToList();
 
             return result;       
@@ -43,20 +35,12 @@ namespace MyAppBackend.Services.PostService
 
         public PostViewModel GetPost(int UserID, int PostID)
         {
-            var result = (from post in context.Posts
+            var result = mapper.ProjectTo<PostViewModel>(from post in context.Posts
                           join user in context.Users
                           on post.UserID equals user.ID
                           where post.ID == PostID
-                          select new PostViewModel
-                          {
-                              ID = post.ID,
-                              CreatorID = post.UserID,
-                              Body = post.Body,
-                              Title = post.Title,
-                              Creator = user.username,
-                              Votes = post.Votes.Sum(v => v.Liked ? 1 : -1),
-                              CommentsNumber = post.Comments.Count()
-                          }).FirstOrDefault();
+                          select new PostUser { Post = post, User = user })
+                          .FirstOrDefault();
 
             return result;
         }

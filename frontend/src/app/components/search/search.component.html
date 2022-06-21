@@ -1,9 +1,10 @@
 <form>
-  <fieldset>
-    <legend></legend>
-    <div>
-      <label for="search"></label>
-      <input type="search" name="search" id="search" />
-    </div>
-  </fieldset>
+  <input
+    (change)="searchUsers(search.value)"
+    type="search"
+    name="search"
+    id="search"
+    placeholder="Search Users..."
+    #search
+  />
 </form>

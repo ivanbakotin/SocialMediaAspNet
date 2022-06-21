@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MyAppBackend.Services.ProfileService
 {
-    public class ProfileService
+    public class ProfileService : IProfileService
     {
         private readonly DataContext context;
 
