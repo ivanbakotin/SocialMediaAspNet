@@ -33,7 +33,8 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/auth']);
       },
       (error) => {
-        this.error = error.error;
+        console.log(error);
+        this.error = error.error.Error || error.error;
       }
     );
   }

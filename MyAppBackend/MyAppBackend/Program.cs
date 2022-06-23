@@ -28,4 +28,5 @@ namespace MyAppBackend
     seperate admin panel
     angular check if user
     action filter validation
+    angular error modal
  */

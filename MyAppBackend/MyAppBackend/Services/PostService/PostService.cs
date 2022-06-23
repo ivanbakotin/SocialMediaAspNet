@@ -44,11 +44,12 @@ namespace MyAppBackend.Services.PostService
 
         public PostViewModel CreatePost(Post post, int UserID)
         {
+            post.UserID = UserID;
             context.Posts.Add(post);
             context.SaveChanges();
 
             PostViewModel createdPost = mapper.Map<PostViewModel>(post);
-
+         
             return createdPost;
         }
 

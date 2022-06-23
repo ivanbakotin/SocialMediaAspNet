@@ -295,3 +295,4 @@ C:\Users\ibakotin\WebDev\SocialMedia\MyAppBackend\MyAppBackend\obj\Debug\net5.0\
 C:\Users\ibakotin\WebDev\SocialMedia\MyAppBackend\MyAppBackend\obj\Debug\net5.0\ref\MyAppBackend.dll
 C:\Users\ibakotin\WebDev\SocialMedia\MyAppBackend\MyAppBackend\obj\Debug\net5.0\MyAppBackend.pdb
 C:\Users\ibakotin\WebDev\SocialMedia\MyAppBackend\MyAppBackend\obj\Debug\net5.0\MyAppBackend.genruntimeconfig.cache
+C:\Users\ibakotin\WebDev\SocialMedia\MyAppBackend\MyAppBackend\obj\Debug\net5.0\MyAppBackend.csproj.AssemblyReference.cache

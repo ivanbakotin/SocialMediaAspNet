@@ -30,6 +30,7 @@ namespace MyAppBackend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // FIX restrictions
             modelBuilder.Entity<Comment>()
                 .HasOne(e => e.CommentVirtual)
                 .WithMany()

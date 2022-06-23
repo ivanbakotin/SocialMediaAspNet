@@ -48,7 +48,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost, Authorize]
-        public IActionResult CreatePost([FromBody] Post post, int PostID)
+        public IActionResult CreatePost([FromBody] Post post)
         {
             PostViewModel createdPost = postService.CreatePost(post, GetCurrentUserID());
             return Ok(createdPost);
@@ -69,7 +69,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("vote/{id}"), Authorize]
-        public IActionResult VotePost(int PostID, bool vote)
+        public IActionResult VotePost(int PostID, [FromBody] bool vote)
         {
             postService.VotePost(GetCurrentUserID(), PostID, vote);
             return Ok();

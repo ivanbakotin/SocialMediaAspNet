@@ -22,7 +22,7 @@ namespace MyAppBackend.Extensions
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error!"
+                            Error = "Internal Server Error!"
                         }.ToString());
                     }
                 });

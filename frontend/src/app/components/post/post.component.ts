@@ -12,7 +12,5 @@ export class PostComponent implements OnInit {
 
   @Input() post: Post | any = {};
 
-  ngOnInit(): void {
-    console.log(this.post);
-  }
+  ngOnInit(): void {}
 }
