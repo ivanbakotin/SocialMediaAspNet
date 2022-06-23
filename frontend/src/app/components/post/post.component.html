@@ -1,4 +1,4 @@
-<li class="post__list">
+<li class="post">
   <article class="post__article">
     <div class="post__votes">
       <div class="post__vote">
@@ -24,10 +24,12 @@
       <div class="post__header">
         <div class="post__info">
           <h3 class="post__title">{{ post.title }}</h3>
-          <div class="post__creator">{{ post.username }}</div>
+          <div class="post__creator" (click)="seeProfile(post.userID)">
+            {{ post.username }}
+          </div>
         </div>
 
-        <div class="post__buttons">
+        <div *ngIf="currentUserID == post.userID" class="post__buttons">
           <button class="post__btn edit">Edit</button>
           <button class="post__btn delete" (click)="deleteP(post.id)">
             Delete
@@ -37,7 +39,9 @@
 
       <p class="post__paragraph">{{ post.body }}</p>
 
-      <div class="post__comments">See {{ post.commentsNumber }} comment/s</div>
+      <div class="post__comments" (click)="seePost(post.id)">
+        See {{ post.commentsNumber }} comment/s
+      </div>
     </div>
   </article>
 </li>

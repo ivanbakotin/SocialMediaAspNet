@@ -230,7 +230,8 @@ namespace MyAppBackend.Migrations
                         name: "FK_VotedPosts_Posts_PostID",
                         column: x => x.PostID,
                         principalTable: "Posts",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_VotedPosts_Users_UserID",
                         column: x => x.UserID,

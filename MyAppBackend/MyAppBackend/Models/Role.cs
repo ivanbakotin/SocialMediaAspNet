@@ -2,7 +2,7 @@
 {
     public class Role
     {
-        public int ID { get; set; }
-        public string RoleName { get; set; }
+        public virtual int ID { get; set; }
+        public virtual string RoleName { get; set; }
     }
 }

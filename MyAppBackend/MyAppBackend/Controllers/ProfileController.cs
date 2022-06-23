@@ -39,12 +39,5 @@ namespace MyAppBackend.Controllers
             profileService.Update(profile, GetCurrentUserID());
             return Ok();
         }
-
-        [HttpDelete("delete/{id}"), Authorize]
-        public IActionResult DeleteProfile([FromBody] Profile profile, int id)
-        {
-            profileService.Delete(GetCurrentUserID());
-            return Ok();
-        }
     }
 }

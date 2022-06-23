@@ -35,19 +35,5 @@ namespace MyAppBackend.Services.ProfileService
 
             return false;
         }
-
-        public bool Delete(int UserID)
-        {
-            var deleteProfile = context.Profiles.Where(p => p.UserID == UserID);
-
-            if (deleteProfile == null)
-            {
-                context.Remove(deleteProfile);
-                context.SaveChanges();
-                return true;
-            }
-
-            return false;
-        }
     }
 }

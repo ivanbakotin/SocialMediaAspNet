@@ -10,7 +10,7 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220623101914_initcreate")]
+    [Migration("20220623114511_initcreate")]
     partial class initcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -424,7 +424,7 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany("Votes")
                         .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")

@@ -43,5 +43,10 @@ namespace MyAppBackend.Services.UserService
         {
             throw new NotImplementedException();
         }
+
+        public void DeleteUser(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

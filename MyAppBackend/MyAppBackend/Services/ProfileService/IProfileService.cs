@@ -6,6 +6,5 @@ namespace MyAppBackend.Services.ProfileService
     {
         Profile Get(int UserID);
         bool Update(Profile profile, int UserID);
-        bool Delete(int UserID);
     }
 }

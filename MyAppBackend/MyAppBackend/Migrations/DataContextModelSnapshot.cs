@@ -422,7 +422,7 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany("Votes")
                         .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")

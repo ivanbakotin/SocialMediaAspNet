@@ -30,32 +30,6 @@ namespace MyAppBackend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // FIX restrictions
-            modelBuilder.Entity<Comment>()
-                .HasOne(e => e.CommentVirtual)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Comment>()
-                .HasOne(e => e.User)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<VotedComment>()
-                .HasOne(e => e.Comment)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<VotedPost>()
-                .HasOne(e => e.Post)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder.Entity<FriendRequest>()
-                .HasOne(e => e.Follower)
-                .WithMany()
-                .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<Post>()
                         .HasMany(c => c.Votes)
                         .WithOne(e => e.Post);

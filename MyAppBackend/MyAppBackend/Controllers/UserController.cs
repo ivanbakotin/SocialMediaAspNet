@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.Models;
 using MyAppBackend.Services.UserService;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,13 @@ namespace MyAppBackend.Controllers
         public void ChangeEmail()
         {
 
+        }
+
+        [HttpDelete("delete"), Authorize]
+        public IActionResult DeleteUser()
+        {
+            userService.DeleteUser(GetCurrentUserID());
+            return Ok();
         }
     }
 }

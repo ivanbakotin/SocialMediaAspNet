@@ -29,4 +29,6 @@ namespace MyAppBackend
     angular check if user
     action filter validation
     angular error modal
+    angular wait for cookie to be set
+    order post by desc
  */

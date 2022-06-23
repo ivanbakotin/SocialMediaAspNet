@@ -46,7 +46,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     children: [
       {
-        path: '',
+        path: 'home',
         component: HomeComponent,
       },
       {
@@ -54,10 +54,20 @@ const routes: Routes = [
         component: FriendsComponent,
       },
       {
+        path: 'post/:id',
+        component: FriendsComponent,
+      },
+      {
         path: 'profile/:id',
         component: ProfileComponent,
       },
     ],
+  },
+  {
+    //doesnt work
+    path: 'admin',
+    component: NotFoundComponent,
+    canActivate: [RoleGuardService],
   },
   {
     //doesnt work

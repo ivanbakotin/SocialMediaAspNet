@@ -9,5 +9,6 @@ namespace MyAppBackend.Services.UserService
         public void ResetPassword();
         public void ChangePassword();
         public void ChangeEmail();
+        public void DeleteUser(int id);
     }
 }

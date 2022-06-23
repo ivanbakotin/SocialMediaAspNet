@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { UserService } from 'src/app/services/user/user.service';
 import { Post } from 'src/app/interfaces/Post';
 
 @Component({
@@ -8,29 +10,32 @@ import { Post } from 'src/app/interfaces/Post';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  constructor() {}
+  constructor(private router: Router, private userService: UserService) {}
 
-  @Input() post: Post | any = {};
-  @Input() index: number = 1;
+  currentUserID!: number;
+
+  @Input() post!: Post;
+  @Input() index!: number;
 
   @Output() votePost = new EventEmitter();
-  @Output() seePost = new EventEmitter();
-  @Output() seeProfile = new EventEmitter();
   @Output() updatePost = new EventEmitter();
   @Output() deletePost = new EventEmitter();
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUserID = this.userService.getCurrentUserID();
+    console.log(this.currentUserID);
+  }
 
   vote(postID: number, vote: boolean, index: number, voted: boolean | null) {
     this.votePost.emit({ postID, vote, index, voted });
   }
 
-  see() {
-    this.seePost.emit(this.post.id);
+  seeProfile(id: number) {
+    this.router.navigate([`profile/${id}`]);
   }
 
-  get() {
-    this.seeProfile.emit(this.post.userID);
+  seePost(id: number) {
+    this.router.navigate([`post/${id}`]);
   }
 
   edit() {
