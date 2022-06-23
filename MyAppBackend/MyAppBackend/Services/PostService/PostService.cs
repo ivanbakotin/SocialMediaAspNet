@@ -25,6 +25,7 @@ namespace MyAppBackend.Services.PostService
                                 where post.UserID == UserID ||
                                       context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
                                                              || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
+                                orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
                                 .ToList();
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ProfileService } from 'src/app/services/profile/profile.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { Profile } from 'src/app/interfaces/Profile';
 
 @Component({
   selector: 'app-profilepreview',
@@ -8,9 +10,26 @@ import { ProfileService } from 'src/app/services/profile/profile.service';
   styleUrls: ['./profilepreview.component.scss'],
 })
 export class ProfilepreviewComponent implements OnInit {
-  constructor(private profileService: ProfileService) {}
+  constructor(
+    private profileService: ProfileService,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(): void {}
+  profile!: Profile;
+  currentUserID!: number;
 
-  getProfile() {}
+  ngOnInit(): void {
+    this.currentUserID = this.userService.getCurrentUserID();
+  }
+
+  getProfile() {
+    this.profileService.getProfile(this.currentUserID).subscribe(
+      (response) => {
+        this.profile = response;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
 }

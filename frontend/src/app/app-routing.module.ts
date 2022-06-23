@@ -5,6 +5,7 @@ import { LoggedInComponent } from './pages/logged-in/logged-in.component';
 import { FriendsComponent } from './pages/logged-in/friends/friends.component';
 import { HomeComponent } from './pages/logged-in/home/home.component';
 import { ProfileComponent } from './pages/logged-in/profile/profile.component';
+import { AdminComponent } from './pages/logged-in/admin/admin.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -66,7 +67,7 @@ const routes: Routes = [
   {
     //doesnt work
     path: 'admin',
-    component: NotFoundComponent,
+    component: AdminComponent,
     canActivate: [RoleGuardService],
   },
   {

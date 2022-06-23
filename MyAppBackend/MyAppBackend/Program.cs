@@ -29,6 +29,7 @@ namespace MyAppBackend
     action filter validation
     angular error modal
     angular wait for cookie to be set
-    order post by desc
+    generic post and comment service for most of service methods
     fix cascade deleting sql server
+    pagination
  */

@@ -12,9 +12,12 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  searchResults: any[] = [];
+
   searchUsers(param: string) {
     this.userService.searchUsers(param).subscribe(
       (response) => {
+        this.searchResults = response;
         console.log(response);
       },
       (error) => {
