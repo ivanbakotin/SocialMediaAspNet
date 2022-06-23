@@ -26,9 +26,9 @@ namespace MyAppBackend
     google auth
     fix jwt always the same
     seperate admin panel
-    angular check if user
     action filter validation
     angular error modal
     angular wait for cookie to be set
     order post by desc
+    fix cascade deleting sql server
  */

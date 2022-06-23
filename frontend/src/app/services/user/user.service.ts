@@ -13,6 +13,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   private searchUsersURL = `${HOSTNAME}User/search/`;
+  private deleteUserURL = `${HOSTNAME}User/delete/`;
 
   public getCurrentUserID() {
     const token = localStorage.getItem('token') || '';
@@ -22,5 +23,9 @@ export class UserService {
 
   public searchUsers(param: string): Observable<any> {
     return this.http.get(this.searchUsersURL + param, header);
+  }
+
+  public deleteUser(): Observable<any> {
+    return this.http.delete(this.deleteUserURL, header);
   }
 }

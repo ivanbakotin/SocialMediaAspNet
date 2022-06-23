@@ -24,22 +24,39 @@
       <div class="post__header">
         <div class="post__info">
           <h3 class="post__title">{{ post.title }}</h3>
-          <div class="post__creator" (click)="seeProfile(post.userID)">
+          <div class="post__creator" [routerLink]="['/profile/' + post.userID]">
             {{ post.username }}
           </div>
         </div>
 
         <div *ngIf="currentUserID == post.userID" class="post__buttons">
-          <button class="post__btn edit">Edit</button>
+          <button class="post__btn edit" (click)="startEditing()">Edit</button>
           <button class="post__btn delete" (click)="deleteP(post.id)">
             Delete
           </button>
         </div>
       </div>
 
-      <p class="post__paragraph">{{ post.body }}</p>
+      <div *ngIf="!post.isEditing">
+        <p class="post__paragraph">{{ post.body }}</p>
+      </div>
 
-      <div class="post__comments" (click)="seePost(post.id)">
+      <div *ngIf="post.isEditing">
+        <form>
+          <textarea
+            ngModel
+            class="post_paragraph"
+            body="body"
+            id="body"
+            cols="15"
+            rows="10"
+            [value]="post.body"
+          ></textarea>
+          <input type="submit" value="Update" />
+        </form>
+      </div>
+
+      <div class="post__comments" [routerLink]="['/profile/' + post.id]">
         See {{ post.commentsNumber }} comment/s
       </div>
     </div>

@@ -33,7 +33,7 @@ namespace MyAppBackend.Controllers
             return Ok(profile);
         }
 
-        [HttpPut("put"), Authorize]
+        [HttpPut("update"), Authorize]
         public IActionResult UpdateProfile([FromBody] Profile profile)
         {
             profileService.Update(profile, GetCurrentUserID());

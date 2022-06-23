@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Post } from 'src/app/interfaces/Post';
-import { PostService } from 'src/app/services/posts/post.service';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -16,14 +16,6 @@ export class PostsComponent implements OnInit {
   }
 
   posts: Post[] = [];
-
-  seePost($event: any) {
-    //navigate to post page
-  }
-
-  seeProfile($event: any) {
-    //navigate to profile page
-  }
 
   vote($event: any) {
     this.postService.votePost($event.postID, $event.vote).subscribe(

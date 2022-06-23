@@ -19,13 +19,13 @@ import { HomeComponent } from './pages/logged-in/home/home.component';
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { ForgotComponent } from './pages/logged-out/forgot/forgot.component';
 import { ResetComponent } from './pages/logged-out/reset/reset.component';
-import { PostsComponent } from './components/posts/posts.component';
-import { PostComponent } from './components/post/post.component';
-import { SearchComponent } from './components/search/search.component';
-import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
-import { CreatePostComponent } from './components/create-post/create-post.component';
-import { EditPostComponent } from './components/edit-post/edit-post.component';
-import { ProfilepreviewComponent } from './components/profilepreview/profilepreview.component';
+import { PostsComponent } from './pages/logged-in/home/posts/posts.component';
+import { PostComponent } from './pages/logged-in/home/post/post.component';
+import { SearchComponent } from './pages/logged-in/home/search/search.component';
+import { BookmarkedComponent } from './pages/logged-in/home/bookmarked/bookmarked.component';
+import { CreatePostComponent } from './pages/logged-in/home/create-post/create-post.component';
+import { EditPostComponent } from './pages/logged-in/home/edit-post/edit-post.component';
+import { ProfilepreviewComponent } from './pages/logged-in/home/profilepreview/profilepreview.component';
 
 @NgModule({
   declarations: [

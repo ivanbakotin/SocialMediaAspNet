@@ -1,4 +1,6 @@
-﻿namespace MyAppBackend.Models
+﻿using System.Collections.Generic;
+
+namespace MyAppBackend.Models
 {
     public class Comment
     {
@@ -10,5 +12,8 @@
         public virtual int? CommentID { get; set; }
         public virtual Comment? CommentVirtual { get; set; }
         public virtual string Body { get; set; }
+        public virtual ICollection<Comment> Comments {get; set;}
+        public virtual ICollection<VotedComment> VotedComments { get; set; }
+
     }
 }

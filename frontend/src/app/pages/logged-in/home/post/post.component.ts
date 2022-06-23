@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { UserService } from 'src/app/services/user/user.service';
 import { Post } from 'src/app/interfaces/Post';
@@ -10,7 +9,7 @@ import { Post } from 'src/app/interfaces/Post';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private userService: UserService) {}
 
   currentUserID!: number;
 
@@ -30,14 +29,6 @@ export class PostComponent implements OnInit {
     this.votePost.emit({ postID, vote, index, voted });
   }
 
-  seeProfile(id: number) {
-    this.router.navigate([`profile/${id}`]);
-  }
-
-  seePost(id: number) {
-    this.router.navigate([`post/${id}`]);
-  }
-
   edit() {
     this.updatePost.emit(this.post.id);
   }
@@ -46,7 +37,11 @@ export class PostComponent implements OnInit {
     this.deletePost.emit(postID);
   }
 
-  startEditing() {}
+  startEditing() {
+    this.post.isEditing = true;
+  }
 
-  endEditing() {}
+  endEditing() {
+    this.post.isEditing = false;
+  }
 }

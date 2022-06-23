@@ -7,4 +7,5 @@ export interface Post {
   commentsNumber: number;
   votes: number;
   voted: boolean | null;
+  isEditing: boolean;
 }
