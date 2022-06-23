@@ -69,9 +69,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("vote/{id}"), Authorize]
-        public IActionResult VotePost(int PostID, [FromBody] bool vote)
+        public IActionResult VotePost([FromBody] bool vote, int id)
         {
-            postService.VotePost(GetCurrentUserID(), PostID, vote);
+            postService.VotePost(GetCurrentUserID(), id, vote);
             return Ok();
         }
     }

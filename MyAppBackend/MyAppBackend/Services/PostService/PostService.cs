@@ -96,7 +96,7 @@ namespace MyAppBackend.Services.PostService
 
                 context.VotedPosts.Add(newVotedPost);
             }
-            else if (!votedPost.Liked == vote)
+            else if (votedPost.Liked != vote)
             {
                 votedPost.Liked = vote;
             } else

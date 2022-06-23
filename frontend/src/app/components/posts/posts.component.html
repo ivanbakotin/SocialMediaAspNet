@@ -1,3 +1,10 @@
+<app-create-post (sendPost)="createPost($event)"></app-create-post>
+<h2>Timeline</h2>
 <ul>
-  <app-post *ngFor="let post of posts" [post]="post"></app-post>
+  <app-post
+    *ngFor="let post of posts; let i = index"
+    [post]="post"
+    [index]="i"
+    (votePost)="vote($event)"
+  ></app-post>
 </ul>

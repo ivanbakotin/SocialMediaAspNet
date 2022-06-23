@@ -39,7 +39,7 @@ export class PostService {
     return this.http.delete(this.deletePostURL + id, header);
   }
 
-  public votePost(id: number): Observable<any> {
-    return this.http.post(this.votePostURL + id, header);
+  public votePost(postID: number, vote: boolean): Observable<any> {
+    return this.http.post(this.votePostURL + postID, vote, header);
   }
 }

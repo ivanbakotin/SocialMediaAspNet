@@ -2,9 +2,13 @@
   <article class="post__article">
     <div class="post__votes">
       <div class="post__vote">
-        <div class="post__upvote">UP</div>
+        <div class="post__upvote" (click)="vote(post.id, true, this.index)">
+          UP
+        </div>
         <div class="post__circle"></div>
-        <div class="post__downvote">DW</div>
+        <div class="post__downvote" (click)="vote(post.id, false, this.index)">
+          DW
+        </div>
       </div>
 
       <div class="post__score">{{ post.votes }}</div>
