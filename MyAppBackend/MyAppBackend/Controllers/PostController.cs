@@ -35,9 +35,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("{id}"), Authorize]
-        public IActionResult GetPost(int PostID)
+        public IActionResult GetPost(int id)
         {
-            PostViewModel post = postService.GetPost(GetCurrentUserID(), PostID);
+            PostViewModel post = postService.GetPost(GetCurrentUserID(), id);
 
             if (post == null)
             {
@@ -55,16 +55,16 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("update/{id}"), Authorize]
-        public IActionResult UpdatePost([FromBody] Post post, int PostID)
+        public IActionResult UpdatePost([FromBody] Post post, int id)
         {
-            bool flag = postService.UpdatePost(post, GetCurrentUserID(), PostID);
+            bool flag = postService.UpdatePost(post, GetCurrentUserID(), id);
             return Ok();
         }
 
         [HttpDelete("delete/{id}"), Authorize]
-        public IActionResult DeletePost(int PostID)
+        public IActionResult DeletePost(int id)
         {
-            postService.DeletePost(GetCurrentUserID(), PostID);
+            postService.DeletePost(GetCurrentUserID(), id);
             return Ok();
         }
 
@@ -72,7 +72,8 @@ namespace MyAppBackend.Controllers
         public IActionResult VotePost([FromBody] bool vote, int id)
         {
             postService.VotePost(GetCurrentUserID(), id, vote);
-            return Ok();
+            PostViewModel post = postService.GetPost(GetCurrentUserID(), id);
+            return Ok(post);
         }
     }
 }

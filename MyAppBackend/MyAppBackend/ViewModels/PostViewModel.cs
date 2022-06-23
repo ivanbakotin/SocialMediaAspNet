@@ -9,5 +9,6 @@
         public string Body { get; set; }
         public int Votes { get; set; }
         public int CommentsNumber { get; set; }
+        public bool? Voted { get; set; } = null;
     }
 }

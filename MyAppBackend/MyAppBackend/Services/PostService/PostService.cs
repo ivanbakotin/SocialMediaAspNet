@@ -25,7 +25,7 @@ namespace MyAppBackend.Services.PostService
                                 where post.UserID == UserID ||
                                       context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
                                                              || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
-                                select post)
+                                select post, new { CurrentUserID = UserID })
                                 .ToList();
 
             return result;
@@ -36,7 +36,7 @@ namespace MyAppBackend.Services.PostService
             var result = mapper.ProjectTo<PostViewModel>(
                           from post in context.Posts
                           where post.ID == PostID
-                          select post)
+                          select post, new { CurrentUserID = UserID })
                           .FirstOrDefault();
 
             return result;
@@ -81,7 +81,7 @@ namespace MyAppBackend.Services.PostService
             return false;
         }
 
-        public bool VotePost(int UserID, int PostID, bool vote)
+        public void VotePost(int UserID, int PostID, bool vote)
         {
             var votedPost = context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefault();
 
@@ -105,8 +105,6 @@ namespace MyAppBackend.Services.PostService
             }
 
             context.SaveChanges();
-
-            return true;
         }    
     }
 }

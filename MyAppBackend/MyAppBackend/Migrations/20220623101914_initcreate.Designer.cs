@@ -10,8 +10,8 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220621124907_InitCreate")]
-    partial class InitCreate
+    [Migration("20220623101914_initcreate")]
+    partial class initcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -331,7 +331,7 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.User", "Follower")
                         .WithMany()
                         .HasForeignKey("FollowerID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
@@ -424,7 +424,7 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany("Votes")
                         .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")

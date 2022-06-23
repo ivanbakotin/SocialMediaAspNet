@@ -27,8 +27,23 @@ export class PostsComponent implements OnInit {
 
   vote($event: any) {
     this.postService.votePost($event.postID, $event.vote).subscribe(
-      () => {
-        // did i upvote and what did i upvote
+      (response) => {
+        this.posts[$event.index] = response;
+
+        /* const currVote = this.posts[$event.index].votes;
+
+        if ($event.voted != null) {
+          if ($event.voted) {
+            this.posts[$event.index].voted = $event.vote ? null : false;
+            this.posts[$event.index].votes = currVote - ($event.vote ? 1 : 2);
+          } else {
+            this.posts[$event.index].voted = $event.vote ? true : null;
+            this.posts[$event.index].votes = currVote + ($event.vote ? 2 : 1);
+          }
+        } else {
+          this.posts[$event.index].voted = $event.vote;
+          this.posts[$event.index].votes = currVote + ($event.vote ? 1 : -1);
+        } */
       },
       (error) => {
         console.error(error);
@@ -48,9 +63,10 @@ export class PostsComponent implements OnInit {
   }
 
   deletePost($event: any) {
-    this.postService.deletePost($event.postID).subscribe(
-      (response) => {
-        console.log(response);
+    console.log($event);
+    this.postService.deletePost($event).subscribe(
+      () => {
+        this.posts = this.posts.filter((post) => post.id != $event);
       },
       (error) => {
         console.error(error);

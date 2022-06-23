@@ -2,11 +2,17 @@
   <article class="post__article">
     <div class="post__votes">
       <div class="post__vote">
-        <div class="post__upvote" (click)="vote(post.id, true, this.index)">
+        <div
+          class="post__upvote"
+          (click)="vote(post.id, true, this.index, post.voted)"
+        >
           UP
         </div>
         <div class="post__circle"></div>
-        <div class="post__downvote" (click)="vote(post.id, false, this.index)">
+        <div
+          class="post__downvote"
+          (click)="vote(post.id, false, this.index, post.voted)"
+        >
           DW
         </div>
       </div>
@@ -23,7 +29,9 @@
 
         <div class="post__buttons">
           <button class="post__btn edit">Edit</button>
-          <button class="post__btn delete">Delete</button>
+          <button class="post__btn delete" (click)="deleteP(post.id)">
+            Delete
+          </button>
         </div>
       </div>
 

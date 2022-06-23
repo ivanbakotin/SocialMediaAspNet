@@ -329,7 +329,7 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.User", "Follower")
                         .WithMany()
                         .HasForeignKey("FollowerID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
@@ -422,7 +422,7 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany("Votes")
                         .HasForeignKey("PostID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")

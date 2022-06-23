@@ -21,8 +21,8 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  vote(postID: number, vote: boolean, index: number) {
-    this.votePost.emit({ postID, vote, index });
+  vote(postID: number, vote: boolean, index: number, voted: boolean | null) {
+    this.votePost.emit({ postID, vote, index, voted });
   }
 
   see() {
@@ -37,8 +37,8 @@ export class PostComponent implements OnInit {
     this.updatePost.emit(this.post.id);
   }
 
-  delete() {
-    this.deletePost.emit(this.post.id);
+  deleteP(postID: number) {
+    this.deletePost.emit(postID);
   }
 
   startEditing() {}

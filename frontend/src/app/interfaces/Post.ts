@@ -6,4 +6,5 @@ export interface Post {
   title: string;
   commentsNumber: number;
   votes: number;
+  voted: boolean | null;
 }

@@ -11,6 +11,6 @@ namespace MyAppBackend.Services.PostService
         PostViewModel CreatePost(Post post, int UserID);
         bool UpdatePost(Post post, int UserID, int PostID);
         bool DeletePost(int UserID, int PostID);
-        bool VotePost(int UserID, int PostID, bool vote);
+        void VotePost(int UserID, int PostID, bool vote);
     }
 }

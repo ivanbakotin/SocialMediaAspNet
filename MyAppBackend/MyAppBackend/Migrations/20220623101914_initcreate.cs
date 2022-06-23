@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyAppBackend.Migrations
 {
-    public partial class InitCreate : Migration
+    public partial class initcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,8 +58,7 @@ namespace MyAppBackend.Migrations
                         name: "FK_FriendRequests_Users_FollowerID",
                         column: x => x.FollowerID,
                         principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_FriendRequests_Users_UserID",
                         column: x => x.UserID,
@@ -231,8 +230,7 @@ namespace MyAppBackend.Migrations
                         name: "FK_VotedPosts_Posts_PostID",
                         column: x => x.PostID,
                         principalTable: "Posts",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_VotedPosts_Users_UserID",
                         column: x => x.UserID,

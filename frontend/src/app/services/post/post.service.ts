@@ -28,7 +28,7 @@ export class PostService {
   }
 
   public createPost(body: Post): Observable<any> {
-    return this.http.post(this.getPostURL, body, header);
+    return this.http.post(this.createPostURL, body, header);
   }
 
   public updatePost(id: number): Observable<any> {
