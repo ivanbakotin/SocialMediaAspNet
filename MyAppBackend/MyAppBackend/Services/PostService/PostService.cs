@@ -23,8 +23,8 @@ namespace MyAppBackend.Services.PostService
             var result = mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where post.UserID == UserID ||
-                                context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
-                                                       || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
+                                      context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
+                                                             || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
                                 select post)
                                 .ToList();
 
@@ -80,7 +80,7 @@ namespace MyAppBackend.Services.PostService
             return false;
         }
 
-        public bool UpvotePost(int UserID, int PostID)
+        public bool VotePost(int UserID, int PostID, bool vote)
         {
             var votedPost = context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefault();
 
@@ -90,12 +90,15 @@ namespace MyAppBackend.Services.PostService
                 {
                     UserID = UserID,
                     PostID = PostID,
-                    Liked = true
+                    Liked = vote
                 };
 
                 context.VotedPosts.Add(newVotedPost);
             }
-            else
+            else if (!votedPost.Liked == vote)
+            {
+                votedPost.Liked = vote;
+            } else
             {
                 context.VotedPosts.Remove(votedPost);
             }
@@ -103,31 +106,6 @@ namespace MyAppBackend.Services.PostService
             context.SaveChanges();
 
             return true;
-        }
-
-        public bool DownvotePost(int UserID, int PostID)
-        {
-            var votedPost = context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefault();
-
-            if (votedPost == null)
-            {
-                VotedPost newVotedPost = new VotedPost
-                {
-                    UserID = UserID,
-                    PostID = PostID,
-                    Liked = false
-                };
-
-                context.VotedPosts.Add(newVotedPost);
-            }
-            else
-            {
-                context.VotedPosts.Remove(votedPost);
-            }
-
-            context.SaveChanges();
-
-            return true;
-        }
+        }    
     }
 }

@@ -30,14 +30,14 @@ namespace MyAppBackend.Controllers
         [HttpGet, Authorize]
         public IActionResult GetPosts()
         {
-            var posts = postService.GetPosts(GetCurrentUserID());
+            List<PostViewModel> posts = postService.GetPosts(GetCurrentUserID());
             return Ok(posts);
         }
 
         [HttpGet("{id}"), Authorize]
         public IActionResult GetPost(int PostID)
         {
-            var post = postService.GetPost(GetCurrentUserID(), PostID);
+            PostViewModel post = postService.GetPost(GetCurrentUserID(), PostID);
 
             if (post == null)
             {
@@ -48,16 +48,16 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost, Authorize]
-        public PostViewModel CreatePost([FromBody] Post post, int PostID)
+        public IActionResult CreatePost([FromBody] Post post, int PostID)
         {
-            var createdPost = postService.CreatePost(post, GetCurrentUserID());
-            return createdPost;
+            PostViewModel createdPost = postService.CreatePost(post, GetCurrentUserID());
+            return Ok(createdPost);
         }
 
         [HttpPut("update/{id}"), Authorize]
         public IActionResult UpdatePost([FromBody] Post post, int PostID)
         {
-            var flag = postService.UpdatePost(post, GetCurrentUserID(), PostID);
+            bool flag = postService.UpdatePost(post, GetCurrentUserID(), PostID);
             return Ok();
         }
 
@@ -68,17 +68,10 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPost("upvote/{id}"), Authorize]
-        public IActionResult UpvotePost(int PostID)
+        [HttpPost("vote/{id}"), Authorize]
+        public IActionResult VotePost(int PostID, bool vote)
         {
-            postService.UpvotePost(GetCurrentUserID(), PostID);
-            return Ok();
-        }
-
-        [HttpPost("downvote/{id}"), Authorize]
-        public IActionResult Downvote(int PostID)
-        {
-            postService.DownvotePost(GetCurrentUserID(), PostID);
+            postService.VotePost(GetCurrentUserID(), PostID, vote);
             return Ok();
         }
     }

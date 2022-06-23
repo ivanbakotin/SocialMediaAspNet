@@ -25,4 +25,7 @@ namespace MyAppBackend
     comments as tree
     google auth
     fix jwt always the same
+    seperate admin panel
+    angular check if user
+    action filter validation
  */

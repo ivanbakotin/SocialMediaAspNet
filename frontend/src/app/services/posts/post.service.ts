@@ -15,8 +15,7 @@ export class PostService {
   private getPostURL = `${HOSTNAME}Post/`;
   private updatePostURL = `${HOSTNAME}Post/update/`;
   private deletePostURL = `${HOSTNAME}Post/delete/`;
-  private upvotePostURL = `${HOSTNAME}Post/upvote/`;
-  private downvotePostURL = `${HOSTNAME}Post/downvote/`;
+  private votePostURL = `${HOSTNAME}Post/vote/`;
 
   public getPosts(): Observable<any> {
     return this.http.get(this.getPostsURL, header);
@@ -34,11 +33,7 @@ export class PostService {
     return this.http.get(this.deletePostURL + id, header);
   }
 
-  public upvote(id: number): Observable<any> {
-    return this.http.get(this.upvotePostURL + id, header);
-  }
-
-  public downvote(id: number): Observable<any> {
-    return this.http.get(this.downvotePostURL + id, header);
+  public votePost(id: number): Observable<any> {
+    return this.http.get(this.votePostURL + id, header);
   }
 }

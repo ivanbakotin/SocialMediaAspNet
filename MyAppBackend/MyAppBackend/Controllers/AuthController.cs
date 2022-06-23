@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Models;
-using MyAppBackend.Utilities;
 using MyAppBackend.Services.Auth;
 using System;
 
@@ -24,7 +23,7 @@ namespace MyAppBackend.Controllers
 
             if (token == null)
             {
-                return CustomHttp.HttpResponse("Wrong email or password", 409);
+                return StatusCode(409, "Wrong email or password");
             } 
 
             return Ok(new AuthenticatedResponse { Token = token });                
@@ -37,7 +36,7 @@ namespace MyAppBackend.Controllers
 
             if (!flag)
             {
-                return CustomHttp.HttpResponse("Email or username taken!", 409);
+                return StatusCode(409, "Email or username taken!");
             }
 
             return Ok();               
