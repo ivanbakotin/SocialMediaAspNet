@@ -30,6 +30,6 @@ namespace MyAppBackend
     angular error modal
     generic post and comment service for most of service methods
     pagination
-    forbig non friends seeing your posts
+    forbid non friends seeing your posts
     send back post on update
  */

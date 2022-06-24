@@ -1,6 +1,5 @@
 ﻿using MyAppBackend.Data;
 using MyAppBackend.Models;
-using System;
 using System.Linq;
 
 namespace MyAppBackend.Services.FriendService

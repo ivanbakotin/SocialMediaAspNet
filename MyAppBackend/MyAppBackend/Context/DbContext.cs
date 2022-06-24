@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MyAppBackend.ModelBuilderConfig;
 using MyAppBackend.Models;
 
 namespace MyAppBackend.Data
@@ -30,66 +31,12 @@ namespace MyAppBackend.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder
-                    .Entity<FriendRequest>()
-                    .HasOne(x => x.Follower)
-                    .WithMany(x => x.FriendRequestsMe)
-                    .HasForeignKey(x => x.FollowerID)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                    .Entity<FriendRequest>()
-                    .HasOne(x => x.User)
-                    .WithMany(x => x.FriendRequestsThem)
-                    .HasForeignKey(x => x.UserID);
-
-            modelBuilder
-                    .Entity<Friend>()
-                    .HasOne(x => x.User1)
-                    .WithMany(x => x.Friends1)
-                    .HasForeignKey(x => x.UserID1)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                    .Entity<Friend>()
-                    .HasOne(x => x.User2)
-                    .WithMany(x => x.Friends2)
-                    .HasForeignKey(x => x.UserID2);
-
-            modelBuilder
-                .Entity<VotedComment>()
-                .HasOne(e => e.User)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                .Entity<VotedPost>()
-                .HasOne(e => e.User)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                .Entity<Comment>()
-                .HasOne(e => e.User)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder
-                .Entity<FriendRequest>()
-                .HasOne(e => e.User)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Post>()
-                        .HasMany(c => c.Votes)
-                        .WithOne(e => e.Post);
-
-            modelBuilder.Entity<VotedPost>()
-                        .HasOne(c => c.Post)
-                        .WithMany(e => e.Votes);
-
-            modelBuilder.Entity<FriendRequest>()
-                        .HasIndex(p => new { p.UserID, p.FollowerID }).IsUnique();
+           new FriendRequestsConfig().Configure(modelBuilder.Entity<FriendRequest>());
+           new CommentConfig().Configure(modelBuilder.Entity<Comment>());
+           new FriendConfig().Configure(modelBuilder.Entity<Friend>());
+           new PostConfig().Configure(modelBuilder.Entity<Post>());
+           new VotedCommentConfig().Configure(modelBuilder.Entity<VotedComment>());
+           new VotedPostConfig().Configure(modelBuilder.Entity<VotedPost>());
         }
     }
 }
