@@ -21,8 +21,8 @@ namespace MyAppBackend.Profiles
             CreateMap<Profile, ProfileViewModel>()
                 .ForMember(x => x.Username, o => o.MapFrom(x => x.User.Username))
                 .ForMember(x => x.Email, o => o.MapFrom(x => x.User.Email))
-                .ForMember(x => x.IsFriend, o => o.MapFrom(x => x.User.Friends1.Any(f => f.UserID1 == CurrentUserID || 
-                                                                                        f.UserID2 == CurrentUserID)))
+                .ForMember(x => x.IsFriend, o => o.MapFrom(x => x.User.Friends1.Any(f => f.UserID1 == CurrentUserID || f.UserID2 == CurrentUserID)))
+                //.ForMember(x => x.IsFriend, o => o.MapFrom(x => x.User.Friends2.Any(f => f.UserID1 == CurrentUserID || f.UserID2 == CurrentUserID)))
                 .ForMember(x => x.IsRequesting, o => o.MapFrom(x => x.User.FriendRequestsMe.Any(f => f.UserID == CurrentUserID)))
                 .ForMember(x => x.IAmRequesting, o => o.MapFrom(x => x.User.FriendRequestsThem.Any(f => f.FollowerID == CurrentUserID)));
         }

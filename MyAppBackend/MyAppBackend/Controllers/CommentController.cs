@@ -34,6 +34,14 @@ namespace MyAppBackend.Controllers
             return Ok(comments);
         }
 
+        [HttpGet("comment/{id}"), Authorize]
+        public IActionResult GetComment(int id)
+        {
+            // get one comment 
+            List<CommentViewModel> comments = commentService.GetComments(GetCurrentUserID(), id);
+            return Ok(comments);
+        }
+
         [HttpPost, Authorize]
         public IActionResult CreateComment([FromBody] Comment comment)
         {

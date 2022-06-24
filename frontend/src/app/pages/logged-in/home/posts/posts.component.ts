@@ -54,7 +54,6 @@ export class PostsComponent implements OnInit {
   getPosts() {
     this.postService.getPosts().subscribe(
       (response) => {
-        console.log(response);
         this.posts = response;
       },
       (error) => {
@@ -66,7 +65,6 @@ export class PostsComponent implements OnInit {
   createPost($event: any) {
     this.postService.createPost($event).subscribe(
       (response) => {
-        console.log(response);
         this.posts.unshift(response);
       },
       (error) => {

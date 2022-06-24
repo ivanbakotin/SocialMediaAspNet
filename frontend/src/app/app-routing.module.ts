@@ -2,9 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { LoggedInComponent } from './pages/logged-in/logged-in.component';
-import { FriendsComponent } from './pages/logged-in/friends/friends.component';
 import { HomeComponent } from './pages/logged-in/home/home.component';
 import { ProfileComponent } from './pages/logged-in/profile/profile.component';
+import { ThreadComponent } from './pages/logged-in/thread/thread.component';
+import { SettingsComponent } from './pages/logged-in/profile/settings/settings.component';
+import { DetailsComponent } from './pages/logged-in/profile/details/details.component';
+import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
+import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -50,16 +54,30 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'friends',
-        component: FriendsComponent,
-      },
-      {
         path: 'post/:id',
-        component: FriendsComponent,
+        component: ThreadComponent,
       },
       {
         path: 'profile/:id',
         component: ProfileComponent,
+        children: [
+          {
+            path: 'profile/:id',
+            component: OverviewComponent,
+          },
+          {
+            path: 'friends',
+            component: FriendsComponent,
+          },
+          {
+            path: 'details',
+            component: DetailsComponent,
+          },
+          {
+            path: 'settings',
+            component: SettingsComponent,
+          },
+        ],
       },
     ],
   },

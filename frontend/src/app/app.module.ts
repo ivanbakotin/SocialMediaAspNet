@@ -13,7 +13,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { LoggedInComponent } from './pages/logged-in/logged-in.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { FriendsComponent } from './pages/logged-in/friends/friends.component';
 import { ProfileComponent } from './pages/logged-in/profile/profile.component';
 import { HomeComponent } from './pages/logged-in/home/home.component';
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
@@ -26,7 +25,11 @@ import { BookmarkedComponent } from './pages/logged-in/home/bookmarked/bookmarke
 import { CreatePostComponent } from './pages/logged-in/home/create-post/create-post.component';
 import { ProfilepreviewComponent } from './pages/logged-in/home/profilepreview/profilepreview.component';
 import { EditPostComponent } from './pages/logged-in/home/edit-post/edit-post.component';
-import { RequestsComponent } from './pages/logged-in/friends/requests/requests.component';
+import { SettingsComponent } from './pages/logged-in/profile/settings/settings.component';
+import { DetailsComponent } from './pages/logged-in/profile/details/details.component';
+import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
+import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
+import { ThreadComponent } from './pages/logged-in/thread/thread.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,6 @@ import { RequestsComponent } from './pages/logged-in/friends/requests/requests.c
     LoggedInComponent,
     NotFoundComponent,
     LoadingComponent,
-    FriendsComponent,
     ProfileComponent,
     HomeComponent,
     LoggedOutComponent,
@@ -52,7 +54,11 @@ import { RequestsComponent } from './pages/logged-in/friends/requests/requests.c
     CreatePostComponent,
     ProfilepreviewComponent,
     EditPostComponent,
-    RequestsComponent,
+    SettingsComponent,
+    DetailsComponent,
+    ThreadComponent,
+    OverviewComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,

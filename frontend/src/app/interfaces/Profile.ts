@@ -7,4 +7,7 @@ export interface Profile {
   age: number;
   gender: string;
   bio: string;
+  isFriend: boolean;
+  isRequesting: boolean;
+  iAmRequesting: boolean;
 }

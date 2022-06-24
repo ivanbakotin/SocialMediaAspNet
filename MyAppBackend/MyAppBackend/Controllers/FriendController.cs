@@ -27,6 +27,18 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
+        [HttpGet("requests"), Authorize]
+        public void GetAllRequests()
+        {
+
+        }
+
+        [HttpGet("friends/{id}"), Authorize]
+        public void GetAllFriends(int id)
+        {
+
+        }
+
         [HttpPost("send/{id}"), Authorize]
         public void SendFriendRequest(int id)
         {

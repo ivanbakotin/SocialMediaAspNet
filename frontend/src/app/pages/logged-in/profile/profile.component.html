@@ -4,24 +4,21 @@
 
 <p>{{ profile?.bio }}</p>
 
-<div>
-  <span>{{ profile?.email }}</span>
-  <span>{{ profile?.phone }}</span>
+<div class="btns">
+  <button *ngIf="displayFollow()">Send Request</button>
+  <button *ngIf="displayDeclineRequest()">Remove Request</button>
+  <button *ngIf="displayPendingRequest()">Accept Request</button>
 </div>
 
 <div>
-  <span>{{ profile?.gender }}</span>
-  <span>{{ profile?.age }}</span>
-  <span>{{ profile?.birthday }}</span>
+  <button [routerLink]="['/profile/' + currentUserID]" *ngIf="checkIsFriend()">
+    Posts
+  </button>
+  <button routerLink="details" *ngIf="checkIsFriend()">Personal Details</button>
+  <button routerLink="friends" *ngIf="checkIsFriend()">Friends</button>
+  <button routerLink="settings" *ngIf="currentUserID == profile?.id">
+    Settings
+  </button>
 </div>
 
-<div>
-  <button *ngIf="currentUserID == profile?.id">Edit</button>
-  <button *ngIf="currentUserID != profile?.id">Follow</button>
-</div>
-
-<div>if user see all my posts</div>
-
-<div>
-  if not user request friend to see posts on theirs profile or your own feed
-</div>
+<router-outlet></router-outlet>

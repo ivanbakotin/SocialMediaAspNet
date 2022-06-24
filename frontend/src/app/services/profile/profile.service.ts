@@ -13,7 +13,7 @@ export class ProfileService {
   getProfileURL = `${HOSTNAME}Profile/`;
   updateProfileURL = `${HOSTNAME}Profile/update`;
 
-  public getProfile(id: number): Observable<any> {
+  public getProfile(id: string | number | null): Observable<any> {
     return this.http.get(this.getProfileURL + id, { headers: GetHeader() });
   }
 

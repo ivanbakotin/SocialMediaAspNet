@@ -13,6 +13,15 @@ namespace MyAppBackend.Services.FriendService
             this.context = context;
         }
 
+        public void GetAllRequests()
+        {
+
+        }
+        public void GetAllFriends(int id)
+        {
+
+        }
+
         public void SendFriendRequest(int UserID, int id) 
         {
             var newFriendRequest = new FriendRequest

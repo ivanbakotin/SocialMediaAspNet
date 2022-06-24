@@ -1,12 +1,19 @@
 :host {
   display: flex;
   gap: 2rem;
-  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+
+  @media (max-width: 700px) {
+    align-items: center;
+    flex-direction: column;
+  }
 }
 
 section {
+  width: 33%;
+  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  align-items: center;
 }

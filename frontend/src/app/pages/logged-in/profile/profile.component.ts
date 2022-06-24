@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from 'src/app/services/profile/profile.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -12,7 +13,8 @@ import { Profile } from 'src/app/interfaces/Profile';
 export class ProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) {}
 
   profile!: Profile;
@@ -20,18 +22,52 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
+    console.log(this.currentUserID);
     this.getProfile();
   }
 
-  getProfile() {
-    this.profileService.getProfile(this.currentUserID).subscribe(
-      (response) => {
-        console.log(response);
-        this.profile = response;
-      },
-      (error) => {
-        console.error(error);
-      }
+  checkIsFriend() {
+    return this.currentUserID == this.profile?.id || this.profile?.isFriend;
+  }
+
+  displayFollow() {
+    return (
+      this.currentUserID != this.profile?.id &&
+      !this.profile?.isFriend &&
+      !this.profile?.isRequesting &&
+      !this.profile?.iAmRequesting
     );
+  }
+
+  displayDeclineRequest() {
+    return (
+      this.currentUserID != this.profile?.id &&
+      !this.profile?.isFriend &&
+      this.profile?.isRequesting &&
+      !this.profile?.iAmRequesting
+    );
+  }
+
+  displayPendingRequest() {
+    return (
+      this.currentUserID != this.profile?.id &&
+      !this.profile?.isFriend &&
+      !this.profile?.isRequesting &&
+      this.profile?.iAmRequesting
+    );
+  }
+
+  getProfile() {
+    this.profileService
+      .getProfile(this.route.snapshot.paramMap.get('id'))
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.profile = response;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
   }
 }
