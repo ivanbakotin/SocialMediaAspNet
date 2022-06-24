@@ -142,6 +142,9 @@ namespace MyAppBackend.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
@@ -286,9 +289,8 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.Comment", b =>
                 {
                     b.HasOne("MyAppBackend.Models.Comment", "CommentVirtual")
-                        .WithMany()
-                        .HasForeignKey("CommentID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany("Comments")
+                        .HasForeignKey("CommentID");
 
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany("Comments")
@@ -329,13 +331,13 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.User", "Follower")
                         .WithMany()
                         .HasForeignKey("FollowerID")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Follower");
@@ -401,15 +403,15 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.VotedComment", b =>
                 {
                     b.HasOne("MyAppBackend.Models.Comment", "Comment")
-                        .WithMany()
+                        .WithMany("VotedComments")
                         .HasForeignKey("CommentID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Comment");
@@ -428,12 +430,19 @@ namespace MyAppBackend.Migrations
                     b.HasOne("MyAppBackend.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Post");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyAppBackend.Models.Comment", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("VotedComments");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>
