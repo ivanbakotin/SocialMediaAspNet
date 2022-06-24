@@ -1,3 +1,4 @@
+<div class="background"></div>
 <h2>
   {{ profile?.username }}
 </h2>
@@ -5,9 +6,18 @@
 <p>{{ profile?.bio }}</p>
 
 <div class="btns">
-  <button *ngIf="displayFollow()">Send Request</button>
-  <button *ngIf="displayDeclineRequest()">Remove Request</button>
-  <button *ngIf="displayPendingRequest()">Accept Request</button>
+  <button *ngIf="displayFollow()" (click)="sendFriendRequest()">
+    Send Request
+  </button>
+  <button *ngIf="displayDeclineRequest()" (click)="declineRequest()">
+    Remove Request
+  </button>
+  <button *ngIf="displayPendingRequest()" (click)="acceptRequest()">
+    Accept Request
+  </button>
+  <button *ngIf="displayRemoveFriend()" (click)="removeFriend()">
+    Remove Friend
+  </button>
 </div>
 
 <div>

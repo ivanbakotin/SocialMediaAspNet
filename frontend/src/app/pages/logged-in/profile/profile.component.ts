@@ -22,12 +22,23 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
-    console.log(this.currentUserID);
     this.getProfile();
   }
 
+  sendFriendRequest() {}
+
+  declineRequest() {}
+
+  acceptRequest() {}
+
+  removeFriend() {}
+
   checkIsFriend() {
     return this.currentUserID == this.profile?.id || this.profile?.isFriend;
+  }
+
+  displayRemoveFriend() {
+    return this.currentUserID != this.profile?.id && this.profile?.isFriend;
   }
 
   displayFollow() {
