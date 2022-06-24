@@ -28,7 +28,6 @@ namespace MyAppBackend
     seperate admin panel
     action filter validation
     angular error modal
-    angular wait for cookie to be set
     generic post and comment service for most of service methods
     pagination
  */

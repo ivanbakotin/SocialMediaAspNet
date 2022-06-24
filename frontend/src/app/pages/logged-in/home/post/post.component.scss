@@ -78,6 +78,7 @@
   }
 
   &__btn {
+    color: white;
     padding: 0.5rem;
     font-size: var(--font-size-xsm);
     cursor: pointer;
@@ -101,6 +102,18 @@
 
   &__comments {
     cursor: pointer;
+    font-size: var(--font-size-xsm);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  textarea {
+    font-size: var(--font-size-xsm);
+  }
+
+  button {
     font-size: var(--font-size-xsm);
   }
 }

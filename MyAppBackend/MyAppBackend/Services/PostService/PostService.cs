@@ -54,13 +54,13 @@ namespace MyAppBackend.Services.PostService
             return createdPost;
         }
 
-        public bool UpdatePost(Post post, int UserID, int PostID)
+        public bool UpdatePost(string body, int UserID, int PostID)
         {
             var postToUpdate = context.Posts.Where(p => p.ID == PostID).FirstOrDefault();
 
             if (postToUpdate != null)
             {
-                postToUpdate.Body = post.Body;
+                postToUpdate.Body = body;
                 context.SaveChanges();
                 return true;
             }

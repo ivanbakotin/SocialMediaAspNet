@@ -25,6 +25,7 @@ import { SearchComponent } from './pages/logged-in/home/search/search.component'
 import { BookmarkedComponent } from './pages/logged-in/home/bookmarked/bookmarked.component';
 import { CreatePostComponent } from './pages/logged-in/home/create-post/create-post.component';
 import { ProfilepreviewComponent } from './pages/logged-in/home/profilepreview/profilepreview.component';
+import { EditPostComponent } from './pages/logged-in/home/edit-post/edit-post.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ProfilepreviewComponent } from './pages/logged-in/home/profilepreview/p
     BookmarkedComponent,
     CreatePostComponent,
     ProfilepreviewComponent,
+    EditPostComponent,
   ],
   imports: [
     BrowserModule,

@@ -31,8 +31,10 @@ export class PostService {
     return this.http.post(this.createPostURL, body, { headers: GetHeader() });
   }
 
-  public updatePost(id: number): Observable<any> {
-    return this.http.put(this.updatePostURL + id, { headers: GetHeader() });
+  public updatePost(id: number, body: string): Observable<any> {
+    return this.http.put(this.updatePostURL + id, JSON.stringify(body), {
+      headers: GetHeader(),
+    });
   }
 
   public deletePost(id: number): Observable<any> {

@@ -55,9 +55,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("update/{id}"), Authorize]
-        public IActionResult UpdatePost([FromBody] Post post, int id)
+        public IActionResult UpdatePost([FromBody] string body, int id)
         {
-            bool flag = postService.UpdatePost(post, GetCurrentUserID(), id);
+            postService.UpdatePost(body, GetCurrentUserID(), id);
             return Ok();
         }
 

@@ -1,5 +1,21 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
 ul {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+}
+
+.title {
+  font-size: var(--font-size-sm);
+}
+
+.no-posts {
+  text-align: center;
+  font-size: var(--font-size-sm);
 }

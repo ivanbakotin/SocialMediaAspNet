@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { UserService } from 'src/app/services/user/user.service';
 import { Post } from 'src/app/interfaces/Post';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-post',
@@ -22,15 +23,15 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
-    console.log(this.currentUserID);
   }
 
   vote(postID: number, vote: boolean, index: number, voted: boolean | null) {
     this.votePost.emit({ postID, vote, index, voted });
   }
 
-  edit() {
-    this.updatePost.emit(this.post.id);
+  edit(postID: number, form: NgForm) {
+    this.updatePost.emit({ postID, form: form.value });
+    this.endEditing();
   }
 
   deleteP(postID: number) {

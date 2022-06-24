@@ -21,21 +21,6 @@ export class PostsComponent implements OnInit {
     this.postService.votePost($event.postID, $event.vote).subscribe(
       (response) => {
         this.posts[$event.index] = response;
-
-        /* const currVote = this.posts[$event.index].votes;
-
-        if ($event.voted != null) {
-          if ($event.voted) {
-            this.posts[$event.index].voted = $event.vote ? null : false;
-            this.posts[$event.index].votes = currVote - ($event.vote ? 1 : 2);
-          } else {
-            this.posts[$event.index].voted = $event.vote ? true : null;
-            this.posts[$event.index].votes = currVote + ($event.vote ? 2 : 1);
-          }
-        } else {
-          this.posts[$event.index].voted = $event.vote;
-          this.posts[$event.index].votes = currVote + ($event.vote ? 1 : -1);
-        } */
       },
       (error) => {
         console.error(error);
@@ -44,7 +29,7 @@ export class PostsComponent implements OnInit {
   }
 
   updatePost($event: any) {
-    this.postService.updatePost($event.postID).subscribe(
+    this.postService.updatePost($event.postID, $event.form.body).subscribe(
       (response) => {
         console.log(response);
       },

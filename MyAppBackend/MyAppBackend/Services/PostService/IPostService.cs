@@ -9,7 +9,7 @@ namespace MyAppBackend.Services.PostService
         List<PostViewModel> GetPosts(int UserID);
         PostViewModel GetPost(int UserID, int PostID);
         PostViewModel CreatePost(Post post, int UserID);
-        bool UpdatePost(Post post, int UserID, int PostID);
+        bool UpdatePost(string body, int UserID, int PostID);
         bool DeletePost(int UserID, int PostID);
         void VotePost(int UserID, int PostID, bool vote);
     }

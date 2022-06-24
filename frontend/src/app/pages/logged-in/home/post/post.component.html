@@ -42,17 +42,24 @@
       </div>
 
       <div *ngIf="post.isEditing">
-        <form>
+        <form
+          #createPostForm="ngForm"
+          (ngSubmit)="edit(post.id, createPostForm)"
+          class="form"
+        >
           <textarea
             ngModel
             class="post_paragraph"
-            body="body"
+            name="body"
             id="body"
             cols="15"
             rows="10"
             [value]="post.body"
           ></textarea>
-          <input type="submit" value="Update" />
+          <div>
+            <button (click)="endEditing()">Cancel</button>
+            <button type="submit">Update</button>
+          </div>
         </form>
       </div>
 
