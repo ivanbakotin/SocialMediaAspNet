@@ -1,21 +1,28 @@
 ﻿using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
 using System.Linq;
 
 namespace MyAppBackend.Services.ProfileService
 {
     public class ProfileService : IProfileService
     {
+        private readonly AutoMapper.IMapper mapper;
         private readonly DataContext context;
 
-        public ProfileService( DataContext context)
+        public ProfileService(AutoMapper.IMapper mapper, DataContext context)
         {
+            this.mapper = mapper;
             this.context = context;
         }
 
-        public Profile Get(int UserID)
+        public ProfileViewModel Get(int UserID)
         {
-            var result = context.Profiles.Where(p => p.UserID == UserID).FirstOrDefault();
+            var result = mapper.ProjectTo<ProfileViewModel>(
+                                from p in context.Profiles
+                                where p.UserID == UserID
+                                select p, new { CurrentUserID = UserID })
+                                .FirstOrDefault();
             return result;
         }
 

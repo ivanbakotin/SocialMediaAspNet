@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Models;
 using MyAppBackend.Services.ProfileService;
+using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace MyAppBackend.Controllers
         [HttpGet("{id}"), Authorize]
         public IActionResult GetProfile(int id)
         {
-            var profile = profileService.Get(id);
+            ProfileViewModel profile = profileService.Get(id);
             return Ok(profile);
         }
 

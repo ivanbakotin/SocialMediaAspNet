@@ -20,11 +20,13 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
+    this.getProfile();
   }
 
   getProfile() {
     this.profileService.getProfile(this.currentUserID).subscribe(
       (response) => {
+        console.log(response);
         this.profile = response;
       },
       (error) => {

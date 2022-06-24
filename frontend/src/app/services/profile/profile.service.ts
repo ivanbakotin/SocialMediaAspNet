@@ -14,7 +14,6 @@ export class ProfileService {
   updateProfileURL = `${HOSTNAME}Profile/update`;
 
   public getProfile(id: number): Observable<any> {
-    console.log(this.getProfileURL + id, { headers: GetHeader() });
     return this.http.get(this.getProfileURL + id, { headers: GetHeader() });
   }
 

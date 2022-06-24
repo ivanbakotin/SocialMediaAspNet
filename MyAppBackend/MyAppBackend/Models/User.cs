@@ -1,4 +1,6 @@
-﻿namespace MyAppBackend.Models
+﻿using System.Collections.Generic;
+
+namespace MyAppBackend.Models
 {
     public class User
     {
@@ -8,5 +10,9 @@
         public virtual string Username { get; set; }
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
+        public virtual ICollection<Friend> Friends1 { get; set; }
+        public virtual ICollection<Friend> Friends2 { get; set; }
+        public virtual ICollection<FriendRequest> FriendRequestsMe { get; set; }
+        public virtual ICollection<FriendRequest> FriendRequestsThem { get; set; }
     }
 }

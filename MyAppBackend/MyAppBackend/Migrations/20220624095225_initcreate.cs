@@ -49,7 +49,8 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    FollowerID = table.Column<int>(type: "int", nullable: false)
+                    FollowerID = table.Column<int>(type: "int", nullable: false),
+                    UserID1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -59,10 +60,16 @@ namespace MyAppBackend.Migrations
                         column: x => x.FollowerID,
                         principalTable: "Users",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_FriendRequests_Users_UserID",
                         column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_FriendRequests_Users_UserID1",
+                        column: x => x.UserID1,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
@@ -75,25 +82,23 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID1 = table.Column<int>(type: "int", nullable: false),
-                    User1ID = table.Column<int>(type: "int", nullable: true),
-                    UserID2 = table.Column<int>(type: "int", nullable: false),
-                    User2ID = table.Column<int>(type: "int", nullable: true)
+                    UserID2 = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Friends", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Friends_Users_User1ID",
-                        column: x => x.User1ID,
+                        name: "FK_Friends_Users_UserID1",
+                        column: x => x.UserID1,
                         principalTable: "Users",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Friends_Users_User2ID",
-                        column: x => x.User2ID,
+                        name: "FK_Friends_Users_UserID2",
+                        column: x => x.UserID2,
                         principalTable: "Users",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -296,14 +301,19 @@ namespace MyAppBackend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friends_User1ID",
-                table: "Friends",
-                column: "User1ID");
+                name: "IX_FriendRequests_UserID1",
+                table: "FriendRequests",
+                column: "UserID1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Friends_User2ID",
+                name: "IX_Friends_UserID1",
                 table: "Friends",
-                column: "User2ID");
+                column: "UserID1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Friends_UserID2",
+                table: "Friends",
+                column: "UserID2");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserID",

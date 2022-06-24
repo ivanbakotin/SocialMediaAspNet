@@ -15,7 +15,11 @@
   <span>{{ profile?.birthday }}</span>
 </div>
 
-<div>Edit profile if user</div>
+<div>
+  <button *ngIf="currentUserID == profile?.id">Edit</button>
+  <button *ngIf="currentUserID != profile?.id">Follow</button>
+</div>
+
 <div>if user see all my posts</div>
 
 <div>

@@ -1,10 +1,11 @@
 ﻿using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
 
 namespace MyAppBackend.Services.ProfileService
 {
     public interface IProfileService
     {
-        Profile Get(int UserID);
+        ProfileViewModel Get(int UserID);
         bool Update(Profile profile, int UserID);
     }
 }

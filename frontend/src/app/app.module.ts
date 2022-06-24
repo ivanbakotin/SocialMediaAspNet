@@ -26,6 +26,7 @@ import { BookmarkedComponent } from './pages/logged-in/home/bookmarked/bookmarke
 import { CreatePostComponent } from './pages/logged-in/home/create-post/create-post.component';
 import { ProfilepreviewComponent } from './pages/logged-in/home/profilepreview/profilepreview.component';
 import { EditPostComponent } from './pages/logged-in/home/edit-post/edit-post.component';
+import { RequestsComponent } from './pages/logged-in/friends/requests/requests.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { EditPostComponent } from './pages/logged-in/home/edit-post/edit-post.co
     CreatePostComponent,
     ProfilepreviewComponent,
     EditPostComponent,
+    RequestsComponent,
   ],
   imports: [
     BrowserModule,

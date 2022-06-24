@@ -10,7 +10,7 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220624060817_initcreate")]
+    [Migration("20220624095225_initcreate")]
     partial class initcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,12 +58,6 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("User1ID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("User2ID")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserID1")
                         .HasColumnType("int");
 
@@ -72,9 +66,9 @@ namespace MyAppBackend.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("User1ID");
+                    b.HasIndex("UserID1");
 
-                    b.HasIndex("User2ID");
+                    b.HasIndex("UserID2");
 
                     b.ToTable("Friends");
                 });
@@ -92,9 +86,14 @@ namespace MyAppBackend.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserID1")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("FollowerID");
+
+                    b.HasIndex("UserID1");
 
                     b.HasIndex("UserID", "FollowerID")
                         .IsUnique();
@@ -316,12 +315,16 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.Friend", b =>
                 {
                     b.HasOne("MyAppBackend.Models.User", "User1")
-                        .WithMany()
-                        .HasForeignKey("User1ID");
+                        .WithMany("Friends1")
+                        .HasForeignKey("UserID1")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User2")
-                        .WithMany()
-                        .HasForeignKey("User2ID");
+                        .WithMany("Friends2")
+                        .HasForeignKey("UserID2")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User1");
 
@@ -331,9 +334,9 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.FriendRequest", b =>
                 {
                     b.HasOne("MyAppBackend.Models.User", "Follower")
-                        .WithMany()
+                        .WithMany("FriendRequestsMe")
                         .HasForeignKey("FollowerID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
@@ -341,6 +344,10 @@ namespace MyAppBackend.Migrations
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MyAppBackend.Models.User", null)
+                        .WithMany("FriendRequestsThem")
+                        .HasForeignKey("UserID1");
 
                     b.Navigation("Follower");
 
@@ -452,6 +459,17 @@ namespace MyAppBackend.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("MyAppBackend.Models.User", b =>
+                {
+                    b.Navigation("FriendRequestsMe");
+
+                    b.Navigation("FriendRequestsThem");
+
+                    b.Navigation("Friends1");
+
+                    b.Navigation("Friends2");
                 });
 #pragma warning restore 612, 618
         }

@@ -31,6 +31,32 @@ namespace MyAppBackend.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder
+                    .Entity<FriendRequest>()
+                    .HasOne(x => x.Follower)
+                    .WithMany(x => x.FriendRequestsMe)
+                    .HasForeignKey(x => x.FollowerID)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                    .Entity<FriendRequest>()
+                    .HasOne(x => x.User)
+                    .WithMany(x => x.FriendRequestsThem)
+                    .HasForeignKey(x => x.UserID);
+
+            modelBuilder
+                    .Entity<Friend>()
+                    .HasOne(x => x.User1)
+                    .WithMany(x => x.Friends1)
+                    .HasForeignKey(x => x.UserID1)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                    .Entity<Friend>()
+                    .HasOne(x => x.User2)
+                    .WithMany(x => x.Friends2)
+                    .HasForeignKey(x => x.UserID2);
+
+            modelBuilder
                 .Entity<VotedComment>()
                 .HasOne(e => e.User)
                 .WithMany()

@@ -1,9 +1,9 @@
-﻿using MyAppBackend.Data;
+﻿using AutoMapper;
+using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
-using MyAppBackend.ViewModels;
-using AutoMapper;
 
 namespace MyAppBackend.Services.PostService
 {
@@ -23,8 +23,8 @@ namespace MyAppBackend.Services.PostService
             var result = mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where post.UserID == UserID ||
-                                      context.Friends.Any(f => ((f.UserID2 == UserID && f.UserID1 == post.UserID)
-                                                             || (f.UserID1 == UserID && f.UserID2 == post.UserID)))
+                                      context.Friends.Any(f => (f.UserID2 == UserID && f.UserID1 == post.UserID)
+                                                             || (f.UserID1 == UserID && f.UserID2 == post.UserID))
                                 orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
                                 .ToList();
