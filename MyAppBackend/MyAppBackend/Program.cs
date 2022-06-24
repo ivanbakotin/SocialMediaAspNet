@@ -30,6 +30,5 @@ namespace MyAppBackend
     angular error modal
     angular wait for cookie to be set
     generic post and comment service for most of service methods
-    fix cascade deleting sql server
     pagination
  */

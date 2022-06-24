@@ -18,6 +18,7 @@ export class NavComponent implements OnInit {
   activeNav: boolean = false;
 
   ngOnInit(): void {
+    console.log('NAV', this.activeNav);
     this.currentUserID = this.userService.getCurrentUserID();
   }
 

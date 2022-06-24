@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import decode from 'jwt-decode';
 
-import { header } from 'src/app/utils/constants';
-import { HOSTNAME } from 'src/app/utils/constants';
+import { HOSTNAME, GetHeader } from 'src/app/utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +21,10 @@ export class UserService {
   }
 
   public searchUsers(param: string): Observable<any> {
-    return this.http.get(this.searchUsersURL + param, header);
+    return this.http.get(this.searchUsersURL + param, { headers: GetHeader() });
   }
 
   public deleteUser(): Observable<any> {
-    return this.http.delete(this.deleteUserURL, header);
+    return this.http.delete(this.deleteUserURL, { headers: GetHeader() });
   }
 }

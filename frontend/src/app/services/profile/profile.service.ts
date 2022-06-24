@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { HOSTNAME } from 'src/app/utils/constants';
-import { header } from 'src/app/utils/constants';
+import { GetHeader, HOSTNAME } from 'src/app/utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +14,11 @@ export class ProfileService {
   updateProfileURL = `${HOSTNAME}Profile/update`;
 
   public getProfile(id: number): Observable<any> {
-    return this.http.get(this.getProfileURL + id, header);
+    console.log(this.getProfileURL + id, { headers: GetHeader() });
+    return this.http.get(this.getProfileURL + id, { headers: GetHeader() });
   }
 
   public updateProfile(body: any) {
-    return this.http.put(this.updateProfileURL, body, header);
+    return this.http.put(this.updateProfileURL, body, { headers: GetHeader() });
   }
 }
