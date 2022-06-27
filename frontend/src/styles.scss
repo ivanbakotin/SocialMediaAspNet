@@ -42,3 +42,6 @@ textarea {
   --font-size-md: clamp(2rem, 2.2vw, 2.5rem);
   --font-size-lg: clamp(2.5rem, 2.5vw, 3.5rem);
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,1 +1,8 @@
-<p>friends works!</p>
+<section class="friends">
+  <h2 class="friends">Friends</h2>
+  <ul class="friends__list">
+    <li class="friends__item" *ngFor="let r of friends">
+      {{ r.username }}
+    </li>
+  </ul>
+</section>

@@ -55,7 +55,7 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'post/:id',
+        path: 'thread/:id',
         component: ThreadComponent,
       },
       {

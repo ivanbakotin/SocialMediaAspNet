@@ -17,7 +17,7 @@ export class RequestsComponent implements OnInit {
     this.friendService.getRequestsPending().subscribe(
       (response) => {
         console.log(response);
-        this.requestsPending = response;
+        this.requestsPending = response[0].requests;
       },
       (error) => console.log(error)
     );
@@ -25,7 +25,7 @@ export class RequestsComponent implements OnInit {
     this.friendService.getRequestsSent().subscribe(
       (response) => {
         console.log(response);
-        this.requestsSent = response;
+        this.requestsSent = response[0].requests;
       },
       (error) => console.log(error)
     );

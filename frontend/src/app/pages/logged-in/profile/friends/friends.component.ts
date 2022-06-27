@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { FriendService } from 'src/app/services/friend/friend.service';
 
@@ -8,12 +9,19 @@ import { FriendService } from 'src/app/services/friend/friend.service';
   styleUrls: ['./friends.component.scss'],
 })
 export class FriendsComponent implements OnInit {
-  constructor(private friendService: FriendService) {}
+  constructor(
+    private friendService: FriendService,
+    private _route: ActivatedRoute
+  ) {}
+
+  friends: any = [];
 
   ngOnInit(): void {
-    this.friendService.getFriends(1).subscribe(
+    console.log(this._route);
+    this.friendService.getFriends(history.state.navigationId).subscribe(
       (response) => {
         console.log(response);
+        this.friends = response;
       },
       (error) => console.log(error)
     );

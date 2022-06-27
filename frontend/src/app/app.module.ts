@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/logged-out/login/login.component';
@@ -18,19 +20,21 @@ import { HomeComponent } from './pages/logged-in/home/home.component';
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { ForgotComponent } from './pages/logged-out/forgot/forgot.component';
 import { ResetComponent } from './pages/logged-out/reset/reset.component';
-import { PostsComponent } from './pages/logged-in/home/posts/posts.component';
-import { PostComponent } from './pages/logged-in/home/post/post.component';
-import { SearchComponent } from './pages/logged-in/home/search/search.component';
-import { BookmarkedComponent } from './pages/logged-in/home/bookmarked/bookmarked.component';
-import { CreatePostComponent } from './pages/logged-in/home/create-post/create-post.component';
-import { ProfilepreviewComponent } from './pages/logged-in/home/profilepreview/profilepreview.component';
-import { EditPostComponent } from './pages/logged-in/home/edit-post/edit-post.component';
+import { PostsComponent } from './components/posts/posts.component';
+import { PostComponent } from './components/post/post.component';
+import { SearchComponent } from './components/search/search.component';
+import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
+import { CreatePostComponent } from './components/create-post/create-post.component';
+import { ProfilepreviewComponent } from './components/profilepreview/profilepreview.component';
 import { SettingsComponent } from './pages/logged-in/profile/settings/settings.component';
 import { DetailsComponent } from './pages/logged-in/profile/details/details.component';
 import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
 import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
 import { ThreadComponent } from './pages/logged-in/thread/thread.component';
 import { RequestsComponent } from './pages/logged-in/profile/requests/requests.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { MainPostComponent } from './components/main-post/main-post.component';
 
 @NgModule({
   declarations: [
@@ -54,13 +58,15 @@ import { RequestsComponent } from './pages/logged-in/profile/requests/requests.c
     BookmarkedComponent,
     CreatePostComponent,
     ProfilepreviewComponent,
-    EditPostComponent,
     SettingsComponent,
     DetailsComponent,
     ThreadComponent,
     OverviewComponent,
     FriendsComponent,
     RequestsComponent,
+    CommentsComponent,
+    CommentComponent,
+    MainPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +74,8 @@ import { RequestsComponent } from './pages/logged-in/profile/requests/requests.c
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

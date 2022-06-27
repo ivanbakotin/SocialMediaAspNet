@@ -30,7 +30,7 @@ namespace MyAppBackend.Controllers
         [HttpGet("{id}"), Authorize]
         public IActionResult GetComments(int id)
         {
-            List<CommentViewModel> comments = commentService.GetComments(GetCurrentUserID(), id);
+            var comments = commentService.GetComments(GetCurrentUserID(), id);
             return Ok(comments);
         }
 
@@ -38,7 +38,7 @@ namespace MyAppBackend.Controllers
         public IActionResult GetComment(int id)
         {
             // get one comment 
-            List<CommentViewModel> comments = commentService.GetComments(GetCurrentUserID(), id);
+            var comments = commentService.GetComments(GetCurrentUserID(), id);
             return Ok(comments);
         }
 

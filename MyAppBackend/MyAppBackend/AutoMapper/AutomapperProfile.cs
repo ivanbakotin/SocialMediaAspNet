@@ -25,6 +25,11 @@ namespace MyAppBackend.Profiles
                                                              || x.User.Friends2.Any(f => f.UserID1 == CurrentUserID || f.UserID2 == CurrentUserID)))
                 .ForMember(x => x.IsRequesting, o => o.MapFrom(x => x.User.FriendRequestsMe.Any(f => f.UserID == CurrentUserID)))
                 .ForMember(x => x.IAmRequesting, o => o.MapFrom(x => x.User.FriendRequestsThem.Any(f => f.FollowerID == CurrentUserID)));
+
+            CreateMap<User, RequestViewModel>()
+                .ForMember(x => x.Username, o => o.MapFrom(x => x.FriendRequestsThem));
+
+            CreateMap<Comment, CommentViewModel>();
         }
     }
 }

@@ -1,19 +1,18 @@
 :host {
   display: flex;
-  gap: 2rem;
+  gap: 5rem;
+  margin-top: 5rem;
   flex: 1;
   justify-content: center;
-
-  @media (max-width: 700px) {
-    align-items: center;
-    flex-direction: column;
-  }
 }
 
 section {
-  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
   align-items: center;
+  gap: 5rem;
+}
+
+.app-posts {
+  width: min(600px, 85%);
 }

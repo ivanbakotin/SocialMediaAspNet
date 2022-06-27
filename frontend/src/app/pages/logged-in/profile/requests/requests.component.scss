@@ -1,0 +1,9 @@
+:host {
+  display: flex;
+  gap: 5rem;
+  flex-wrap: wrap;
+}
+
+* {
+  font-size: var(--font-size-sm);
+}

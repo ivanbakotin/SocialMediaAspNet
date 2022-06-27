@@ -47,7 +47,8 @@
     Personal Details
   </button>
   <button
-    routerLink="friends"
+    [routerLink]="['friends']"
+    [id]="profile.id"
     *ngIf="displayService.checkIsFriend(currentUserID, profile)"
   >
     Friends

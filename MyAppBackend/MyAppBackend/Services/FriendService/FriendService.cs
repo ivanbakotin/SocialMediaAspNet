@@ -1,34 +1,51 @@
-﻿using MyAppBackend.Data;
+﻿using AutoMapper;
+using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
 using System.Linq;
 
 namespace MyAppBackend.Services.FriendService
 {
     public class FriendService : IFriendService
     {
+        private readonly IMapper mapper;
         private readonly DataContext context;
 
-        public FriendService(DataContext context)
+        public FriendService(DataContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public dynamic GetAllRequestsPending(int UserID)
         {
-            var result = context.Users.Where(f => f.FriendRequestsThem.Any(a => a.UserID == UserID));
+            var result = context.Users.Where(u => u.ID == UserID)
+                                      .Select(x => new
+                                      {
+                                          Requests = x.FriendRequestsThem.Select(p => new { p.Follower.Username, p.Follower.ID })
+                                      });
+
             return result;
         }
 
         public dynamic GetAllRequestsSent(int UserID)
         {
-            var result = context.Users.Where(f => f.FriendRequestsMe.Any(a => a.FollowerID == UserID));
+            var result = context.Users.Where(u => u.ID == UserID)
+                                      .Select(x => new
+                                      {
+                                          Requests = x.FriendRequestsMe.Select(p => new { p.User.Username, p.User.ID })
+                                      });
             return result;
         }
 
         public dynamic GetAllFriends(int id)
         {
-            var result = context.Users.Where(f => f.Friends1.Any(f => f.UserID1 == id || f.UserID2 == id)
-                                               || f.Friends2.Any(f => f.UserID1 == id || f.UserID2 == id));
+            var result = context.Users.Where(f => f.ID == id)
+                                      .Select(x => new
+                                      {
+                                          Friends1 = x.Friends1.Select(p => new { p.User1.Username, other = p.User2.Username }),
+                                          Friends2 = x.Friends2.Select(p => new { p.User1.Username, other = p.User2.Username }),
+                                      }); ;
             return result;
         }
 

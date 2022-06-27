@@ -13,6 +13,7 @@ using MyAppBackend.Services.PostService;
 using MyAppBackend.Services.FriendService;
 using MyAppBackend.Services.UserService;
 using MyAppBackend.Services.ProfileService;
+using MyAppBackend.Services.CommentService;
 
 namespace MyAppBackend.Extensions
 {
@@ -94,6 +95,7 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IFriendService, Services.FriendService.FriendService>();
             services.AddTransient<IUserService, Services.UserService.UserService>();
             services.AddTransient<IProfileService, Services.ProfileService.ProfileService>();
+            services.AddTransient<ICommentService, Services.CommentService.CommentService>();
 
             return services;
         }
