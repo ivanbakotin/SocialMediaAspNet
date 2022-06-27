@@ -30,6 +30,7 @@ import { DetailsComponent } from './pages/logged-in/profile/details/details.comp
 import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
 import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
 import { ThreadComponent } from './pages/logged-in/thread/thread.component';
+import { RequestsComponent } from './pages/logged-in/profile/requests/requests.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { ThreadComponent } from './pages/logged-in/thread/thread.component';
     ThreadComponent,
     OverviewComponent,
     FriendsComponent,
+    RequestsComponent,
   ],
   imports: [
     BrowserModule,

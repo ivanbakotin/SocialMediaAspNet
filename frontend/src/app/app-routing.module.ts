@@ -9,6 +9,7 @@ import { SettingsComponent } from './pages/logged-in/profile/settings/settings.c
 import { DetailsComponent } from './pages/logged-in/profile/details/details.component';
 import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
 import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
+import { RequestsComponent } from './pages/logged-in/profile/requests/requests.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -62,12 +63,16 @@ const routes: Routes = [
         component: ProfileComponent,
         children: [
           {
-            path: 'profile/:id',
+            path: '',
             component: OverviewComponent,
           },
           {
             path: 'friends',
             component: FriendsComponent,
+          },
+          {
+            path: 'requests',
+            component: RequestsComponent,
           },
           {
             path: 'details',

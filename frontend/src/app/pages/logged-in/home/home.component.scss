@@ -11,9 +11,9 @@
 }
 
 section {
-  width: 33%;
   flex-wrap: wrap;
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  align-items: center;
 }

@@ -27,40 +27,53 @@ namespace MyAppBackend.Controllers
             return Int32.Parse(userID);
         }
 
-        [HttpGet("requests"), Authorize]
-        public void GetAllRequests()
+        [HttpGet("requestspending"), Authorize]
+        public IActionResult GetAllRequestsPending()
         {
+            var result = friendService.GetAllRequestsPending(GetCurrentUserID());
+            return Ok(result);
+        }
 
+        [HttpGet("requestssent"), Authorize]
+        public IActionResult GetAllRequestsSent()
+        {
+            var result = friendService.GetAllRequestsSent(GetCurrentUserID());
+            return Ok(result);
         }
 
         [HttpGet("friends/{id}"), Authorize]
-        public void GetAllFriends(int id)
+        public IActionResult GetAllFriends(int id)
         {
-
+            var friends = friendService.GetAllFriends(id);
+            return Ok(friends);
         }
 
         [HttpPost("send/{id}"), Authorize]
-        public void SendFriendRequest(int id)
+        public IActionResult SendFriendRequest(int id)
         {
-
+            friendService.SendFriendRequest(GetCurrentUserID(), id);
+            return Ok();
         }
 
         [HttpDelete("remove/{id}"), Authorize]
-        public void RemoveFriend(int id)
+        public IActionResult RemoveFriend(int id)
         {
-
+            friendService.RemoveFriend(GetCurrentUserID(), id); 
+            return Ok();
         }
 
         [HttpPost("accept/{id}"), Authorize]
-        public void AcceptFriendRequest(int id)
+        public IActionResult AcceptFriendRequest(int id)
         {
-
+            friendService.AcceptFriendRequest(GetCurrentUserID(), id);
+            return Ok();
         }
 
         [HttpDelete("decline/{id}"), Authorize]
-        public void RemoveFriendRequest(int id)
+        public IActionResult RemoveFriendRequest(int id)
         {
-
+            friendService.RemoveFriendRequest(GetCurrentUserID(), id);
+            return Ok();
         }
     }
 }

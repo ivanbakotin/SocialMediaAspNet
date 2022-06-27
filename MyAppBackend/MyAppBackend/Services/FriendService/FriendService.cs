@@ -13,13 +13,23 @@ namespace MyAppBackend.Services.FriendService
             this.context = context;
         }
 
-        public void GetAllRequests()
+        public dynamic GetAllRequestsPending(int UserID)
         {
-
+            var result = context.Users.Where(f => f.FriendRequestsThem.Any(a => a.UserID == UserID));
+            return result;
         }
-        public void GetAllFriends(int id)
-        {
 
+        public dynamic GetAllRequestsSent(int UserID)
+        {
+            var result = context.Users.Where(f => f.FriendRequestsMe.Any(a => a.FollowerID == UserID));
+            return result;
+        }
+
+        public dynamic GetAllFriends(int id)
+        {
+            var result = context.Users.Where(f => f.Friends1.Any(f => f.UserID1 == id || f.UserID2 == id)
+                                               || f.Friends2.Any(f => f.UserID1 == id || f.UserID2 == id));
+            return result;
         }
 
         public void SendFriendRequest(int UserID, int id) 
@@ -31,6 +41,7 @@ namespace MyAppBackend.Services.FriendService
             };
 
             context.FriendRequests.Add(newFriendRequest);
+            context.SaveChanges();
         }
 
         public void RemoveFriend(int UserID, int id)

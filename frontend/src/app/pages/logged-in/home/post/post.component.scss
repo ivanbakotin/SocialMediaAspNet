@@ -1,11 +1,14 @@
 .post {
+  width: 600px;
+
   &__article {
     padding: 2rem;
     display: flex;
     gap: 3rem;
     align-items: center;
-
-    background-color: rgb(215, 232, 238);
+    border: solid 1px lightgray;
+    box-shadow: 3px 3px 3px lightgray;
+    border-radius: 1rem;
   }
 
   &__votes {

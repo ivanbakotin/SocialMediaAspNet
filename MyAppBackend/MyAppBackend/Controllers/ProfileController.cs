@@ -15,10 +15,12 @@ namespace MyAppBackend.Controllers
     public class ProfileController : ControllerBase
     {
         private readonly IProfileService profileService;
+
         public ProfileController(IProfileService profileService)
         {
             this.profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         }
+
         private int GetCurrentUserID()
         {
             var identity = User.Identity as ClaimsIdentity;
@@ -30,7 +32,7 @@ namespace MyAppBackend.Controllers
         [HttpGet("{id}"), Authorize]
         public IActionResult GetProfile(int id)
         {
-            ProfileViewModel profile = profileService.Get(id);
+            ProfileViewModel profile = profileService.Get(id, GetCurrentUserID());
             return Ok(profile);
         }
 

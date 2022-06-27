@@ -1,4 +1,5 @@
 <div class="background"></div>
+
 <h2>
   {{ profile?.username }}
 </h2>
@@ -6,29 +7,64 @@
 <p>{{ profile?.bio }}</p>
 
 <div class="btns">
-  <button *ngIf="displayFollow()" (click)="sendFriendRequest()">
+  <button
+    *ngIf="displayService.displayFollow(currentUserID, profile)"
+    (click)="sendFriendRequest()"
+  >
     Send Request
   </button>
-  <button *ngIf="displayDeclineRequest()" (click)="declineRequest()">
+  <button
+    *ngIf="displayService.displayRemoveRequest(currentUserID, profile)"
+    (click)="declineRequest()"
+  >
     Remove Request
   </button>
-  <button *ngIf="displayPendingRequest()" (click)="acceptRequest()">
+  <button
+    *ngIf="displayService.displayAcceptRequest(currentUserID, profile)"
+    (click)="acceptRequest()"
+  >
     Accept Request
   </button>
-  <button *ngIf="displayRemoveFriend()" (click)="removeFriend()">
+  <button
+    *ngIf="displayService.displayRemoveFriend(currentUserID, profile)"
+    (click)="removeFriend()"
+  >
     Remove Friend
   </button>
 </div>
 
-<div>
-  <button [routerLink]="['/profile/' + currentUserID]" *ngIf="checkIsFriend()">
+<div class="btns">
+  <button
+    [routerLink]="['/profile/' + currentUserID]"
+    *ngIf="displayService.checkIsFriend(currentUserID, profile)"
+  >
     Posts
   </button>
-  <button routerLink="details" *ngIf="checkIsFriend()">Personal Details</button>
-  <button routerLink="friends" *ngIf="checkIsFriend()">Friends</button>
+  <button
+    routerLink="details"
+    *ngIf="displayService.checkIsFriend(currentUserID, profile)"
+  >
+    Personal Details
+  </button>
+  <button
+    routerLink="friends"
+    *ngIf="displayService.checkIsFriend(currentUserID, profile)"
+  >
+    Friends
+  </button>
+  <button routerLink="requests" *ngIf="currentUserID == profile?.id">
+    Requests
+  </button>
   <button routerLink="settings" *ngIf="currentUserID == profile?.id">
     Settings
   </button>
+</div>
+
+<div
+  class="not-friend"
+  *ngIf="!displayService.checkIsFriend(currentUserID, profile)"
+>
+  Try befriending to see more!
 </div>
 
 <router-outlet></router-outlet>

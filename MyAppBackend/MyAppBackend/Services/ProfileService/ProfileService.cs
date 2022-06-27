@@ -16,12 +16,12 @@ namespace MyAppBackend.Services.ProfileService
             this.context = context;
         }
 
-        public ProfileViewModel Get(int UserID)
+        public ProfileViewModel Get(int UserID, int id)
         {
             var result = mapper.ProjectTo<ProfileViewModel>(
                                 from p in context.Profiles
                                 where p.UserID == UserID
-                                select p, new { CurrentUserID = UserID })
+                                select p, new { CurrentUserID = id })
                                 .FirstOrDefault();
             return result;
         }

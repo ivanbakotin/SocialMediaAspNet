@@ -10,8 +10,8 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220624095225_initcreate")]
-    partial class initcreate
+    [Migration("20220627073121_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -86,17 +86,11 @@ namespace MyAppBackend.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserID1")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("FollowerID");
 
-                    b.HasIndex("UserID1");
-
-                    b.HasIndex("UserID", "FollowerID")
-                        .IsUnique();
+                    b.HasIndex("UserID");
 
                     b.ToTable("FriendRequests");
                 });
@@ -340,14 +334,10 @@ namespace MyAppBackend.Migrations
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyAppBackend.Models.User", null)
                         .WithMany("FriendRequestsThem")
-                        .HasForeignKey("UserID1");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Follower");
 

@@ -13,6 +13,7 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   private getPostsURL = `${HOSTNAME}Post`;
+  private getUserPostURL = `${HOSTNAME}Post/posts/`;
   private getPostURL = `${HOSTNAME}Post/`;
   private createPostURL = `${HOSTNAME}Post/`;
   private updatePostURL = `${HOSTNAME}Post/update/`;
@@ -21,6 +22,10 @@ export class PostService {
 
   public getPosts(): Observable<any> {
     return this.http.get(this.getPostsURL, { headers: GetHeader() });
+  }
+
+  public getUserPosts(id: number): Observable<any> {
+    return this.http.get(this.getUserPostURL + id, { headers: GetHeader() });
   }
 
   public getPost(id: number): Observable<any> {

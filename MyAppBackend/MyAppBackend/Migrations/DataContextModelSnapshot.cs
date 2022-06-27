@@ -84,17 +84,11 @@ namespace MyAppBackend.Migrations
                     b.Property<int>("UserID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserID1")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("FollowerID");
 
-                    b.HasIndex("UserID1");
-
-                    b.HasIndex("UserID", "FollowerID")
-                        .IsUnique();
+                    b.HasIndex("UserID");
 
                     b.ToTable("FriendRequests");
                 });
@@ -338,14 +332,10 @@ namespace MyAppBackend.Migrations
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("MyAppBackend.Models.User", null)
                         .WithMany("FriendRequestsThem")
-                        .HasForeignKey("UserID1");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Follower");
 

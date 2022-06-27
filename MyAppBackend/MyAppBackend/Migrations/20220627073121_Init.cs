@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyAppBackend.Migrations
 {
-    public partial class initcreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,8 +49,7 @@ namespace MyAppBackend.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    FollowerID = table.Column<int>(type: "int", nullable: false),
-                    UserID1 = table.Column<int>(type: "int", nullable: true)
+                    FollowerID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,13 +65,7 @@ namespace MyAppBackend.Migrations
                         column: x => x.UserID,
                         principalTable: "Users",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FriendRequests_Users_UserID1",
-                        column: x => x.UserID1,
-                        principalTable: "Users",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,15 +288,9 @@ namespace MyAppBackend.Migrations
                 column: "FollowerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FriendRequests_UserID_FollowerID",
+                name: "IX_FriendRequests_UserID",
                 table: "FriendRequests",
-                columns: new[] { "UserID", "FollowerID" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FriendRequests_UserID1",
-                table: "FriendRequests",
-                column: "UserID1");
+                column: "UserID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Friends_UserID1",

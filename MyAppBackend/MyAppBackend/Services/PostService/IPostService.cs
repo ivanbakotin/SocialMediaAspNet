@@ -7,6 +7,7 @@ namespace MyAppBackend.Services.PostService
     public interface IPostService
     {
         List<PostViewModel> GetPosts(int UserID);
+        List<PostViewModel> GetUserPosts(int UserID);
         PostViewModel GetPost(int UserID, int PostID);
         PostViewModel CreatePost(Post post, int UserID);
         bool UpdatePost(string body, int UserID, int PostID);

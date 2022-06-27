@@ -2,11 +2,12 @@
 {
     public interface IFriendService
     {
-        public void GetAllRequests();
-        public void GetAllFriends(int id);
-        public void SendFriendRequest(int UserID, int id);
-        public void RemoveFriend(int UserID, int id);
-        public void AcceptFriendRequest(int UserID, int id);
-        public void RemoveFriendRequest(int UserID, int id);
+        dynamic GetAllRequestsPending(int UserID);
+        dynamic GetAllRequestsSent(int UserID);
+        dynamic GetAllFriends(int id);
+        void SendFriendRequest(int UserID, int id);
+        void RemoveFriend(int UserID, int id);
+        void AcceptFriendRequest(int UserID, int id);
+        void RemoveFriendRequest(int UserID, int id);
     }
 }

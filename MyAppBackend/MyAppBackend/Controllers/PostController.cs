@@ -15,10 +15,12 @@ namespace MyAppBackend.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService postService;
+
         public PostController(IPostService postService)
         {
             this.postService = postService ?? throw new ArgumentNullException(nameof(postService));
         }
+
         private int GetCurrentUserID()
         {
             var identity = User.Identity as ClaimsIdentity;
@@ -31,6 +33,13 @@ namespace MyAppBackend.Controllers
         public IActionResult GetPosts()
         {
             List<PostViewModel> posts = postService.GetPosts(GetCurrentUserID());
+            return Ok(posts);
+        }
+
+        [HttpGet("posts/{id}"), Authorize]
+        public IActionResult GetUserPosts(int id)
+        {
+            List<PostViewModel> posts = postService.GetUserPosts(id);
             return Ok(posts);
         }
 

@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProfileService } from 'src/app/services/profile/profile.service';
+import { FriendService } from 'src/app/services/friend/friend.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Profile } from 'src/app/interfaces/Profile';
+
+import { DisplayService } from 'src/app/services/profile/display.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +15,8 @@ import { Profile } from 'src/app/interfaces/Profile';
 })
 export class ProfileComponent implements OnInit {
   constructor(
+    public displayService: DisplayService,
+    private friendService: FriendService,
     private profileService: ProfileService,
     private userService: UserService,
     private route: ActivatedRoute
@@ -21,64 +26,38 @@ export class ProfileComponent implements OnInit {
   currentUserID!: number;
 
   ngOnInit(): void {
+    this.route.params.subscribe((routeParams) => {
+      this.getProfile(routeParams['id']);
+    });
+
     this.currentUserID = this.userService.getCurrentUserID();
-    this.getProfile();
   }
 
-  sendFriendRequest() {}
-
-  declineRequest() {}
-
-  acceptRequest() {}
-
-  removeFriend() {}
-
-  checkIsFriend() {
-    return this.currentUserID == this.profile?.id || this.profile?.isFriend;
+  sendFriendRequest() {
+    this.friendService.sendRequest(this.profile.id).subscribe();
   }
 
-  displayRemoveFriend() {
-    return this.currentUserID != this.profile?.id && this.profile?.isFriend;
+  declineRequest() {
+    this.friendService.declineRequest(this.profile.id).subscribe();
   }
 
-  displayFollow() {
-    return (
-      this.currentUserID != this.profile?.id &&
-      !this.profile?.isFriend &&
-      !this.profile?.isRequesting &&
-      !this.profile?.iAmRequesting
+  acceptRequest() {
+    this.friendService.acceptRequest(this.profile.id).subscribe();
+  }
+
+  removeFriend() {
+    this.friendService.removeFriend(this.profile.id).subscribe();
+  }
+
+  getProfile(id: any) {
+    this.profileService.getProfile(id).subscribe(
+      (response) => {
+        console.log(response);
+        this.profile = response;
+      },
+      (error) => {
+        console.error(error);
+      }
     );
-  }
-
-  displayDeclineRequest() {
-    return (
-      this.currentUserID != this.profile?.id &&
-      !this.profile?.isFriend &&
-      this.profile?.isRequesting &&
-      !this.profile?.iAmRequesting
-    );
-  }
-
-  displayPendingRequest() {
-    return (
-      this.currentUserID != this.profile?.id &&
-      !this.profile?.isFriend &&
-      !this.profile?.isRequesting &&
-      this.profile?.iAmRequesting
-    );
-  }
-
-  getProfile() {
-    this.profileService
-      .getProfile(this.route.snapshot.paramMap.get('id'))
-      .subscribe(
-        (response) => {
-          console.log(response);
-          this.profile = response;
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
   }
 }
