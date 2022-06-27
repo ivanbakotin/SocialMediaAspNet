@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using MyAppBackend.Utilities;
+using MyAppBackend.ApiModels;
 
 namespace MyAppBackend.Services.Auth
 {
@@ -20,7 +21,7 @@ namespace MyAppBackend.Services.Auth
             this.context = context;
         }
 
-        public string Login(User user)
+        public string Login(LoginUser user)
         {
             var userObject = context.Users
                                .Join(context.Roles,
@@ -52,7 +53,7 @@ namespace MyAppBackend.Services.Auth
             claims.Add(new Claim("role", userObject.role));
             claims.Add(new Claim("ID", userObject.ID.ToString()));
 
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secretkeysecretkeysecretkeysecretkey"));
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var tokenOptions = new JwtSecurityToken(
                 issuer: "https://localhost:5001",
@@ -62,6 +63,18 @@ namespace MyAppBackend.Services.Auth
                 signingCredentials: signinCredentials
             );
             string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            if (user.RememberMe)
+            {
+                var session = new Session
+                {
+                    UserID = userObject.ID,
+                    Jwt = tokenString
+                };
+
+                context.Add(session);
+                context.SaveChanges();
+            }
 
             return tokenString;
         }
@@ -96,6 +109,44 @@ namespace MyAppBackend.Services.Auth
             context.SaveChanges();
 
             return true;
+        }
+
+        public string IsLoggedIn(string token)
+        {
+            var session = context.Sessions.Where(x => x.Jwt == token).FirstOrDefault();
+
+            if (session == null)
+            {
+                return null;
+            }
+
+            var claims = new List<Claim>();
+            claims.Add(new Claim("role", session.User.Role.RoleName));
+            claims.Add(new Claim("ID", session.User.ID.ToString()));
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
+            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "https://localhost:5001",
+                audience: "https://localhost:5001",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(60),
+                signingCredentials: signinCredentials
+            );
+            string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            return tokenString;
+        }
+
+        public void Logout(int UserID)
+        {
+            var sessionToDelete = context.Sessions.Where(x => x.UserID == UserID).FirstOrDefault();
+
+            if (sessionToDelete != null)
+            {
+                context.Sessions.Remove(sessionToDelete);
+                context.SaveChanges();
+            }
         }
     }
 }

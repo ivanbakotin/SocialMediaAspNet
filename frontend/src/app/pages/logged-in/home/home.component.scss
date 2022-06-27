@@ -16,3 +16,19 @@ section {
 .app-posts {
   width: min(600px, 85%);
 }
+
+.app-profile {
+  width: min(400px, 30%);
+
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
+
+.app-bookmarked {
+  width: min(400px, 30%);
+
+  @media (max-width: 800px) {
+    display: none;
+  }
+}

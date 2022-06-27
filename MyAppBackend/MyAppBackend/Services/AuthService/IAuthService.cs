@@ -1,10 +1,13 @@
-﻿using MyAppBackend.Models;
+﻿using MyAppBackend.ApiModels;
+using MyAppBackend.Models;
 
 namespace MyAppBackend.Services.Auth
 {
     public interface IAuthService
     {
-        string Login(User user);
+        string Login(LoginUser user);
         bool Register(User user);
+        string IsLoggedIn(string token);
+        void Logout(int UserID);
     }
 }

@@ -1,1 +1,13 @@
-<p>comments works!</p>
+<app-create-comment></app-create-comment>
+
+<ul *ngIf="comments.length">
+  <app-comment
+    *ngFor="let comment of comments; let i = index"
+    [comment]="comment"
+    [index]="i"
+  ></app-comment>
+</ul>
+
+<p class="no-comments" *ngIf="!comments.length">
+  No comments to show! Create some!
+</p>

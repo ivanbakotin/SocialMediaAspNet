@@ -35,6 +35,7 @@ import { RequestsComponent } from './pages/logged-in/profile/requests/requests.c
 import { CommentsComponent } from './components/comments/comments.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { MainPostComponent } from './components/main-post/main-post.component';
+import { CreateCommentComponent } from './components/create-comment/create-comment.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { MainPostComponent } from './components/main-post/main-post.component';
     CommentsComponent,
     CommentComponent,
     MainPostComponent,
+    CreateCommentComponent,
   ],
   imports: [
     BrowserModule,

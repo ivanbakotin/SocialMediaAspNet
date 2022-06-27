@@ -1,8 +1,21 @@
+:host {
+  position: relative;
+}
+
 form {
   input {
     border: none;
     border-bottom: solid black 1px;
     font-size: var(--font-size-sm);
     outline: none;
+  }
+}
+
+.search-results {
+  position: absolute;
+  li {
+    a {
+      font-size: var(--font-size-sm);
+    }
   }
 }

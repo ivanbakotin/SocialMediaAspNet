@@ -1,10 +1,9 @@
 import { HttpHeaders } from '@angular/common/http';
 
 export function GetHeader() {
-  const body = new HttpHeaders().set(
-    'Authorization',
-    `Bearer ${localStorage.getItem('token')}`
-  );
+  const body = new HttpHeaders()
+    .set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+    .set('Content-Type', 'application/json');
 
   return body;
 }

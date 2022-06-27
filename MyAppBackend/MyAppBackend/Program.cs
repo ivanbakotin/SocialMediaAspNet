@@ -21,10 +21,8 @@ namespace MyAppBackend
 
 /*
     loading frontend on start
-    store in session ask user remember me
     comments as tree
     google auth
-    fix jwt always the same
     seperate admin panel
     action filter checkifowner, isnotdeleted 
     remove comment replace with [removed]
@@ -32,5 +30,5 @@ namespace MyAppBackend
     generic post and comment service for most of service methods
     pagination
     forbid non friends seeing your posts, friends etc
-    send back post on update
+    fix date on frontend
  */

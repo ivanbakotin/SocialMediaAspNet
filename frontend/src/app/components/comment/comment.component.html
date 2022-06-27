@@ -1,1 +1,70 @@
-<p>comment works!</p>
+<li class="comment">
+  <article class="comment__article">
+    <div class="comment__votes">
+      <div class="comment__vote">
+        <div
+          [ngClass]="
+            comment.voted != null && comment.voted
+              ? 'comment__upvote voted'
+              : 'comment__upvote'
+          "
+        >
+          <mat-icon>thumb_up</mat-icon>
+        </div>
+        <div class="comment__circle"></div>
+        <div
+          [ngClass]="
+            comment.voted != null && !comment.voted
+              ? 'comment__downvote voted'
+              : 'comment__downvote'
+          "
+        >
+          <i class="material-icons">thumb_down</i>
+        </div>
+      </div>
+
+      <div class="comment__score">{{ comment.votes }}</div>
+    </div>
+
+    <div class="comment__body">
+      <div class="comment__header">
+        <div class="comment__info">
+          <h3 class="comment__title">{{ comment.title }}</h3>
+          <div
+            class="comment__creator"
+            [routerLink]="['/profile/' + comment.userID]"
+          >
+            {{ comment.username }}
+          </div>
+        </div>
+
+        <div *ngIf="currentUserID == comment.userID" class="comment__buttons">
+          <button class="comment__btn edit">Edit</button>
+          <button class="comment__btn delete">Delete</button>
+        </div>
+      </div>
+
+      <div *ngIf="!comment.isEditing">
+        <p class="comment__paragraph">{{ comment.body }}</p>
+      </div>
+
+      <div *ngIf="comment.isEditing">
+        <form #createcommentForm="ngForm" class="form">
+          <textarea
+            ngModel
+            class="comment_paragraph"
+            name="body"
+            id="body"
+            cols="15"
+            rows="10"
+            [value]="comment.body"
+          ></textarea>
+          <div>
+            <button>Cancel</button>
+            <button type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</li>

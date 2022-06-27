@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
 using MyAppBackend.Services.Auth;
 using System;
@@ -17,16 +18,16 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] User user)
+        public IActionResult Login([FromBody] LoginUser user)
         {
             var token = authService.Login(user);
 
             if (token == null)
             {
                 return StatusCode(409, "Wrong email or password");
-            } 
+            }
 
-            return Ok(new AuthenticatedResponse { Token = token });                
+            return Ok(new AuthenticatedResponse { Token = token });
         }
 
         [HttpPost("register")]
@@ -39,7 +40,21 @@ namespace MyAppBackend.Controllers
                 return StatusCode(409, "Email or username taken!");
             }
 
-            return Ok();               
+            return Ok();
+        }
+
+        [HttpPost("isloggedin")]
+        public IActionResult IsLoggedIn(string jwt)
+        {
+            var token = authService.IsLoggedIn(jwt);
+            return Ok(new AuthenticatedResponse { Token = token });
+        }
+
+        [HttpDelete("logout")]
+        public IActionResult Logout(int UserID)
+        {
+            authService.Logout(UserID);
+            return Ok();
         }
     }
 }

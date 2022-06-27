@@ -5,6 +5,9 @@
     <div class="div3"></div>
   </div>
 
+  <div [ngClass]="activeNav ? 'background2' : 'background2 hidden'"></div>
+  <div [ngClass]="activeNav ? 'background1' : 'background1 hidden'"></div>
+
   <ul [ngClass]="activeNav ? 'mobile-aside' : 'mobile-aside hidden'">
     <li><a routerLink="/home">Home</a></li>
     <li><a [routerLink]="['/profile/' + currentUserID]">Profile</a></li>

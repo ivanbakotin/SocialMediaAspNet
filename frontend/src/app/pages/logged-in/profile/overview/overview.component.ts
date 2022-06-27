@@ -8,9 +8,19 @@ import { PostService } from 'src/app/services/post/post.service';
   styleUrls: ['./overview.component.scss'],
 })
 export class OverviewComponent implements OnInit {
-  constructor() {}
+  constructor(private postService: PostService) {}
+
+  posts: any = [];
 
   ngOnInit(): void {
-    console.log('heloo');
+    this.postService.getUserPosts(1).subscribe(
+      (response) => {
+        this.posts = response;
+        console.log(response);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 }
