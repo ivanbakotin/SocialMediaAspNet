@@ -8,4 +8,10 @@ export function GetHeader() {
   return body;
 }
 
+export function GetJSONHeader() {
+  const body = new HttpHeaders().set('Content-Type', 'application/json');
+
+  return body;
+}
+
 export const HOSTNAME = 'https://localhost:44344/api/';

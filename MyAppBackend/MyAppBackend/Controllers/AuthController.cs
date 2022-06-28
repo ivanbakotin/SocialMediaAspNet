@@ -3,6 +3,9 @@ using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
 using MyAppBackend.Services.Auth;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace MyAppBackend.Controllers
 {
@@ -15,6 +18,14 @@ namespace MyAppBackend.Controllers
         public AuthController(IAuthService authService)
         {
             this.authService = authService ?? throw new ArgumentNullException(nameof(authService));
+        }
+
+        private int GetCurrentUserID()
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            IEnumerable<Claim> claims = identity.Claims;
+            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
+            return Int32.Parse(userID);
         }
 
         [HttpPost("login")]
@@ -44,16 +55,16 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("isloggedin")]
-        public IActionResult IsLoggedIn(string jwt)
+        public IActionResult IsLoggedIn([FromBody] string jwt)
         {
             var token = authService.IsLoggedIn(jwt);
             return Ok(new AuthenticatedResponse { Token = token });
         }
 
         [HttpDelete("logout")]
-        public IActionResult Logout(int UserID)
+        public IActionResult Logout()
         {
-            authService.Logout(UserID);
+            authService.Logout(GetCurrentUserID());
             return Ok();
         }
     }

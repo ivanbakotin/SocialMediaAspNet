@@ -59,7 +59,7 @@ namespace MyAppBackend.Services.Auth
                 issuer: "https://localhost:5001",
                 audience: "https://localhost:5001",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: signinCredentials
             );
             string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
@@ -72,7 +72,7 @@ namespace MyAppBackend.Services.Auth
                     Jwt = tokenString
                 };
 
-                context.Add(session);
+                context.Sessions.Add(session);
                 context.SaveChanges();
             }
 
@@ -121,8 +121,8 @@ namespace MyAppBackend.Services.Auth
             }
 
             var claims = new List<Claim>();
-            claims.Add(new Claim("role", session.User.Role.RoleName));
-            claims.Add(new Claim("ID", session.User.ID.ToString()));
+            //claims.Add(new Claim("role", session.User.Role.RoleName));
+            claims.Add(new Claim("ID", 1.ToString()));
 
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -130,21 +130,32 @@ namespace MyAppBackend.Services.Auth
                 issuer: "https://localhost:5001",
                 audience: "https://localhost:5001",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(1),
                 signingCredentials: signinCredentials
             );
             string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+
+            context.Sessions.RemoveRange(session);
+
+            var newSession = new Session
+            {
+                UserID = 1,
+                Jwt = tokenString
+            };
+
+            context.Sessions.Add(newSession);
+            context.SaveChanges();
 
             return tokenString;
         }
 
         public void Logout(int UserID)
         {
-            var sessionToDelete = context.Sessions.Where(x => x.UserID == UserID).FirstOrDefault();
+            var sessionToDelete = context.Sessions.Where(x => x.UserID == UserID).ToList();
 
             if (sessionToDelete != null)
             {
-                context.Sessions.Remove(sessionToDelete);
+                context.Sessions.RemoveRange(sessionToDelete);
                 context.SaveChanges();
             }
         }

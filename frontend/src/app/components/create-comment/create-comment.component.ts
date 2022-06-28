@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-create-comment',
@@ -9,4 +10,6 @@ export class CreateCommentComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  submitForm(form: NgForm) {}
 }

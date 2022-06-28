@@ -67,7 +67,6 @@ namespace MyAppBackend.Controllers
         public IActionResult VoteComment([FromBody] bool vote, int id)
         {
             commentService.VoteComment(GetCurrentUserID(), id, vote);
-            //CommentViewModel comment = commentService.GetComment(GetCurrentUserID(), id);
             return Ok();
         }
     }

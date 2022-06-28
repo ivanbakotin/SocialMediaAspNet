@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.Services.PostService;
 using System;
 
 namespace MyAppBackend.Controllers
@@ -8,6 +9,11 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
+        private readonly IPostService postService;
+        public AdminController(IPostService postService)
+        {
+            this.postService = postService ?? throw new ArgumentNullException(nameof(postService));
+        }
 
         [HttpDelete("user/{id}"), Authorize]
         public IActionResult RemoveUser()
@@ -16,9 +22,10 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpDelete("post/{id}"), Authorize]
-        public IActionResult RemovePost()
+        public IActionResult RemovePost(int id)
         {
-            throw new NotImplementedException();
+            postService.DeletePost(1, id);
+            return Ok();
         }
 
         [HttpDelete("comment/{id}"), Authorize]

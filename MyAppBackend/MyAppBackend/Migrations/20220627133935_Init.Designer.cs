@@ -10,7 +10,7 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220627073121_Init")]
+    [Migration("20220627133935_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,8 +192,8 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Jwt")
-                        .HasColumnType("int");
+                    b.Property<string>("Jwt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");

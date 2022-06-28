@@ -20,15 +20,16 @@ namespace MyAppBackend
 }
 
 /*
-    loading frontend on start
-    comments as tree
+    comments as tree -- last
+    loading frontend on start - during check is loggedin
     google auth
     seperate admin panel
-    action filter checkifowner, isnotdeleted 
+    action filter if owner, is not deleted, if friend
     remove comment replace with [removed]
-    angular error modal
     generic post and comment service for most of service methods
-    pagination
-    forbid non friends seeing your posts, friends etc
+    angular error modal - subscribe
+    finish profile, thread
+    get 5 users with top number of of posts for recommended people
+    pagination - posts 10 by 10 with offset
     fix date on frontend
  */

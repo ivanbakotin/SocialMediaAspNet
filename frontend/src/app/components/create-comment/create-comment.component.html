@@ -1,1 +1,15 @@
-<p>create-comment works!</p>
+<form #createPostForm="ngForm" (ngSubmit)="submitForm(createPostForm)">
+  <div>
+    <label for="body">Comment:</label>
+    <textarea
+      ngModel
+      name="body"
+      id="body"
+      cols="30"
+      rows="5"
+      placeholder="The content of this comment is..."
+    ></textarea>
+  </div>
+
+  <input type="submit" value="Comment" />
+</form>

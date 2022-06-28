@@ -190,8 +190,8 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Jwt")
-                        .HasColumnType("int");
+                    b.Property<string>("Jwt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
