@@ -1,5 +1,6 @@
 :host {
   position: relative;
+  z-index: -1;
 }
 
 form {
@@ -13,6 +14,7 @@ form {
 
 .search-results {
   position: absolute;
+
   li {
     a {
       font-size: var(--font-size-sm);
