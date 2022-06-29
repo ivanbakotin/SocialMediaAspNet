@@ -1,0 +1,9 @@
+<h2>Recommended People!</h2>
+
+<ul class="recommended">
+  <li *ngFor="let user of recommendedUsers">
+    <div class="recommended__username" [routerLink]="['/profile/' + user.id]">
+      {{ user.username }}
+    </div>
+  </li>
+</ul>

@@ -20,8 +20,8 @@ export class FriendsComponent implements OnInit {
     console.log(this._route);
     this.friendService.getFriends(history.state.navigationId).subscribe(
       (response) => {
-        console.log(response);
-        this.friends = response;
+        console.log(response[0].friends1.concat(response[0].friends2));
+        this.friends = response[0].friends1.concat(response[0].friends2);
       },
       (error) => console.log(error)
     );

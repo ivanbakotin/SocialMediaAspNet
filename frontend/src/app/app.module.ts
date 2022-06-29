@@ -23,7 +23,6 @@ import { ResetComponent } from './pages/logged-out/reset/reset.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostComponent } from './components/post/post.component';
 import { SearchComponent } from './components/search/search.component';
-import { BookmarkedComponent } from './components/bookmarked/bookmarked.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { ProfilepreviewComponent } from './components/profilepreview/profilepreview.component';
 import { SettingsComponent } from './pages/logged-in/profile/settings/settings.component';
@@ -36,6 +35,7 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { MainPostComponent } from './components/main-post/main-post.component';
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
+import { RecommendedComponent } from './components/recommended/recommended.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,6 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
     PostsComponent,
     PostComponent,
     SearchComponent,
-    BookmarkedComponent,
     CreatePostComponent,
     ProfilepreviewComponent,
     SettingsComponent,
@@ -69,6 +68,7 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
     CommentComponent,
     MainPostComponent,
     CreateCommentComponent,
+    RecommendedComponent,
   ],
   imports: [
     BrowserModule,

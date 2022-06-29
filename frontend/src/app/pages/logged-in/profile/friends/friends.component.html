@@ -1,8 +1,11 @@
 <section class="friends">
-  <h2 class="friends">Friends</h2>
+  <h2 class="friends__title">Friends</h2>
   <ul class="friends__list">
     <li class="friends__item" *ngFor="let r of friends">
-      {{ r.username }}
+      <h3>{{ r.username }}</h3>
+      <button>Remove</button>
     </li>
   </ul>
+
+  <div class="friends__empty" *ngIf="!friends.lenght">No friends to show!</div>
 </section>

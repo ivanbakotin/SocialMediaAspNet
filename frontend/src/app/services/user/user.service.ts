@@ -12,6 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   private searchUsersURL = `${HOSTNAME}User/search/`;
+  private recommendedUsersURL = `${HOSTNAME}User/recommended`;
   private deleteUserURL = `${HOSTNAME}User/delete/`;
 
   public getCurrentUserID() {
@@ -22,6 +23,10 @@ export class UserService {
 
   public searchUsers(param: string): Observable<any> {
     return this.http.get(this.searchUsersURL + param, { headers: GetHeader() });
+  }
+
+  public getRecommendedUsers(): Observable<any> {
+    return this.http.get(this.recommendedUsersURL, { headers: GetHeader() });
   }
 
   public deleteUser(): Observable<any> {

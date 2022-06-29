@@ -29,6 +29,18 @@ namespace MyAppBackend.Services.UserService
             return result;
         }
 
+        public List<UserViewModel> GetRecommended(int UserID)
+        {
+            // dont send friends
+            var result = mapper.ProjectTo<UserViewModel>(context.Users
+                                                                  .Where(x => x.ID != UserID)
+                                                                  .OrderByDescending(u => u.Posts.Count)
+                                                                  .Take(5)
+                                                                 ).ToList();
+
+            return result;
+        }
+
         public void ResetPassword()
         {
             throw new NotImplementedException();

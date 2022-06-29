@@ -35,6 +35,13 @@ namespace MyAppBackend.Controllers
             return Ok(result);
         }
 
+        [HttpGet("recommended")]
+        public IActionResult GetRecommended()
+        {
+            var result = userService.GetRecommended(GetCurrentUserID());
+            return Ok(result);
+        }
+
         [HttpPut("resetpassword"), Authorize]
         public void ResetPassword()
         {

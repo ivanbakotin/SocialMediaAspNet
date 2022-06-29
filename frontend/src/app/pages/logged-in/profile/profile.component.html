@@ -1,10 +1,8 @@
-<div class="background"></div>
-
-<h2>
+<h2 class="username">
   {{ profile?.username }}
 </h2>
 
-<p>{{ profile?.bio }}</p>
+<p class="bio">{{ profile?.bio }}</p>
 
 <div class="btns">
   <button
@@ -37,12 +35,15 @@
   <button
     [routerLink]="['/profile/' + currentUserID]"
     *ngIf="displayService.checkIsFriend(currentUserID, profile)"
+    [routerLinkActiveOptions]="{ exact: true }"
+    routerLinkActive="is-active"
   >
     Posts
   </button>
   <button
     routerLink="details"
     *ngIf="displayService.checkIsFriend(currentUserID, profile)"
+    routerLinkActive="is-active"
   >
     Personal Details
   </button>
@@ -50,13 +51,22 @@
     [routerLink]="['friends']"
     [id]="profile.id"
     *ngIf="displayService.checkIsFriend(currentUserID, profile)"
+    routerLinkActive="is-active"
   >
     Friends
   </button>
-  <button routerLink="requests" *ngIf="currentUserID == profile?.id">
+  <button
+    routerLink="requests"
+    *ngIf="currentUserID == profile?.id"
+    routerLinkActive="is-active"
+  >
     Requests
   </button>
-  <button routerLink="settings" *ngIf="currentUserID == profile?.id">
+  <button
+    routerLink="settings"
+    *ngIf="currentUserID == profile?.id"
+    routerLinkActive="is-active"
+  >
     Settings
   </button>
 </div>

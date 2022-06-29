@@ -1,0 +1,13 @@
+.friends {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: var(--font-size-sm);
+  }
+
+  &__empty {
+    font-size: var(--font-size-sm);
+  }
+}

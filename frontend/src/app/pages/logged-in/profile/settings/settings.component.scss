@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  button {
+    padding: 0.5rem;
+    font-size: var(--font-size-xsm);
+  }
+}

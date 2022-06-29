@@ -4,9 +4,11 @@
     <li class="requests__item" *ngFor="let r of requestsSent">
       {{ r.username }}
 
-      <button class="btn remove">Remove</button>
+      <button class="btn remove" (click)="removeRequest(r.id)">Remove</button>
     </li>
   </ul>
+
+  <div *ngIf="!requestsSent.length">No sent requests!</div>
 </section>
 
 <section class="requests">
@@ -16,9 +18,13 @@
       {{ r.username }}
 
       <div class="btns">
-        <button class="btn accept">Accept</button>
-        <button class="btn decline">Decline</button>
+        <button class="btn accept" (click)="acceptRequest(r.id)">Accept</button>
+        <button class="btn decline" (click)="declineRequest(r.id)">
+          Decline
+        </button>
       </div>
     </li>
   </ul>
+
+  <div *ngIf="!requestsPending.length">No pending requests!</div>
 </section>

@@ -11,3 +11,9 @@
 h2 {
   font-size: var(--font-size-sm);
 }
+
+.recommended {
+  &__username {
+    font-size: var(--font-size-sm);
+  }
+}

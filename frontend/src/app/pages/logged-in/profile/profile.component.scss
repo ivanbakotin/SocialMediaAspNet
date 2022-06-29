@@ -6,18 +6,27 @@
   align-items: center;
 }
 
-.background {
-  width: 100%;
-  height: 10rem;
-  background-color: var(--color-secondary);
+.username {
+  padding: 3rem;
+  font-size: var(--font-size-sm);
+}
+
+.bio {
+  font-size: var(--font-size-xsm);
 }
 
 .btns {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  justify-content: center;
 
   button {
     font-size: var(--font-size-sm);
+  }
+
+  .is-active {
+    color: white;
+    background-color: gray;
   }
 }

@@ -5,7 +5,7 @@ import { ProfileService } from 'src/app/services/profile/profile.service';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Profile } from 'src/app/interfaces/Profile';
-
+import { SharedService } from 'src/app/services/profile/shared.service';
 import { DisplayService } from 'src/app/services/profile/display.service';
 
 @Component({
@@ -19,7 +19,8 @@ export class ProfileComponent implements OnInit {
     private friendService: FriendService,
     private profileService: ProfileService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sharedService: SharedService
   ) {}
 
   profile!: Profile;
@@ -27,6 +28,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((routeParams) => {
+      this.sharedService.updateID(routeParams['id']);
       this.getProfile(routeParams['id']);
     });
 
@@ -53,6 +55,7 @@ export class ProfileComponent implements OnInit {
     this.profileService.getProfile(id).subscribe(
       (response) => {
         console.log(response);
+        this.sharedService.updateProfile(response);
         this.profile = response;
       },
       (error) => {

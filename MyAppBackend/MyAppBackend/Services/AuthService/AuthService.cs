@@ -1,15 +1,9 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.EntityFrameworkCore;
+using MyAppBackend.ApiModels;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using MyAppBackend.Utilities;
-using MyAppBackend.ApiModels;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MyAppBackend.Services.Auth
 {
@@ -24,10 +18,7 @@ namespace MyAppBackend.Services.Auth
 
         public string Login(LoginUser user)
         {
-            var userObject = context.Users
-                               .Include(u => u.Role)
-                               .Where(u => u.Email == user.Email)
-                               .FirstOrDefault();
+            var userObject = context.Users.Include(u => u.Role).Where(u => u.Email == user.Email).FirstOrDefault();
 
             if (userObject == null)
             {
@@ -41,20 +32,7 @@ namespace MyAppBackend.Services.Auth
                 return null;
             }
 
-            var claims = new List<Claim>();
-            claims.Add(new Claim("role", userObject.Role.RoleName));
-            claims.Add(new Claim("ID", userObject.ID.ToString()));
-
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
-            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var tokenOptions = new JwtSecurityToken(
-                issuer: "https://localhost:5001",
-                audience: "https://localhost:5001",
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
-                signingCredentials: signinCredentials
-            );
-            string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            string tokenString = CreateJwt.GetJwt(userObject.Role.RoleName, userObject.ID.ToString());
 
             if (user.RememberMe)
             {
@@ -105,27 +83,14 @@ namespace MyAppBackend.Services.Auth
 
         public string IsLoggedIn(string token)
         {
-            var session = context.Sessions.Include(x => x.User).Where(x => x.Jwt == token).FirstOrDefault();
+            var session = context.Sessions.Include(x => x.User.Role).Where(x => x.Jwt == token).FirstOrDefault();
 
             if (session == null)
             {
                 return null;
             }
 
-            var claims = new List<Claim>();
-            claims.Add(new Claim("role", session.User.Role.RoleName));
-            claims.Add(new Claim("ID", session.User.ID.ToString()));
-
-            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
-            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var tokenOptions = new JwtSecurityToken(
-                issuer: "https://localhost:5001",
-                audience: "https://localhost:5001",
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
-                signingCredentials: signinCredentials
-            );
-            string tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            string tokenString = CreateJwt.GetJwt(session.User.Role.RoleName, session.User.ID.ToString());
 
             context.Sessions.RemoveRange(session);
 
