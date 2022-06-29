@@ -28,6 +28,8 @@ namespace MyAppBackend.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<VotedPost> VotedPosts { get; set; }
         public DbSet<VotedComment> VotedComments { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

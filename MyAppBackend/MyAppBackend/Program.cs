@@ -28,7 +28,7 @@ namespace MyAppBackend
     remove comment replace with [removed]
     generic post and comment service for most of service methods
     angular error modal - subscribe
-    finish profile, thread
+    finish profile settings
     pagination - posts 10 by 10 with offset - infinite scroll
     fix date on frontend
     email server

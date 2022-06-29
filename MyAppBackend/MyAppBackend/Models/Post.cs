@@ -7,6 +7,8 @@ namespace MyAppBackend.Models
         public virtual int ID { get; set; }
         public virtual int UserID { get; set; }
         public virtual User User { get; set; }
+        public virtual int GroupID { get; set; }
+        public virtual Group group { get; set; }
         public virtual string Summary { get; set; }
         public virtual string Body { get; set; }
         public virtual string Title { get; set; }
