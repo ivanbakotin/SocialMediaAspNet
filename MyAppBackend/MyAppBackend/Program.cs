@@ -29,7 +29,7 @@ namespace MyAppBackend
     generic post and comment service for most of service methods
     angular error modal - subscribe
     finish profile, thread
-    get 5 users with top number of of posts for recommended people
     pagination - posts 10 by 10 with offset
     fix date on frontend
+    email server
  */

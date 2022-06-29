@@ -1,0 +1,13 @@
+:host {
+  width: min(600px, 85%);
+}
+
+h2 {
+  text-align: center;
+  font-size: var(--font-size-sm);
+}
+
+.no-posts {
+  text-align: center;
+  font-size: var(--font-size-sm);
+}

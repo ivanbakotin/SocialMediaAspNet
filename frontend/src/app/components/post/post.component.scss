@@ -121,6 +121,8 @@
   &__paragraph {
     word-break: break-all;
     font-size: var(--font-size-xsm);
+    letter-spacing: 1px;
+    line-height: 1.3;
   }
 
   &__comments {

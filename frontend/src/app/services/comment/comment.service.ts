@@ -20,8 +20,10 @@ export class CommentService {
     return this.http.get(this.getCommentsURL + id, { headers: GetHeader() });
   }
 
-  voteComment(id: number): Observable<any> {
-    return this.http.post(this.voteCommentURL + id, { headers: GetHeader() });
+  voteComment(id: number, like: boolean): Observable<any> {
+    return this.http.post(this.voteCommentURL + id, like, {
+      headers: GetHeader(),
+    });
   }
 
   updateComment(id: number, body: any): Observable<any> {

@@ -29,7 +29,11 @@ namespace MyAppBackend.Profiles
             CreateMap<User, RequestViewModel>()
                 .ForMember(x => x.Username, o => o.MapFrom(x => x.FriendRequestsThem));
 
-            CreateMap<Comment, CommentViewModel>();
+            CreateMap<Comment, CommentViewModel>()
+                .ForMember(x => x.Username, o => o.MapFrom(x => x.User.Username))
+                .ForMember(x => x.CommentsNumber, o => o.MapFrom(x => x.Comments.Count))
+                .ForMember(x => x.Votes, o => o.MapFrom(x => x.Votes.Sum(v => v.Liked ? 1 : -1)))
+                .ForMember(x => x.Voted, o => o.MapFrom(x => x.Votes.First(u => u.UserID == CurrentUserID).Liked));
         }
     }
 }

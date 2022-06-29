@@ -13,6 +13,6 @@ namespace MyAppBackend.Models
         public virtual Comment? CommentVirtual { get; set; }
         public virtual string Body { get; set; }
         public virtual ICollection<Comment> Comments {get; set;}
-        public virtual ICollection<VotedComment> VotedComments { get; set; }
+        public virtual ICollection<VotedComment> Votes { get; set; }
     }
 }
