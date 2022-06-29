@@ -40,6 +40,8 @@ namespace MyAppBackend.Data
            new PostConfig().Configure(modelBuilder.Entity<Post>());
            new VotedCommentConfig().Configure(modelBuilder.Entity<VotedComment>());
            new VotedPostConfig().Configure(modelBuilder.Entity<VotedPost>());
+           new GroupMemberConfig().Configure(modelBuilder.Entity<GroupMember>());
+           new GroupRequestsConfig().Configure(modelBuilder.Entity<GroupRequest>());
         }
     }
 }

@@ -32,4 +32,6 @@ namespace MyAppBackend
     pagination - posts 10 by 10 with offset - infinite scroll
     fix date on frontend
     email server
+    implement groups
+    decline accept
  */

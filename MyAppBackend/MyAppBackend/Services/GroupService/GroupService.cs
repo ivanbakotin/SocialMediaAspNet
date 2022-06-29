@@ -2,7 +2,7 @@
 
 namespace MyAppBackend.Services.GroupService
 {
-    public class GroupService
+    public class GroupService : IGroupService
     {
         public dynamic SearchGroups(string param) 
         {

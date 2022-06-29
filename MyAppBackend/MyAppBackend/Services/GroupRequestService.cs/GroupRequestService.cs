@@ -1,40 +1,59 @@
-﻿using System;
+﻿using MyAppBackend.Data;
+using MyAppBackend.Models;
+using System;
+using System.Linq;
 
-namespace MyAppBackend.Services.GroupRequestService.cs
+namespace MyAppBackend.Services.GroupRequestService
 {
-    public class GroupRequestService
+    public class GroupRequestService : IGroupRequestService
     {
-        dynamic SendGroupRequest(int id)
+        private readonly DataContext context;
+
+        public GroupRequestService(DataContext context)
+        {
+            this.context = context;
+        }
+
+        public void SendGroupRequest(int id, int UserID)
+        {
+            var newGroupRequest = new GroupRequest
+            {
+                UserID = UserID,
+                GroupID = id,
+            };
+
+            context.GroupRequests.Add(newGroupRequest);
+            context.SaveChanges();
+        }
+
+        public void DeclineGroupRequest(int GroupID, int UserID)
+        {
+            var newGroupRequest = context.GroupRequests.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefault();
+            context.GroupRequests.Remove(newGroupRequest);
+            context.SaveChanges();
+        }
+
+        public void RemoveGroupRequest(int id, int UserID)
         {
             throw new NotImplementedException();
         }
 
-        dynamic DeclineGroupRequest(int id)
+        public void InviteToGroup(int id, int UserID, int MemberID)
         {
             throw new NotImplementedException();
         }
 
-        dynamic RemoveGroupRequest(int id)
+        public void AcceptToGroup(int id, int UserID, int GroupID)
         {
             throw new NotImplementedException();
         }
 
-        dynamic InviteToGroup(int id)
+        public void GetGroupRequestsSent(int UserID)
         {
             throw new NotImplementedException();
         }
 
-        dynamic AcceptToGroup(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        dynamic GetGroupRequestsSent(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        dynamic GetGroupRequestsPending(int id)
+        public void GetGroupRequestsPending(int UserID)
         {
             throw new NotImplementedException();
         }

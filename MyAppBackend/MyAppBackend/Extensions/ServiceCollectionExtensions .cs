@@ -14,6 +14,8 @@ using MyAppBackend.Services.FriendService;
 using MyAppBackend.Services.UserService;
 using MyAppBackend.Services.ProfileService;
 using MyAppBackend.Services.CommentService;
+using MyAppBackend.Services.GroupService;
+using MyAppBackend.Services.GroupRequestService;
 
 namespace MyAppBackend.Extensions
 {
@@ -96,6 +98,8 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IUserService, Services.UserService.UserService>();
             services.AddTransient<IProfileService, Services.ProfileService.ProfileService>();
             services.AddTransient<ICommentService, Services.CommentService.CommentService>();
+            services.AddTransient<IGroupRequestService, Services.GroupRequestService.GroupRequestService>();
+            services.AddTransient<IGroupService, Services.GroupService.GroupService>();
 
             return services;
         }

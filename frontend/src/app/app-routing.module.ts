@@ -10,6 +10,8 @@ import { DetailsComponent } from './pages/logged-in/profile/details/details.comp
 import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
 import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
 import { RequestsComponent } from './pages/logged-in/profile/requests/requests.component';
+import { GroupComponent } from './pages/logged-in/group/group.component';
+import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -53,6 +55,28 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+      },
+      {
+        path: 'groups',
+        component: GroupsComponent,
+      },
+      {
+        path: 'group/:id',
+        component: GroupComponent,
+        children: [
+          {
+            path: '',
+            component: OverviewComponent,
+          },
+          {
+            path: 'members',
+            component: FriendsComponent,
+          },
+          {
+            path: 'requests',
+            component: RequestsComponent,
+          },
+        ],
       },
       {
         path: 'thread/:id',

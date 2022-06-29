@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MyAppBackend.Services.GroupRequestService.cs
+﻿namespace MyAppBackend.Services.GroupRequestService
 {
-    interface IGroupRequestService
+    public interface IGroupRequestService
     {
-        dynamic SendGroupRequest(int id);
-        dynamic DeclineGroupRequest(int id);
-        dynamic RemoveGroupRequest(int id);
-        dynamic InviteToGroup(int id);
-        dynamic AcceptToGroup(int id);
-        dynamic GetGroupRequestsSent(int id);
-        dynamic GetGroupRequestsPending(int id);
+        void SendGroupRequest(int id, int UserID);
+        void DeclineGroupRequest(int id, int UserID);
+        void RemoveGroupRequest(int id, int UserID);
+        void InviteToGroup(int id, int UserID, int MemberID);
+        void AcceptToGroup(int id, int UserID, int GroupID);
+        void GetGroupRequestsSent(int UserID);
+        void GetGroupRequestsPending(int UserID);
     }
 }

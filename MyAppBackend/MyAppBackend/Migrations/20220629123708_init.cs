@@ -8,6 +8,20 @@ namespace MyAppBackend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Groups",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Groups", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -95,12 +109,79 @@ namespace MyAppBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GroupMembers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    GroupID = table.Column<int>(type: "int", nullable: false),
+                    RoleID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupMembers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GroupMembers_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupMembers_Roles_RoleID",
+                        column: x => x.RoleID,
+                        principalTable: "Roles",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupMembers_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GroupRequests",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    MemberID = table.Column<int>(type: "int", nullable: true),
+                    GroupID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GroupRequests", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_GroupRequests_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GroupRequests_Users_MemberID",
+                        column: x => x.MemberID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_GroupRequests_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
+                    GroupID = table.Column<int>(type: "int", nullable: true),
                     Summary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -108,6 +189,12 @@ namespace MyAppBackend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Posts_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Posts_Users_UserID",
                         column: x => x.UserID,
@@ -305,6 +392,41 @@ namespace MyAppBackend.Migrations
                 column: "UserID2");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GroupMembers_GroupID",
+                table: "GroupMembers",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupMembers_RoleID",
+                table: "GroupMembers",
+                column: "RoleID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupMembers_UserID",
+                table: "GroupMembers",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupRequests_GroupID",
+                table: "GroupRequests",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupRequests_MemberID",
+                table: "GroupRequests",
+                column: "MemberID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupRequests_UserID",
+                table: "GroupRequests",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_GroupID",
+                table: "Posts",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserID",
                 table: "Posts",
                 column: "UserID");
@@ -359,6 +481,12 @@ namespace MyAppBackend.Migrations
                 name: "Friends");
 
             migrationBuilder.DropTable(
+                name: "GroupMembers");
+
+            migrationBuilder.DropTable(
+                name: "GroupRequests");
+
+            migrationBuilder.DropTable(
                 name: "Profiles");
 
             migrationBuilder.DropTable(
@@ -378,6 +506,9 @@ namespace MyAppBackend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Users");

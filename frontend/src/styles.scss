@@ -35,7 +35,7 @@ textarea {
 :root {
   --color-primary: #d9e2eb;
   --color-secondary: #373535;
-  --color-tertiary: #84abd2;
+  --color-tertiary: #638fbb;
 
   --font-size-xsm: clamp(1rem, 1.2vw, 1.5rem);
   --font-size-sm: clamp(1.3rem, 2vw, 2rem);
@@ -52,5 +52,11 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

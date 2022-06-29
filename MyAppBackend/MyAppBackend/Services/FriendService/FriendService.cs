@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
-using MyAppBackend.ViewModels;
 using System.Linq;
 
 namespace MyAppBackend.Services.FriendService
@@ -43,9 +42,11 @@ namespace MyAppBackend.Services.FriendService
             var result = context.Users.Where(f => f.ID == id)
                                       .Select(x => new
                                       {
-                                          Friends1 = x.Friends1.Select(p => new { p.User1.Username, other = p.User2.Username }),
-                                          Friends2 = x.Friends2.Select(p => new { p.User1.Username, other = p.User2.Username }),
-                                      }); ;
+                                          Friends1 = x.Friends1.Where(x => x.UserID1 != id).Select(p => new { p.User1.Username, p.User1.ID }),
+                                          Friends11 = x.Friends1.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
+                                          Friends2 = x.Friends2.Where(x => x.UserID1 != id).Select(p =>  new { p.User1.Username, p.User1.ID }),
+                                          Friends22 = x.Friends2.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
+                                      });
             return result;
         }
 
@@ -64,8 +65,8 @@ namespace MyAppBackend.Services.FriendService
         public void RemoveFriend(int UserID, int id)
         {
             var toDeleteFriend = context.Friends
-                                            .Where(f => ((f.UserID2 == UserID && f.UserID1 == id)
-                                                      || (f.UserID1 == UserID && f.UserID2 == id)))
+                                            .Where(f => (f.UserID2 == UserID && f.UserID1 == id)
+                                                     || (f.UserID1 == UserID && f.UserID2 == id))
                                             .FirstOrDefault();
 
             if (toDeleteFriend != null)
