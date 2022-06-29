@@ -38,6 +38,8 @@ import { CreateCommentComponent } from './components/create-comment/create-comme
 import { RecommendedComponent } from './components/recommended/recommended.component';
 import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
+import { SearchgroupsComponent } from './components/searchgroups/searchgroups.component';
+import { CreategroupComponent } from './components/creategroup/creategroup.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { GroupComponent } from './pages/logged-in/group/group.component';
     RecommendedComponent,
     GroupsComponent,
     GroupComponent,
+    SearchgroupsComponent,
+    CreategroupComponent,
   ],
   imports: [
     BrowserModule,

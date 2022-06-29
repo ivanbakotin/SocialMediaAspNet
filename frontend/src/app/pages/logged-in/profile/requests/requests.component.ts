@@ -15,15 +15,18 @@ export class RequestsComponent implements OnInit {
   requestsSent: any = [];
 
   removeRequest(id: number) {
-    console.log();
+    this.requestsSent = this.requestsSent.filter((f: any) => f.id !== id);
+    this.friendService.declineRequest(id);
   }
 
   declineRequest(id: number) {
-    console.log();
+    this.requestsPending = this.requestsPending.filter((f: any) => f.id !== id);
+    this.friendService.declineRequest(id);
   }
 
   acceptRequest(id: number) {
-    console.log();
+    this.requestsPending = this.requestsPending.filter((f: any) => f.id !== id);
+    this.friendService.acceptRequest(id);
   }
 
   ngOnInit(): void {

@@ -33,5 +33,4 @@ namespace MyAppBackend
     fix date on frontend
     email server
     implement groups
-    decline accept
  */
