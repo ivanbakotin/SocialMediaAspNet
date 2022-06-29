@@ -8,7 +8,7 @@
               ? 'post__upvote voted'
               : 'post__upvote'
           "
-          (click)="vote(post.id, true, this.index, post.voted)"
+          (click)="vote(true)"
         >
           <mat-icon>thumb_up</mat-icon>
         </div>
@@ -19,7 +19,7 @@
               ? 'post__downvote voted'
               : 'post__downvote'
           "
-          (click)="vote(post.id, false, this.index, post.voted)"
+          (click)="vote(false)"
         >
           <i class="material-icons">thumb_down</i>
         </div>
@@ -39,9 +39,7 @@
 
         <div *ngIf="currentUserID == post.userID" class="post__buttons">
           <button class="post__btn edit" (click)="startEditing()">Edit</button>
-          <button class="post__btn delete" (click)="deleteP(post.id)">
-            Delete
-          </button>
+          <button class="post__btn delete" (click)="delete()">Delete</button>
         </div>
       </div>
 
@@ -52,7 +50,7 @@
       <div *ngIf="post.isEditing">
         <form
           #createPostForm="ngForm"
-          (ngSubmit)="edit(post.id, createPostForm)"
+          (ngSubmit)="edit(createPostForm)"
           class="form"
         >
           <textarea

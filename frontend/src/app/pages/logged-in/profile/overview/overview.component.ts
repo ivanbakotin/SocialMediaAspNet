@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { PostService } from 'src/app/services/post/post.service';
 import { SharedService } from 'src/app/services/profile/shared.service';
+import { PostSharedService } from 'src/app/services/post/postShared.service';
 
 @Component({
   selector: 'app-overview',
@@ -11,7 +12,8 @@ import { SharedService } from 'src/app/services/profile/shared.service';
 export class OverviewComponent implements OnInit {
   constructor(
     private postService: PostService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private postSharedService: PostSharedService
   ) {}
 
   posts: any = [];
@@ -19,6 +21,7 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.sharedService.userID.subscribe((id) => (this.id = id));
+    this.postSharedService.post.subscribe((posts) => (this.posts = posts));
     this.getUserPosts();
   }
 
@@ -26,7 +29,7 @@ export class OverviewComponent implements OnInit {
     this.postService.getUserPosts(this.id).subscribe(
       (response) => {
         this.posts = response;
-        console.log(response);
+        this.postSharedService.updatePosts(response);
       },
       (error) => {
         console.error(error);

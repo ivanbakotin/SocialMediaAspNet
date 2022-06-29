@@ -38,8 +38,8 @@ export class CommentService {
     });
   }
 
-  createComment(id: number, body: any): Observable<any> {
-    return this.http.post(this.createCommentURL + id, body, {
+  createComment(body: any): Observable<any> {
+    return this.http.post(this.createCommentURL, body, {
       headers: GetHeader(),
     });
   }

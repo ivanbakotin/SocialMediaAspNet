@@ -2,9 +2,8 @@
 
 <ul *ngIf="comments.length">
   <app-comment
-    *ngFor="let comment of comments; let i = index"
+    *ngFor="let comment of comments"
     [comment]="comment"
-    [index]="i"
   ></app-comment>
 </ul>
 

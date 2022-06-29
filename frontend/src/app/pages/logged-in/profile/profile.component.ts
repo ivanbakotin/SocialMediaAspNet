@@ -54,7 +54,6 @@ export class ProfileComponent implements OnInit {
   getProfile(id: any) {
     this.profileService.getProfile(id).subscribe(
       (response) => {
-        console.log(response);
         this.sharedService.updateProfile(response);
         this.profile = response;
       },

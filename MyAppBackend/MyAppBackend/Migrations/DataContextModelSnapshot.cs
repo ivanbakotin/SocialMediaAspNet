@@ -103,6 +103,9 @@ namespace MyAppBackend.Migrations
                     b.Property<string>("Body")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Summary")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -136,6 +139,9 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserID")
@@ -345,7 +351,7 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>
                 {
                     b.HasOne("MyAppBackend.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -400,7 +406,7 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.VotedComment", b =>
                 {
                     b.HasOne("MyAppBackend.Models.Comment", "Comment")
-                        .WithMany("VotedComments")
+                        .WithMany("Votes")
                         .HasForeignKey("CommentID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -439,7 +445,7 @@ namespace MyAppBackend.Migrations
                 {
                     b.Navigation("Comments");
 
-                    b.Navigation("VotedComments");
+                    b.Navigation("Votes");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>
@@ -458,6 +464,8 @@ namespace MyAppBackend.Migrations
                     b.Navigation("Friends1");
 
                     b.Navigation("Friends2");
+
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

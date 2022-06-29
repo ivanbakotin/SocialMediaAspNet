@@ -32,7 +32,7 @@ export class PostService {
     return this.http.get(this.getPostURL + id, { headers: GetHeader() });
   }
 
-  public createPost(body: Post): Observable<any> {
+  public createPost(body: any): Observable<any> {
     return this.http.post(this.createPostURL, body, { headers: GetHeader() });
   }
 

@@ -1,8 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { UserService } from 'src/app/services/user/user.service';
+import { PostService } from 'src/app/services/post/post.service';
+import { PostSharedService } from 'src/app/services/post/postShared.service';
 import { Post } from 'src/app/interfaces/Post';
-import { NgForm } from '@angular/forms';
+import { updateVote } from 'src/app/utils/updateVote';
 
 @Component({
   selector: 'app-post',
@@ -10,32 +13,49 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent implements OnInit {
-  constructor(private userService: UserService) {}
-
-  currentUserID!: number;
+  constructor(
+    private userService: UserService,
+    private postService: PostService,
+    private sharedService: PostSharedService
+  ) {}
 
   @Input() post!: Post;
-  @Input() index!: number;
-
-  @Output() votePost = new EventEmitter();
-  @Output() updatePost = new EventEmitter();
-  @Output() deletePost = new EventEmitter();
+  currentUserID!: number;
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
   }
 
-  vote(postID: number, vote: boolean, index: number, voted: boolean | null) {
-    this.votePost.emit({ postID, vote, index, voted });
+  vote(vote: boolean) {
+    this.postService.votePost(this.post.id, vote).subscribe(
+      (response) => {
+        updateVote(this.post, vote);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
-  edit(postID: number, form: NgForm) {
-    this.updatePost.emit({ postID, form: form.value });
+  edit(form: NgForm) {
     this.endEditing();
+    this.post.body = form.value.body;
+    this.postService.updatePost(this.post.id, form.value.body).subscribe(
+      () => {},
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
-  deleteP(postID: number) {
-    this.deletePost.emit(postID);
+  delete() {
+    this.sharedService.deletePost(this.post.id);
+    this.postService.deletePost(this.post.id).subscribe(
+      () => {},
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   startEditing() {

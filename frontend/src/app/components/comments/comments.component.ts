@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CommentService } from 'src/app/services/comment/comment.service';
+import { CommentSharedService } from 'src/app/services/comment/commentShared.service';
 
 @Component({
   selector: 'app-comments',
@@ -11,12 +12,16 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 export class CommentsComponent implements OnInit {
   constructor(
     private commentService: CommentService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sharedService: CommentSharedService
   ) {}
 
   comments: any = [];
 
   ngOnInit(): void {
+    this.sharedService.comment.subscribe(
+      (comments) => (this.comments = comments)
+    );
     this.route.params.subscribe((routeParams) => {
       this.getComments(routeParams['id']);
     });
@@ -24,7 +29,7 @@ export class CommentsComponent implements OnInit {
 
   getComments(id: number) {
     this.commentService.getComments(id).subscribe((response) => {
-      console.log(response);
+      this.sharedService.updateComments(response);
       this.comments = response;
     });
   }

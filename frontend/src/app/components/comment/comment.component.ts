@@ -4,6 +4,7 @@ import { CommentService } from 'src/app/services/comment/comment.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Comment } from 'src/app/interfaces/Comment';
 import { updateVote } from 'src/app/utils/updateVote';
+import { CommentSharedService } from 'src/app/services/comment/commentShared.service';
 
 @Component({
   selector: 'app-comment',
@@ -13,19 +14,19 @@ import { updateVote } from 'src/app/utils/updateVote';
 export class CommentComponent implements OnInit {
   constructor(
     private commentService: CommentService,
-    private userService: UserService
+    private userService: UserService,
+    private sharedService: CommentSharedService
   ) {}
 
-  @Input() index!: number;
   @Input() comment!: Comment;
-  currentUserID: number = 1;
+  currentUserID!: number;
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
   }
 
-  vote(id: number, vote: boolean) {
-    this.commentService.voteComment(id, vote).subscribe(
+  vote(vote: boolean) {
+    this.commentService.voteComment(this.comment.id, vote).subscribe(
       () => {
         updateVote(this.comment, vote);
       },
@@ -35,10 +36,10 @@ export class CommentComponent implements OnInit {
     );
   }
 
-  update(id: number, body: any) {
+  update(body: any) {
     this.endEditing();
     this.comment.body = body.value.body;
-    this.commentService.updateComment(id, body.value).subscribe(
+    this.commentService.updateComment(this.comment.id, body.value).subscribe(
       () => {},
       (error) => {
         console.error(error);
@@ -46,8 +47,9 @@ export class CommentComponent implements OnInit {
     );
   }
 
-  delete(id: number) {
-    this.commentService.deleteComment(id).subscribe(
+  delete() {
+    this.sharedService.deleteComment(this.comment.id);
+    this.commentService.deleteComment(this.comment.id).subscribe(
       () => {},
       (error) => {
         console.error(error);

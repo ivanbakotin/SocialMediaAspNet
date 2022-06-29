@@ -8,7 +8,7 @@
               ? 'comment__upvote voted'
               : 'comment__upvote'
           "
-          (click)="vote(comment.id, true)"
+          (click)="vote(true)"
         >
           <mat-icon>thumb_up</mat-icon>
         </div>
@@ -19,7 +19,7 @@
               ? 'comment__downvote voted'
               : 'comment__downvote'
           "
-          (click)="vote(comment.id, false)"
+          (click)="vote(false)"
         >
           <i class="material-icons">thumb_down</i>
         </div>
@@ -43,9 +43,7 @@
           <button class="comment__btn edit" (click)="startEditing()">
             Edit
           </button>
-          <button class="comment__btn delete" (click)="delete(comment.id)">
-            Delete
-          </button>
+          <button class="comment__btn delete" (click)="delete()">Delete</button>
         </div>
       </div>
 
@@ -57,7 +55,7 @@
         <form
           #createcommentForm="ngForm"
           class="form"
-          (submit)="update(comment.id, createcommentForm)"
+          (submit)="update(createcommentForm)"
         >
           <textarea
             ngModel

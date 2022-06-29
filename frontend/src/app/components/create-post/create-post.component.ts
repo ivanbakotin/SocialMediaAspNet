@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
+import { PostSharedService } from 'src/app/services/post/postShared.service';
+import { PostService } from 'src/app/services/post/post.service';
 
 @Component({
   selector: 'app-create-post',
@@ -7,9 +10,10 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./create-post.component.scss'],
 })
 export class CreatePostComponent implements OnInit {
-  constructor() {}
-
-  @Output() sendPost = new EventEmitter();
+  constructor(
+    private sharedService: PostSharedService,
+    private postService: PostService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -19,6 +23,13 @@ export class CreatePostComponent implements OnInit {
       body: form.value.body,
     };
 
-    this.sendPost.emit(body);
+    this.postService.createPost(body).subscribe(
+      (response) => {
+        this.sharedService.addPost(response);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 }

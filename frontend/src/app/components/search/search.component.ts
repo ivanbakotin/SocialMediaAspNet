@@ -15,14 +15,17 @@ export class SearchComponent implements OnInit {
   searchResults: any[] = [];
 
   searchUsers(param: string) {
-    this.userService.searchUsers(param).subscribe(
-      (response) => {
-        this.searchResults = response;
-        console.log(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    if (param) {
+      this.userService.searchUsers(param).subscribe(
+        (response) => {
+          this.searchResults = response;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    } else {
+      this.searchResults = [];
+    }
   }
 }

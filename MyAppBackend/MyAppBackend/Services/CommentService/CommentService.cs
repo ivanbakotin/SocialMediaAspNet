@@ -33,6 +33,8 @@ namespace MyAppBackend.Services.CommentService
         public CommentViewModel CreateComment(Comment comment, int UserID)
         {
             comment.UserID = UserID;
+            comment.PostID = comment.PostID;
+            comment.CommentID = comment?.CommentID;
             context.Comments.Add(comment);
             context.SaveChanges();
 
