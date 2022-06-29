@@ -30,6 +30,7 @@ namespace MyAppBackend.Data
         public DbSet<VotedComment> VotedComments { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<GroupRequest> GroupRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
