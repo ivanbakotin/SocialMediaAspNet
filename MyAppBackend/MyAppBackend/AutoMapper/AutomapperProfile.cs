@@ -19,6 +19,7 @@ namespace MyAppBackend.Profiles
             CreateMap<User, UserViewModel>();
 
             CreateMap<Profile, ProfileViewModel>()
+                .ForMember(x => x.Birthday, o => o.MapFrom(x => x.Birthday.ToString()))
                 .ForMember(x => x.Username, o => o.MapFrom(x => x.User.Username))
                 .ForMember(x => x.Email, o => o.MapFrom(x => x.User.Email))
                 .ForMember(x => x.IsFriend, o => o.MapFrom(x => x.User.Friends1.Any(f => f.UserID1 == CurrentUserID || f.UserID2 == CurrentUserID) 

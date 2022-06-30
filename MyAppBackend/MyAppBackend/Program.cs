@@ -27,11 +27,11 @@ namespace MyAppBackend
     action filter if owner, is not deleted, if friend
     remove comment replace with [removed]
     generic post and comment service for most of service methods
-    angular error modal - subscribe
     finish profile settings
     pagination - posts 10 by 10 with offset - infinite scroll
-    fix date on frontend
+    fix dates
     email server
-    implement groups
     make everything async backend
+    tags/hashtags on posts
+    implement groups
  */

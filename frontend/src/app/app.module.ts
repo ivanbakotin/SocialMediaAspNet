@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ErrorService } from './services/error/error.service';
+import { AlertifyService } from './services/alertify/alertify.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/logged-out/login/login.component';
@@ -41,8 +42,7 @@ import { RecommendedComponent } from './components/recommended/recommended.compo
 import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
 import { SearchgroupsComponent } from './components/searchgroups/searchgroups.component';
-import { CreategroupComponent } from './components/creategroup/creategroup.component';
-import { AlertifyService } from './services/alertify/alertify.service';
+import { CreateGroupComponent } from './components/create-group/create-group.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +79,7 @@ import { AlertifyService } from './services/alertify/alertify.service';
     GroupsComponent,
     GroupComponent,
     SearchgroupsComponent,
-    CreategroupComponent,
+    CreateGroupComponent,
   ],
   imports: [
     BrowserModule,

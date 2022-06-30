@@ -12,7 +12,7 @@ namespace MyAppBackend.ViewModels
         public string Bio { get; set; }
         public string Gender { get; set; }
         public int Age { get; set; }
-        public DateTime Birthday { get; set; }
+        public string Birthday { get; set; }
         public bool IsFriend { get; set; }
         public bool IsRequesting { get; set; }
         public bool IAmRequesting { get; set; }

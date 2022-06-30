@@ -1,6 +1,8 @@
-﻿namespace MyAppBackend.Services.GroupService
+﻿using MyAppBackend.Models;
+
+namespace MyAppBackend.Services.GroupService
 {
-    interface IGroupService
+    public interface IGroupService
     {
         dynamic SearchGroups(string param);
         dynamic SearchGroupUsers(int id, string param);
@@ -10,5 +12,8 @@
         dynamic UpdateGroupInfo(int id);
         dynamic DeleteGroup(int id);
         dynamic RemoveGroupUser(int id);
+        Group CreateGroup(Group group, int UserID);
+        dynamic GetUserGroups(int UserID);
+        void GetRecommendedGroups(int UserID);
     }
 }

@@ -1,0 +1,43 @@
+form {
+  display: flex;
+  gap: 1rem;
+  margin: 5em;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: var(--font-size-xsm);
+  }
+
+  input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 0.5rem;
+    font-size: var(--font-size-xsm);
+  }
+
+  input[type='submit'] {
+    cursor: pointer;
+    border: 1px solid black;
+    width: max-content;
+    height: max-content;
+    align-self: end;
+    font-size: var(--font-size-sm);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  textarea {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+    font-size: var(--font-size-xsm);
+  }
+}

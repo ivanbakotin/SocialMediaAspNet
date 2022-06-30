@@ -10,7 +10,8 @@ namespace MyAppBackend.ModelBuilderConfig
         {
             modelBuilder
                 .HasOne(e => e.User)
-                .WithMany()
+                .WithMany(e => e.Groups)
+                .HasForeignKey(x => x.UserID)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

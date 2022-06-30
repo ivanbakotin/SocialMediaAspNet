@@ -303,6 +303,33 @@ namespace MyAppBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TagName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostID = table.Column<int>(type: "int", nullable: true),
+                    GroupID = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Tags_Groups_GroupID",
+                        column: x => x.GroupID,
+                        principalTable: "Groups",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tags_Posts_PostID",
+                        column: x => x.PostID,
+                        principalTable: "Posts",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VotedPosts",
                 columns: table => new
                 {
@@ -447,6 +474,16 @@ namespace MyAppBackend.Migrations
                 column: "UserID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tags_GroupID",
+                table: "Tags",
+                column: "GroupID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tags_PostID",
+                table: "Tags",
+                column: "PostID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleID",
                 table: "Users",
                 column: "RoleID");
@@ -494,6 +531,9 @@ namespace MyAppBackend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sessions");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "VotedComments");

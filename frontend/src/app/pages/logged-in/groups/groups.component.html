@@ -1,1 +1,9 @@
-<p>groups works!</p>
+<app-searchgroups></app-searchgroups>
+<app-create-group></app-create-group>
+
+<ul>
+  <li *ngFor="let group of groups">
+    <h2>{{ group.group.name }}</h2>
+    <p>{{ group.group.description }}</p>
+  </li>
+</ul>

@@ -31,6 +31,7 @@ namespace MyAppBackend.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<GroupRequest> GroupRequests { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

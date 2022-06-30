@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.Models;
+using MyAppBackend.Services.GroupService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,13 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class GroupController : ControllerBase
     {
-       
+        private readonly IGroupService groupService;
+
+        public GroupController(IGroupService groupService)
+        {
+            this.groupService = groupService ?? throw new ArgumentNullException(nameof(groupService));
+        }
+
         private int GetCurrentUserID()
         {
             var identity = User.Identity as ClaimsIdentity;
@@ -34,22 +42,19 @@ namespace MyAppBackend.Controllers
 
         [HttpGet("users/{id}"), Authorize]
         public IActionResult GetGroupUsers(int id)
-        {
-       
+        {    
             return Ok();
         }
 
         [HttpGet("posts/{id}"), Authorize]
         public IActionResult GetGroupPosts(int id)
-        {
-        
+        {     
             return Ok();
         }
 
         [HttpGet("info/{id}"), Authorize]
         public IActionResult GetGroupInfo(int id)
         {
-   
             return Ok();
         }
 
@@ -67,6 +72,26 @@ namespace MyAppBackend.Controllers
 
         [HttpDelete("removeuser/{id}"), Authorize]
         public IActionResult RemoveGroupUser(int id)
+        {      
+            return Ok();
+        }
+
+        [HttpPost("create"), Authorize]
+        public IActionResult CreateGroup(Group group)
+        {
+            var result = groupService.CreateGroup(group, GetCurrentUserID());
+            return Ok(result);
+        }
+
+        [HttpGet("getusergroups"), Authorize]
+        public IActionResult GetUserGroups()
+        {
+            var result = groupService.GetUserGroups(GetCurrentUserID());
+            return Ok(result);
+        }
+
+        [HttpGet("recommended"), Authorize]
+        public IActionResult GetRecommendedGroups()
         {
             return Ok();
         }

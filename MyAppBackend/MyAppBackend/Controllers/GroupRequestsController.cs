@@ -41,13 +41,6 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpDelete("removerequest/{id}"), Authorize]
-        public IActionResult RemoveGroupRequest(int GroupID)
-        {
-            groupRequestService.RemoveGroupRequest(GroupID, GetCurrentUserID());
-            return Ok();
-        }
-
         [HttpPost("invite/{id}"), Authorize]
         public IActionResult InviteToGroup(int id, [FromBody] int MemberID)
         {

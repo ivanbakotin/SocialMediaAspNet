@@ -4,7 +4,6 @@
     {
         void SendGroupRequest(int id, int UserID);
         void DeclineGroupRequest(int id, int UserID);
-        void RemoveGroupRequest(int id, int UserID);
         void InviteToGroup(int id, int UserID, int MemberID);
         void AcceptToGroup(int id, int UserID, int GroupID);
         void GetGroupRequestsSent(int UserID);

@@ -15,5 +15,6 @@ namespace MyAppBackend.Models
         public virtual ICollection<FriendRequest> FriendRequestsMe { get; set; }
         public virtual ICollection<FriendRequest> FriendRequestsThem { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<GroupMember> Groups { get; set; }
     }
 }

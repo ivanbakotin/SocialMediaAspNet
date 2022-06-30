@@ -33,14 +33,17 @@ namespace MyAppBackend.Services.GroupRequestService
             context.SaveChanges();
         }
 
-        public void RemoveGroupRequest(int id, int UserID)
-        {
-            throw new NotImplementedException();
-        }
-
         public void InviteToGroup(int id, int UserID, int MemberID)
         {
-            throw new NotImplementedException();
+            var newGroupRequest = new GroupRequest
+            {
+                MemberID = MemberID,
+                UserID = UserID,
+                GroupID = id,
+            };
+
+            context.GroupRequests.Add(newGroupRequest);
+            context.SaveChanges();
         }
 
         public void AcceptToGroup(int id, int UserID, int GroupID)

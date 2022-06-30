@@ -1,12 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 
+import { GroupService } from 'src/app/services/group/group.service';
+import { GroupSharedService } from 'src/app/services/group/group-shared.service';
+
 @Component({
   selector: 'app-groups',
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss'],
 })
 export class GroupsComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private groupService: GroupService,
+    private groupSharedService: GroupSharedService
+  ) {}
 
-  ngOnInit(): void {}
+  groups: any = [];
+
+  ngOnInit(): void {
+    this.groupSharedService.group.subscribe((groups) => (this.groups = groups));
+    this.getUserGroups();
+  }
+
+  getUserGroups() {
+    this.groupService.getUserGroup().subscribe((response) => {
+      console.log(response[0]);
+      this.groups = response[0];
+      this.groupSharedService.updateGroups(response[0]);
+    });
+  }
 }
