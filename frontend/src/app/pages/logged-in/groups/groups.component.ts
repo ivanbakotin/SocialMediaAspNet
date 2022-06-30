@@ -23,6 +23,7 @@ export class GroupsComponent implements OnInit {
 
   getUserGroups() {
     this.groupService.getUserGroup().subscribe((response) => {
+      console.log(response);
       this.groups = response[0];
       this.groupSharedService.updateGroups(response[0]);
     });

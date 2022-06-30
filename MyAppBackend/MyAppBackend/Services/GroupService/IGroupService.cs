@@ -1,4 +1,7 @@
 ﻿using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MyAppBackend.Services.GroupService
 {
@@ -12,7 +15,7 @@ namespace MyAppBackend.Services.GroupService
         void UpdateGroupInfo(Group body, int GroupID);
         void DeleteGroup(int id);
         void RemoveGroupUser(int UserID, int GroupID);
-        Group CreateGroup(Group group, int UserID);
+        dynamic CreateGroup(Group group, int UserID);
         dynamic GetUserGroups(int UserID);
         void GetRecommendedGroups(int UserID);
     }

@@ -48,7 +48,16 @@ namespace MyAppBackend.Services.GroupRequestService
 
         public void AcceptToGroup(int id, int UserID, int GroupID)
         {
-            throw new NotImplementedException();
+            var newGroupRequest = context.GroupRequests.Where(x => x.UserID == id && x.GroupID == GroupID).FirstOrDefault();
+            context.GroupRequests.Remove(newGroupRequest);
+            var newMember = new GroupMember
+            {
+                GroupID = GroupID,
+                UserID = UserID,
+                RoleID = 2
+            };
+            context.GroupMembers.Add(newMember);
+            context.SaveChanges();
         }
 
         public void GetGroupRequestsSent(int UserID)
@@ -60,5 +69,16 @@ namespace MyAppBackend.Services.GroupRequestService
         {
             throw new NotImplementedException();
         }
+
+        public void GetUserGroupRequestsSent(int UserID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetUserGroupRequestsPending(int UserID)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

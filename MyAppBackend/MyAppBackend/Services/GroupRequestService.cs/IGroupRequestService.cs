@@ -8,5 +8,7 @@
         void AcceptToGroup(int id, int UserID, int GroupID);
         void GetGroupRequestsSent(int UserID);
         void GetGroupRequestsPending(int UserID);
+        void GetUserGroupRequestsSent(int UserID);
+        void GetUserGroupRequestsPending(int UserID);
     }
 }

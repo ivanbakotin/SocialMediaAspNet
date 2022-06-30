@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
+﻿using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
 using System;
 using System.Linq;
 
@@ -85,7 +85,7 @@ namespace MyAppBackend.Services.GroupService
             }
         }
 
-        public Group CreateGroup(Group group, int UserID)
+        public dynamic CreateGroup(Group group, int UserID)
         {      
             context.Groups.Add(group);
             context.SaveChanges();
@@ -104,11 +104,11 @@ namespace MyAppBackend.Services.GroupService
 
         public dynamic GetUserGroups(int UserID)
         {
-            var result = context.Users
-                //.Include(x => x.Groups)
+            //automapper maybe
+            var result = context.Users               
                 .Where(x => x.ID == UserID)
                 .Select(x => x.Groups
-                .Select(x => new { x.Role.RoleName, x.Group }));
+                .Select(x => new { x.Role.RoleName, x.Group, members = x.Group.Members.Count() })).ToList();
 
             return result;
         }

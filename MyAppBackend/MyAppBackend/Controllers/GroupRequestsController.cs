@@ -68,5 +68,19 @@ namespace MyAppBackend.Controllers
             groupRequestService.GetGroupRequestsPending(GetCurrentUserID());
             return Ok();
         }
+
+        [HttpGet("userrequestspending"), Authorize]
+        public IActionResult GetUserGroupRequestsSent()
+        {
+            groupRequestService.GetUserGroupRequestsSent(GetCurrentUserID());
+            return Ok();
+        }
+
+        [HttpGet("userrequestspending"), Authorize]
+        public IActionResult GetUserGroupRequestsPending()
+        {
+            groupRequestService.GetUserGroupRequestsPending(GetCurrentUserID());
+            return Ok();
+        }
     }
 }
