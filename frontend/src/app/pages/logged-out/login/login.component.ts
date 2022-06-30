@@ -14,8 +14,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  error = '';
-
   submitForm(form: NgForm) {
     const data = {
       email: form.value.email,
@@ -23,16 +21,10 @@ export class LoginComponent implements OnInit {
       rememberMe: form.value.rememberMe || false,
     };
 
-    this.loginService.login(data).subscribe(
-      (response) => {
-        const token = (<any>response).token;
-        localStorage.setItem('token', token);
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.log(error);
-        this.error = error.error;
-      }
-    );
+    this.loginService.login(data).subscribe((response) => {
+      const token = (<any>response).token;
+      localStorage.setItem('token', token);
+      this.router.navigate(['/home']);
+    });
   }
 }

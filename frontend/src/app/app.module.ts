@@ -42,6 +42,7 @@ import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
 import { SearchgroupsComponent } from './components/searchgroups/searchgroups.component';
 import { CreategroupComponent } from './components/creategroup/creategroup.component';
+import { AlertifyService } from './services/alertify/alertify.service';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { CreategroupComponent } from './components/creategroup/creategroup.compo
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorService, multi: true },
+    AlertifyService,
   ],
   bootstrap: [AppComponent],
 })
