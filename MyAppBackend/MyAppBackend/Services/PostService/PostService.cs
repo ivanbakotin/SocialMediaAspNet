@@ -33,7 +33,7 @@ namespace MyAppBackend.Services.PostService
         }
 
         public List<PostViewModel> GetUserPosts(int UserID)
-        { // add cureetnuserID
+        { 
             var result = mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where post.UserID == UserID
@@ -45,7 +45,7 @@ namespace MyAppBackend.Services.PostService
         }
 
         public PostViewModel GetPost(int UserID, int PostID)
-        {// add cureetnuserID
+        {
             var result = mapper.ProjectTo<PostViewModel>(
                           from post in context.Posts
                           where post.ID == PostID

@@ -39,11 +39,6 @@ namespace MyAppBackend.Services.GroupService
             throw new NotImplementedException();
         }
 
-        public dynamic AddGroupUser(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public dynamic RemoveGroupUser(int id)
         {
             throw new NotImplementedException();

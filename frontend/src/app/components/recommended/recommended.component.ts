@@ -17,14 +17,8 @@ export class RecommendedComponent implements OnInit {
   }
 
   getRecommendedUsers() {
-    this.userService.getRecommendedUsers().subscribe(
-      (response) => {
-        console.log(response);
-        this.recommendedUsers = response;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.userService.getRecommendedUsers().subscribe((response) => {
+      this.recommendedUsers = response;
+    });
   }
 }

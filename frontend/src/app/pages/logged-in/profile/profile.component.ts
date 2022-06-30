@@ -36,30 +36,30 @@ export class ProfileComponent implements OnInit {
   }
 
   sendFriendRequest() {
+    this.profile.iAmRequesting = true;
     this.friendService.sendRequest(this.profile.id).subscribe();
   }
 
   declineRequest() {
+    this.profile.isRequesting = false;
+    this.profile.iAmRequesting = false;
     this.friendService.declineRequest(this.profile.id).subscribe();
   }
 
   acceptRequest() {
+    this.profile.isFriend = true;
     this.friendService.acceptRequest(this.profile.id).subscribe();
   }
 
   removeFriend() {
+    this.profile.isFriend = false;
     this.friendService.removeFriend(this.profile.id).subscribe();
   }
 
   getProfile(id: any) {
-    this.profileService.getProfile(id).subscribe(
-      (response) => {
-        this.sharedService.updateProfile(response);
-        this.profile = response;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.profileService.getProfile(id).subscribe((response) => {
+      this.sharedService.updateProfile(response);
+      this.profile = response;
+    });
   }
 }

@@ -23,13 +23,8 @@ export class CreatePostComponent implements OnInit {
       body: form.value.body,
     };
 
-    this.postService.createPost(body).subscribe(
-      (response) => {
-        this.sharedService.addPost(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.postService.createPost(body).subscribe((response) => {
+      this.sharedService.addPost(response);
+    });
   }
 }

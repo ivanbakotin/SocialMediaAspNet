@@ -23,14 +23,9 @@ export class PostsComponent implements OnInit {
   posts: Post[] = [];
 
   getPosts() {
-    this.postService.getPosts().subscribe(
-      (response) => {
-        this.posts = response;
-        this.sharedService.updatePosts(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.postService.getPosts().subscribe((response) => {
+      this.posts = response;
+      this.sharedService.updatePosts(response);
+    });
   }
 }

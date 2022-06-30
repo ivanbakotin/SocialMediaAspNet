@@ -22,10 +22,9 @@ export class LoginComponent implements OnInit {
       password: form.value.password,
       rememberMe: form.value.rememberMe || false,
     };
-    console.log(data);
+
     this.loginService.login(data).subscribe(
       (response) => {
-        console.log(response);
         const token = (<any>response).token;
         localStorage.setItem('token', token);
         this.router.navigate(['/home']);

@@ -16,14 +16,9 @@ export class SearchComponent implements OnInit {
 
   searchUsers(param: string) {
     if (param) {
-      this.userService.searchUsers(param).subscribe(
-        (response) => {
-          this.searchResults = response;
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
+      this.userService.searchUsers(param).subscribe((response) => {
+        this.searchResults = response;
+      });
     } else {
       this.searchResults = [];
     }

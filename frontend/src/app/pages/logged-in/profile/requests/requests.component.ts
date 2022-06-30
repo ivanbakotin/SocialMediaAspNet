@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FriendService } from 'src/app/services/friend/friend.service';
-import { SharedService } from 'src/app/services/profile/shared.service';
 
 @Component({
   selector: 'app-requests',
@@ -35,20 +34,14 @@ export class RequestsComponent implements OnInit {
   }
 
   getRequestsPending() {
-    this.friendService.getRequestsPending().subscribe(
-      (response) => {
-        this.requestsPending = response[0].requests;
-      },
-      (error) => console.log(error)
-    );
+    this.friendService.getRequestsPending().subscribe((response) => {
+      this.requestsPending = response[0].requests;
+    });
   }
 
   getRequestsSent() {
-    this.friendService.getRequestsSent().subscribe(
-      (response) => {
-        this.requestsSent = response[0].requests;
-      },
-      (error) => console.log(error)
-    );
+    this.friendService.getRequestsSent().subscribe((response) => {
+      this.requestsSent = response[0].requests;
+    });
   }
 }

@@ -24,7 +24,6 @@ export class MainPostComponent implements OnInit {
 
   getPost(id: number) {
     this.postService.getPost(id).subscribe((response) => {
-      console.log(response);
       this.post = response;
     });
   }

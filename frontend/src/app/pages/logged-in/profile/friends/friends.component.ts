@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { SharedService } from 'src/app/services/profile/shared.service';
@@ -21,16 +20,13 @@ export class FriendsComponent implements OnInit {
   ngOnInit(): void {
     this.sharedService.userID.subscribe((id) => (this.userID = id));
 
-    this.friendService.getFriends(this.userID).subscribe(
-      (response) => {
-        this.friends = response[0].friends1.concat(
-          response[0].friends2,
-          response[0].friends22,
-          response[0].friends11
-        );
-      },
-      (error) => console.log(error)
-    );
+    this.friendService.getFriends(this.userID).subscribe((response) => {
+      this.friends = response[0].friends1.concat(
+        response[0].friends2,
+        response[0].friends22,
+        response[0].friends11
+      );
+    });
   }
 
   removeFriend(id: number) {

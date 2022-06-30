@@ -81,8 +81,7 @@ namespace MyAppBackend.Controllers
         public IActionResult VotePost([FromBody] bool vote, int id)
         {
             postService.VotePost(GetCurrentUserID(), id, vote);
-            PostViewModel post = postService.GetPost(GetCurrentUserID(), id);
-            return Ok(post);
+            return Ok();
         }
     }
 }

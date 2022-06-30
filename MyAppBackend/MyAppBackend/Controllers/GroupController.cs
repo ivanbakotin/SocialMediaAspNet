@@ -65,12 +65,6 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPost("add/{id}"), Authorize]
-        public IActionResult AddGroupUser(int id)
-        {
-            return Ok();
-        }
-
         [HttpDelete("removeuser/{id}"), Authorize]
         public IActionResult RemoveGroupUser(int id)
         {

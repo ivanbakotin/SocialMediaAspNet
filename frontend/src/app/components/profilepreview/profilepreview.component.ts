@@ -24,13 +24,8 @@ export class ProfilepreviewComponent implements OnInit {
   }
 
   getProfile() {
-    this.profileService.getProfile(this.currentUserID).subscribe(
-      (response) => {
-        this.profile = response;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.profileService.getProfile(this.currentUserID).subscribe((response) => {
+      this.profile = response;
+    });
   }
 }

@@ -9,7 +9,6 @@
         dynamic GetGroupInfo(int id);
         dynamic UpdateGroupInfo(int id);
         dynamic DeleteGroup(int id);
-        dynamic AddGroupUser(int id);
         dynamic RemoveGroupUser(int id);
     }
 }

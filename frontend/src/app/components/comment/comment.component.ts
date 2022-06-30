@@ -26,35 +26,19 @@ export class CommentComponent implements OnInit {
   }
 
   vote(vote: boolean) {
-    this.commentService.voteComment(this.comment.id, vote).subscribe(
-      () => {
-        updateVote(this.comment, vote);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    updateVote(this.comment, vote);
+    this.commentService.voteComment(this.comment.id, vote).subscribe();
   }
 
   update(body: any) {
     this.endEditing();
     this.comment.body = body.value.body;
-    this.commentService.updateComment(this.comment.id, body.value).subscribe(
-      () => {},
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.commentService.updateComment(this.comment.id, body.value).subscribe();
   }
 
   delete() {
     this.sharedService.deleteComment(this.comment.id);
-    this.commentService.deleteComment(this.comment.id).subscribe(
-      () => {},
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.commentService.deleteComment(this.comment.id).subscribe();
   }
 
   startEditing() {

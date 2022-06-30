@@ -22,6 +22,7 @@ export class CommentsComponent implements OnInit {
     this.sharedService.comment.subscribe(
       (comments) => (this.comments = comments)
     );
+
     this.route.params.subscribe((routeParams) => {
       this.getComments(routeParams['id']);
     });

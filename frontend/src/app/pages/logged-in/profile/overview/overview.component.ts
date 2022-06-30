@@ -26,14 +26,9 @@ export class OverviewComponent implements OnInit {
   }
 
   getUserPosts() {
-    this.postService.getUserPosts(this.id).subscribe(
-      (response) => {
-        this.posts = response;
-        this.postSharedService.updatePosts(response);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.postService.getUserPosts(this.id).subscribe((response) => {
+      this.posts = response;
+      this.postSharedService.updatePosts(response);
+    });
   }
 }

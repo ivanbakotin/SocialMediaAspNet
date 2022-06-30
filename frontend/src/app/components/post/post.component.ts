@@ -27,35 +27,19 @@ export class PostComponent implements OnInit {
   }
 
   vote(vote: boolean) {
-    this.postService.votePost(this.post.id, vote).subscribe(
-      (response) => {
-        updateVote(this.post, vote);
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    updateVote(this.post, vote);
+    this.postService.votePost(this.post.id, vote).subscribe();
   }
 
   edit(form: NgForm) {
     this.endEditing();
     this.post.body = form.value.body;
-    this.postService.updatePost(this.post.id, form.value.body).subscribe(
-      () => {},
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.postService.updatePost(this.post.id, form.value.body).subscribe();
   }
 
   delete() {
     this.sharedService.deletePost(this.post.id);
-    this.postService.deletePost(this.post.id).subscribe(
-      () => {},
-      (error) => {
-        console.error(error);
-      }
-    );
+    this.postService.deletePost(this.post.id).subscribe();
   }
 
   startEditing() {
