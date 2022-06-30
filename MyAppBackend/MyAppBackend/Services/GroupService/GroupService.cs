@@ -20,29 +20,39 @@ namespace MyAppBackend.Services.GroupService
             throw new NotImplementedException();
         }
 
-        public dynamic SearchGroupUsers(int id, string param)
+        public dynamic SearchGroupUsers(int GroupID, string param)
         {
             throw new NotImplementedException();
         }
 
-        public dynamic GetGroupUsers(int id)
+        public dynamic GetGroupUsers(int GroupID)
         {
-            throw new NotImplementedException();
+            var groupMembers = context.GroupMembers.Where(x => x.GroupID == GroupID).ToList();
+            return groupMembers;
         }
 
-        public dynamic GetGroupPosts(int id)
+        public dynamic GetGroupPosts(int GroupID)
         {
-            throw new NotImplementedException();
+            var groupPosts = context.Posts.Where(x => x.GroupID == GroupID).ToList();
+            return groupPosts;
         }
 
-        public dynamic GetGroupInfo(int id)
+        public dynamic GetGroupInfo(int GroupID)
         {
-            throw new NotImplementedException();
+            var group = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
+            return group;
         }
 
-        public dynamic UpdateGroupInfo(Group body, int GroupID)
+        public void UpdateGroupInfo(Group body, int GroupID)
         {
-            throw new NotImplementedException();
+            var groupToUpdate = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
+
+            if (groupToUpdate != null)
+            {
+                groupToUpdate.Description = body.Description;
+            };
+
+            context.SaveChanges();
         }
 
         public void DeleteGroup(int GroupID)
