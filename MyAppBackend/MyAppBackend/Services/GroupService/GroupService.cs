@@ -17,12 +17,18 @@ namespace MyAppBackend.Services.GroupService
 
         public dynamic SearchGroups(string param) 
         {
-            throw new NotImplementedException();
+            var result = context.Groups.Where(x => x.Name.Contains(param)).ToList();           
+            return result;
         }
 
         public dynamic SearchGroupUsers(int GroupID, string param)
         {
-            throw new NotImplementedException();
+            var result = context.Groups
+                            .Where(x => x.ID == GroupID)
+                            .Select(x => x.Members
+                            .Select(x => new { x.User.Username, x.User.ID}))
+                            .ToList();
+            return result;
         }
 
         public dynamic GetGroupUsers(int GroupID)
@@ -57,6 +63,8 @@ namespace MyAppBackend.Services.GroupService
 
         public void DeleteGroup(int GroupID)
         {
+            // curetn user id == owner group
+
             var groupToDelete = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
 
             if (groupToDelete != null)
@@ -97,9 +105,10 @@ namespace MyAppBackend.Services.GroupService
         public dynamic GetUserGroups(int UserID)
         {
             var result = context.Users
-                .Include(x => x.Groups)
+                //.Include(x => x.Groups)
                 .Where(x => x.ID == UserID)
-                .Select(x => x.Groups.Select(x => new { x.Role.RoleName, x.Group }));
+                .Select(x => x.Groups
+                .Select(x => new { x.Role.RoleName, x.Group }));
 
             return result;
         }

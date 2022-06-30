@@ -20,7 +20,6 @@ namespace MyAppBackend.Services.UserService
 
         public List<UserViewModel> SearchUsers(string param)
         {
-            // if string is ""
             var result = mapper.ProjectTo<UserViewModel>(from user in context.Users
                          where user.Username.Contains(param)
                          select user
@@ -31,12 +30,14 @@ namespace MyAppBackend.Services.UserService
 
         public List<UserViewModel> GetRecommended(int UserID)
         {
-            // dont send friends
-            var result = mapper.ProjectTo<UserViewModel>(context.Users
-                                                                  .Where(x => x.ID != UserID)
-                                                                  .OrderByDescending(u => u.Posts.Count)
-                                                                  .Take(5)
-                                                                 ).ToList();
+            var result = mapper.ProjectTo
+                            <UserViewModel>(context.Users
+                                .Where(x => x.ID != UserID && 
+                                       !context.Friends.Any(f => (f.UserID2 == UserID )
+                                                              || (f.UserID1 == UserID )))
+                                .OrderByDescending(u => u.Posts.Count)
+                                .Take(5))
+                                .ToList();
 
             return result;
         }

@@ -9,7 +9,7 @@ namespace MyAppBackend.Services.GroupService
         dynamic GetGroupUsers(int id);
         dynamic GetGroupPosts(int id);
         dynamic GetGroupInfo(int id);
-        dynamic UpdateGroupInfo(Group body, int GroupID);
+        void UpdateGroupInfo(Group body, int GroupID);
         void DeleteGroup(int id);
         void RemoveGroupUser(int UserID, int GroupID);
         Group CreateGroup(Group group, int UserID);
