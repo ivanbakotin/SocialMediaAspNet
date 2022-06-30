@@ -34,4 +34,6 @@ namespace MyAppBackend
     make everything async backend
     tags/hashtags on posts
     implement groups
+    use alertyfy for confirming actions
+    group check owner, admin
  */

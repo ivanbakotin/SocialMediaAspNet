@@ -1,0 +1,52 @@
+:host {
+  margin-top: 5rem;
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+
+  @media (max-width) {
+  }
+}
+
+section {
+  display: flex;
+  gap: 5rem;
+  flex-direction: column;
+}
+
+.group {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid lightgray;
+    border-radius: 1rem;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__name {
+    font-size: var(--font-size-sm);
+  }
+
+  &__btn {
+    font-size: var(--font-size-sm);
+  }
+
+  &__descp {
+    font-size: var(--font-size-sm);
+  }
+
+  &__info {
+    font-size: var(--font-size-sm);
+  }
+}

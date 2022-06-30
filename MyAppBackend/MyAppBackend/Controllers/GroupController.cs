@@ -58,21 +58,24 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPut("info/{id}"), Authorize]
-        public IActionResult UpdateGroupInfo(int id)
+        [HttpPut("info/{GroupID}"), Authorize]
+        public IActionResult UpdateGroupInfo(Group body, int GroupID)
         {
+            groupService.UpdateGroupInfo(body, GroupID);
             return Ok();
         }
 
-        [HttpDelete("delete/{id}"), Authorize]
-        public IActionResult DeleteGroup(int id)
+        [HttpDelete("delete/{GroupID}"), Authorize]
+        public IActionResult DeleteGroup(int GroupID)
         {
+            groupService.DeleteGroup(GroupID);
             return Ok();
         }
 
-        [HttpDelete("removeuser/{id}"), Authorize]
-        public IActionResult RemoveGroupUser(int id)
-        {      
+        [HttpDelete("removeuser/{GroupID}"), Authorize]
+        public IActionResult RemoveGroupUser([FromBody] int UserID, int GroupID)
+        {
+            groupService.RemoveGroupUser(UserID, GroupID);
             return Ok();
         }
 

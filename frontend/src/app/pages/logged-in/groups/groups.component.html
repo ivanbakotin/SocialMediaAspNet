@@ -1,9 +1,19 @@
-<app-searchgroups></app-searchgroups>
-<app-create-group></app-create-group>
+<section>
+  <app-searchgroups></app-searchgroups>
+</section>
 
-<ul>
-  <li *ngFor="let group of groups">
-    <h2>{{ group.group.name }}</h2>
-    <p>{{ group.group.description }}</p>
-  </li>
-</ul>
+<section>
+  <app-create-group></app-create-group>
+
+  <ul class="group">
+    <li class="group__item" *ngFor="let group of groups">
+      <div class="group__header">
+        <h2 class="group__name">{{ group.group.name }}</h2>
+        <button class="group__btn">Delete</button>
+      </div>
+
+      <p class="group__descp">{{ group.group.description }}</p>
+      <div class="group__info">Number of members</div>
+    </li>
+  </ul>
+</section>

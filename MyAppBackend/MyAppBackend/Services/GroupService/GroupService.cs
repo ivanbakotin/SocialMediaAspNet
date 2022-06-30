@@ -40,19 +40,31 @@ namespace MyAppBackend.Services.GroupService
             throw new NotImplementedException();
         }
 
-        public dynamic UpdateGroupInfo(int id)
+        public dynamic UpdateGroupInfo(Group body, int GroupID)
         {
             throw new NotImplementedException();
         }
 
-        public dynamic DeleteGroup(int id)
+        public void DeleteGroup(int GroupID)
         {
-            throw new NotImplementedException();
+            var groupToDelete = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
+
+            if (groupToDelete != null)
+            {
+                context.Groups.Remove(groupToDelete);
+                context.SaveChanges();
+            }
         }
 
-        public dynamic RemoveGroupUser(int id)
+        public void RemoveGroupUser(int UserID, int GroupID)
         {
-            throw new NotImplementedException();
+            var userToRemove = context.GroupMembers.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefault();
+
+            if (userToRemove != null && userToRemove.RoleID != 3)
+            {
+                context.GroupMembers.Remove(userToRemove);
+                context.SaveChanges();
+            }
         }
 
         public Group CreateGroup(Group group, int UserID)
