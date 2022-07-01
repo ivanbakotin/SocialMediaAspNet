@@ -30,53 +30,58 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("search/{param}"), Authorize]
-        public IActionResult SearchGroups(string param)
+        public async Task<IActionResult> SearchGroups(string param)
         {
+            await groupService.SearchGroups(param);
             return Ok();
         }
 
-        [HttpGet("searchusers/{id}/{param}"), Authorize]
-        public IActionResult SearchGroupUsers(int id, string param)
+        [HttpGet("searchusers/{GroupID}/{param}"), Authorize]
+        public async Task<IActionResult> SearchGroupUsers(int GroupID, string param)
         {
+            await groupService.SearchGroupUsers(GroupID, param);
             return Ok();
         }
 
-        [HttpGet("users/{id}"), Authorize]
-        public IActionResult GetGroupUsers(int id)
-        {    
-            return Ok();
-        }
-
-        [HttpGet("posts/{id}"), Authorize]
-        public IActionResult GetGroupPosts(int id)
-        {     
-            return Ok();
-        }
-
-        [HttpGet("info/{id}"), Authorize]
-        public IActionResult GetGroupInfo(int id)
+        [HttpGet("users/{GroupID}"), Authorize]
+        public async Task<IActionResult> GetGroupUsers(int GroupID)
         {
+            await groupService.GetGroupUsers(GroupID);
+            return Ok();
+        }
+
+        [HttpGet("posts/{GroupID}"), Authorize]
+        public async Task<IActionResult> GetGroupPosts(int GroupID)
+        {
+            await groupService.GetGroupPosts(GroupID);
+            return Ok();
+        }
+
+        [HttpGet("info/{GroupID}"), Authorize]
+        public async Task<IActionResult> GetGroupInfo(int GroupID)
+        {
+            await groupService.GetGroupInfo(GroupID);
             return Ok();
         }
 
         [HttpPut("info/{GroupID}"), Authorize]
-        public IActionResult UpdateGroupInfo(Group body, int GroupID)
+        public async Task<IActionResult> UpdateGroupInfo(Group body, int GroupID)
         {
-            groupService.UpdateGroupInfo(body, GroupID);
+            await groupService.UpdateGroupInfo(body, GroupID, GetCurrentUserID());
             return Ok();
         }
 
         [HttpDelete("delete/{GroupID}"), Authorize]
-        public IActionResult DeleteGroup(int GroupID)
+        public async Task<IActionResult> DeleteGroup(int GroupID)
         {
-            groupService.DeleteGroup(GroupID);
+            await groupService.DeleteGroup(GroupID, GetCurrentUserID());
             return Ok();
         }
 
         [HttpDelete("removeuser/{GroupID}"), Authorize]
-        public IActionResult RemoveGroupUser([FromBody] int UserID, int GroupID)
+        public async Task<IActionResult> RemoveGroupUser([FromBody] int UserID, int GroupID)
         {
-            groupService.RemoveGroupUser(UserID, GroupID);
+            await groupService.RemoveGroupUser(UserID, GroupID);
             return Ok();
         }
 
