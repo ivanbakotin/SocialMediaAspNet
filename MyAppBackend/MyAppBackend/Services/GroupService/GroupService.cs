@@ -118,7 +118,7 @@ namespace MyAppBackend.Services.GroupService
             await context.SaveChangesAsync();
 
             GroupViewModel newGroup = mapper.Map<GroupViewModel>(newMember);
-            newGroup.Role = "Owner";
+            newGroup.Role = "owner";
 
             return newGroup;
         }
@@ -129,7 +129,7 @@ namespace MyAppBackend.Services.GroupService
                                         .Where(x => x.ID == UserID)
                                         .Select(x => x.Groups
                                         .Select(x => 
-                                            new GroupViewModel { 
+                                            new GroupViewModel {                                       
                                                 Role = x.Role.RoleName,
                                                 Name = x.Group.Name,
                                                 Description = x.Group.Description,

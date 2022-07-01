@@ -30,11 +30,10 @@ namespace MyAppBackend
     finish profile settings
     pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
-    email server
+    email server smtp
     make everything async backend
     tags/hashtags on posts
     implement groups
-    return created group bug with collection being inserted
     use alertyfy for confirming actions
-    group check owner, admin, if owner, is not deleted, if friend
+    if owner, if friend
  */

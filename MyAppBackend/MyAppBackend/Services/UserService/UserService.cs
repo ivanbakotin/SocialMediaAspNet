@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using MyAppBackend.Utilities;
 
 namespace MyAppBackend.Services.UserService
 {
@@ -18,48 +21,72 @@ namespace MyAppBackend.Services.UserService
             this.context = context;
         }
 
-        public List<UserViewModel> SearchUsers(string param)
+        public async Task<List<UserViewModel>> SearchUsers(string param)
         {
-            var result = mapper.ProjectTo<UserViewModel>(from user in context.Users
+            var result = await mapper.ProjectTo<UserViewModel>(from user in context.Users
                          where user.Username.Contains(param)
                          select user
-                         ).ToList();
+                         ).ToListAsync();
 
             return result;
         }
 
-        public List<UserViewModel> GetRecommended(int UserID)
+        public async Task<List<UserViewModel>> GetRecommended(int UserID)
         {
-            var result = mapper.ProjectTo
+            var result = await mapper.ProjectTo
                             <UserViewModel>(context.Users
                                 .Where(x => x.ID != UserID && 
                                        !context.Friends.Any(f => (f.UserID2 == UserID )
                                                               || (f.UserID1 == UserID )))
                                 .OrderByDescending(u => u.Posts.Count)
                                 .Take(5))
-                                .ToList();
+                                .ToListAsync();
 
             return result;
         }
 
-        public void ResetPassword()
+        public async Task ResetPassword()
         {
             throw new NotImplementedException();
         }
 
-        public void ChangePassword()
+        public async Task ChangePassword(string confirmPassword, string newPassword, int UserID)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
+
+            var hashedPassword = CustomHash.HashString(confirmPassword);
+
+            if (hashedPassword == user.Password)
+            {
+                user.Password = hashedPassword;
+                await context.SaveChangesAsync();
+            }
         }
 
-        public void ChangeEmail()
+        public async Task ChangeEmail(string confirmPassword, string newEmail, int UserID)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
+
+            var hashedPassword = CustomHash.HashString(confirmPassword);
+
+            if (hashedPassword == user.Password)
+            {
+                user.Email = newEmail;
+                await context.SaveChangesAsync();
+            }
         }
 
-        public void DeleteUser(int id)
+        public async Task DeleteUser(string confirmPassword, int UserID)
         {
-            throw new NotImplementedException();
+            var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
+
+            var hashedPassword = CustomHash.HashString(confirmPassword);
+
+            if (hashedPassword == user.Password)
+            {
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
