@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
@@ -80,9 +81,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("create"), Authorize]
-        public IActionResult CreateGroup(Group group)
+        public async Task<IActionResult> CreateGroup(Group group)
         {
-            var result = groupService.CreateGroup(group, GetCurrentUserID());
+            var result = await groupService.CreateGroup(group, GetCurrentUserID());
             return Ok(result);
         }
 

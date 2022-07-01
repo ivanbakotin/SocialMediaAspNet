@@ -1,7 +1,9 @@
-﻿using MyAppBackend.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,9 +18,9 @@ namespace MyAppBackend.Services.GroupService
             this.context = context;
         }
 
-        public dynamic SearchGroups(string param) 
+        public async Task<List<Group>> SearchGroups(string param) 
         {
-            var result = context.Groups.Where(x => x.Name.Contains(param)).ToList();           
+            var result = await context.Groups.Where(x => x.Name.Contains(param)).ToListAsync();           
             return result;
         }
 
@@ -32,64 +34,77 @@ namespace MyAppBackend.Services.GroupService
             return result;
         }
 
-        public dynamic GetGroupUsers(int GroupID)
+        public async Task<List<GroupMember>> GetGroupUsers(int GroupID)
         {
-            var groupMembers = context.GroupMembers.Where(x => x.GroupID == GroupID).ToList();
+            var groupMembers = await context.GroupMembers.Where(x => x.GroupID == GroupID).ToListAsync();
             return groupMembers;
         }
 
-        public dynamic GetGroupPosts(int GroupID)
+        public async Task<List<Post>> GetGroupPosts(int GroupID)
         {
-            var groupPosts = context.Posts.Where(x => x.GroupID == GroupID).ToList();
+            var groupPosts = await context.Posts.Where(x => x.GroupID == GroupID).ToListAsync();
             return groupPosts;
         }
 
-        public dynamic GetGroupInfo(int GroupID)
+        public async Task<Group> GetGroupInfo(int GroupID)
         {
-            var group = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
+            var group = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
             return group;
         }
 
-        public void UpdateGroupInfo(Group body, int GroupID)
+        public async Task UpdateGroupInfo(Group body, int GroupID, int UserID)
         {
-            var groupToUpdate = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
+            var isOwnerOrAdmin = context.GroupMembers.Any(x => x.GroupID == GroupID && x.UserID == UserID && (x.RoleID == 3 || x.RoleID == 1));
 
-            if (groupToUpdate != null)
+            if (isOwnerOrAdmin)
             {
-                groupToUpdate.Description = body.Description;
-            };
+                var groupToUpdate = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
 
-            context.SaveChanges();
-        }
+                if (groupToUpdate != null)
+                {
+                    groupToUpdate.Description = body.Description;
+                };
 
-        public void DeleteGroup(int GroupID)
-        {
-            // curetn user id == owner group
-
-            var groupToDelete = context.Groups.Where(x => x.ID == GroupID).FirstOrDefault();
-
-            if (groupToDelete != null)
-            {
-                context.Groups.Remove(groupToDelete);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
-        public void RemoveGroupUser(int UserID, int GroupID)
+        public async Task DeleteGroup(int GroupID, int UserID)
         {
-            var userToRemove = context.GroupMembers.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefault();
-
-            if (userToRemove != null && userToRemove.RoleID != 3)
+            var isOwner = context.GroupMembers.Any(x => x.GroupID == GroupID && x.RoleID == 3 && x.UserID == UserID);
+            
+            if (isOwner) 
             {
-                context.GroupMembers.Remove(userToRemove);
-                context.SaveChangesAsync();
+                var groupToDelete = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
+
+                if (groupToDelete != null)
+                {
+                    context.Groups.Remove(groupToDelete);
+                    await context.SaveChangesAsync();
+                }
             }
         }
 
-        public Group CreateGroup(Group group, int UserID)
-        {      
-            context.Groups.AddAsync(group);
-            context.SaveChangesAsync();
+        public async Task RemoveGroupUser(int UserID, int GroupID)
+        {
+            var isOwnerOrAdmin = context.GroupMembers.Any(x => x.GroupID == GroupID && x.UserID == UserID &&  (x.RoleID == 3 || x.RoleID == 1));
+
+            if (isOwnerOrAdmin)
+            {
+                var userToRemove = await context.GroupMembers.Where(x => x.UserID == UserID && x.GroupID == GroupID && !(x.RoleID == 3)).FirstOrDefaultAsync();
+
+                if (userToRemove != null && userToRemove.RoleID != 3)
+                {
+                    context.GroupMembers.Remove(userToRemove);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+
+        public async Task<Group> CreateGroup(Group group, int UserID)
+        {
+            await context.Groups.AddAsync(group);
+            await context.SaveChangesAsync();
 
             var newMember = new GroupMember
             {
@@ -97,8 +112,8 @@ namespace MyAppBackend.Services.GroupService
                 UserID = UserID,
                 RoleID = 3     
             };
-            context.GroupMembers.AddAsync(newMember);
-            context.SaveChangesAsync();
+            await context.GroupMembers.AddAsync(newMember);
+            await context.SaveChangesAsync();
 
             return group;
         }

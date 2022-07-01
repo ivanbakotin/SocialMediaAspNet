@@ -58,6 +58,12 @@ namespace MyAppBackend.Controllers
         public IActionResult IsLoggedIn([FromBody] string jwt)
         {
             var token = authService.IsLoggedIn(jwt);
+
+            //if (token == null)
+            //{
+            //    return Ok();
+            //}
+
             return Ok(new AuthenticatedResponse { Token = token });
         }
 

@@ -24,16 +24,17 @@ namespace MyAppBackend
     loading frontend on start - during check is loggedin
     google auth
     seperate admin panel
-    action filter if owner, is not deleted, if friend
-    remove comment replace with [removed]
+    action filter 
+    remove comment replace with [removed] if tree
     generic post and comment service for most of service methods
     finish profile settings
-    pagination - posts 10 by 10 with offset - infinite scroll
+    pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
     email server
     make everything async backend
     tags/hashtags on posts
     implement groups
+    return created group bug with collection being inserted
     use alertyfy for confirming actions
-    group check owner, admin
+    group check owner, admin, if owner, is not deleted, if friend
  */

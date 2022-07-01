@@ -8,15 +8,15 @@ namespace MyAppBackend.Services.GroupService
 {
     public interface IGroupService
     {
-        dynamic SearchGroups(string param);
+        Task<List<Group>> SearchGroups(string param);
         dynamic SearchGroupUsers(int id, string param);
-        dynamic GetGroupUsers(int id);
-        dynamic GetGroupPosts(int id);
-        dynamic GetGroupInfo(int id);
-        void UpdateGroupInfo(Group body, int GroupID);
-        void DeleteGroup(int id);
-        void RemoveGroupUser(int UserID, int GroupID);
-        Group CreateGroup(Group group, int UserID);
+        Task<List<GroupMember>> GetGroupUsers(int id);
+        Task<List<Post>> GetGroupPosts(int id);
+        Task<Group> GetGroupInfo(int id);
+        Task UpdateGroupInfo(Group body, int GroupID, int UserID);
+        Task DeleteGroup(int id, int UserID);
+        Task RemoveGroupUser(int UserID, int GroupID);
+        Task<Group> CreateGroup(Group group, int UserID);
         dynamic GetUserGroups(int UserID);
         void GetRecommendedGroups(int UserID);
     }
