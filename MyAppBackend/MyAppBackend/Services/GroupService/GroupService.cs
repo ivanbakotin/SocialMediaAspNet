@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
@@ -11,17 +12,18 @@ namespace MyAppBackend.Services.GroupService
 {
     public class GroupService : IGroupService
     {
+        private readonly IMapper mapper;
         private readonly DataContext context;
 
-        public GroupService(DataContext context)
+        public GroupService(DataContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<List<Group>> SearchGroups(string param) 
         {
-            var result = await context.Groups.Where(x => x.Name.Contains(param)).ToListAsync();           
-            return result;
+            return await context.Groups.Where(x => x.Name.Contains(param)).ToListAsync();
         }
 
         public dynamic SearchGroupUsers(int GroupID, string param)
@@ -29,7 +31,7 @@ namespace MyAppBackend.Services.GroupService
             var result = context.Groups
                             .Where(x => x.ID == GroupID)
                             .Select(x => x.Members
-                            .Select(x => new { x.User.Username, x.User.ID}))
+                            .Select(x => new User { Username = x.User.Username, ID = x.User.ID}))
                             .ToList();
             return result;
         }
@@ -101,7 +103,7 @@ namespace MyAppBackend.Services.GroupService
             }
         }
 
-        public async Task<Group> CreateGroup(Group group, int UserID)
+        public async Task<GroupViewModel> CreateGroup(Group group, int UserID)
         {
             await context.Groups.AddAsync(group);
             await context.SaveChangesAsync();
@@ -115,21 +117,30 @@ namespace MyAppBackend.Services.GroupService
             await context.GroupMembers.AddAsync(newMember);
             await context.SaveChangesAsync();
 
-            return group;
+            GroupViewModel newGroup = mapper.Map<GroupViewModel>(newMember);
+            newGroup.Role = "Owner";
+
+            return newGroup;
         }
 
-        public dynamic GetUserGroups(int UserID)
+        public async Task<List<IEnumerable<GroupViewModel>>> GetUserGroups(int UserID)
         {
-            //automapper maybe
-            var result = context.Users               
-                .Where(x => x.ID == UserID)
-                .Select(x => x.Groups
-                .Select(x => new { x.Role.RoleName, x.Group, members = x.Group.Members.Count() })).ToList();
+            var result = await context.Users
+                                        .Where(x => x.ID == UserID)
+                                        .Select(x => x.Groups
+                                        .Select(x => 
+                                            new GroupViewModel { 
+                                                Role = x.Role.RoleName,
+                                                Name = x.Group.Name,
+                                                Description = x.Group.Description,
+                                                ID = x.Group.ID,
+                                                MembersNumber = x.Group.Members.Count()
+                                         })).ToListAsync();
 
             return result;
         }
 
-        public void GetRecommendedGroups(int UserID)
+        public Task<List<Group>> GetRecommendedGroups(int UserID)
         {
             throw new NotImplementedException();
         }

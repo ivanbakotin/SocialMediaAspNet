@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyAppBackend.Extensions;
 using MyAppBackend.Settings;
+using System.Text.Json.Serialization;
 
 namespace MyAppBackend
 {
@@ -40,7 +41,7 @@ namespace MyAppBackend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyAppBackend v1"));
             }
-            app.ConfigureExceptionHandler();
+            //app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseCors("EnableCORS");
             app.UseRouting();

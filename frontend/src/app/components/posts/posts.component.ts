@@ -24,7 +24,6 @@ export class PostsComponent implements OnInit {
 
   getPosts() {
     this.postService.getPosts().subscribe((response) => {
-      console.log(response);
       this.posts = response;
       this.sharedService.updatePosts(response);
     });

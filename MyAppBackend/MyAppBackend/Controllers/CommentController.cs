@@ -52,7 +52,7 @@ namespace MyAppBackend.Controllers
         [HttpPut("update/{id}"), Authorize]
         public IActionResult UpdateComment([FromBody] Comment comment, int id)
         {
-            bool flag = commentService.UpdateComment(comment, GetCurrentUserID(), id);
+            commentService.UpdateComment(comment, GetCurrentUserID(), id);
             return Ok();
         }
 

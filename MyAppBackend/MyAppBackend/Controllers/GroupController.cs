@@ -71,7 +71,7 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpDelete("delete/{GroupID}"), Authorize]
+        [HttpDelete("{GroupID}"), Authorize]
         public async Task<IActionResult> DeleteGroup(int GroupID)
         {
             await groupService.DeleteGroup(GroupID, GetCurrentUserID());
@@ -93,9 +93,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("getusergroups"), Authorize]
-        public IActionResult GetUserGroups()
+        public async Task<IActionResult> GetUserGroups()
         {
-            var result = groupService.GetUserGroups(GetCurrentUserID());
+            var result = await groupService.GetUserGroups(GetCurrentUserID());
             return Ok(result);
         }
 

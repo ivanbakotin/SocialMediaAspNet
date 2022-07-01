@@ -77,7 +77,7 @@ namespace MyAppBackend.Services.CommentService
 
             if (votedComment == null)
             {
-                VotedComment newVotedComment = new VotedComment
+                VotedComment newVotedComment = new()
                 {
                     UserID = UserID,
                     CommentID = CommentID,

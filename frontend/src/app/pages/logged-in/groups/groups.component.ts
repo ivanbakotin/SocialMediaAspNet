@@ -21,6 +21,11 @@ export class GroupsComponent implements OnInit {
     this.getUserGroups();
   }
 
+  deleteGroup(groupID: number) {
+    this.groupSharedService.deleteGroup(groupID);
+    this.groupService.deleteGroup(groupID).subscribe();
+  }
+
   getUserGroups() {
     this.groupService.getUserGroup().subscribe((response) => {
       console.log(response);

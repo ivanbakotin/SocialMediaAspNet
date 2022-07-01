@@ -5,14 +5,24 @@
 <section>
   <app-create-group></app-create-group>
 
+  <h2>My Groups</h2>
+
   <ul class="group">
     <li class="group__item" *ngFor="let group of groups">
       <div class="group__header">
-        <h2 class="group__name">{{ group.group.name }}</h2>
-        <button class="group__btn">Delete</button>
+        <h3 class="group__name" [routerLink]="['/group/' + group.id]">
+          {{ group.name }}
+        </h3>
+        <button
+          *ngIf="group.role == 'owner'"
+          class="group__btn"
+          (click)="deleteGroup(group.id)"
+        >
+          Delete
+        </button>
       </div>
 
-      <div class="group__info">{{ group.members }} member/s</div>
+      <div class="group__info">{{ group.membersCount }} member/s</div>
     </li>
   </ul>
 </section>

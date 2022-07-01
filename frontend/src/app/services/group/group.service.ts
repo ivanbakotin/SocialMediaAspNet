@@ -13,6 +13,7 @@ export class GroupService {
 
   private createGroupURL = `${HOSTNAME}Group/create`;
   private getUserGroupsURL = `${HOSTNAME}Group/getusergroups`;
+  private deleteGroupURL = `${HOSTNAME}Group/`;
 
   public createGroup(body: any): Observable<any> {
     return this.http.post(this.createGroupURL, body, { headers: GetHeader() });
@@ -20,5 +21,9 @@ export class GroupService {
 
   public getUserGroup(): Observable<any> {
     return this.http.get(this.getUserGroupsURL, { headers: GetHeader() });
+  }
+
+  public deleteGroup(id: number): Observable<any> {
+    return this.http.delete(this.deleteGroupURL + id, { headers: GetHeader() });
   }
 }

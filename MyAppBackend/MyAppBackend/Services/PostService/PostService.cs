@@ -14,10 +14,10 @@ namespace MyAppBackend.Services.PostService
         private readonly IMapper mapper;
         private readonly DataContext context;
 
-        public PostService(IMapper mapper, DataContext context)
+        public PostService(DataContext context, IMapper mapper)
         {
-            this.mapper = mapper;
             this.context = context;
+            this.mapper = mapper;
         }
 
         public async Task<List<PostViewModel>> GetPosts(int UserID)
@@ -96,7 +96,7 @@ namespace MyAppBackend.Services.PostService
 
             if (votedPost == null)
             {
-                VotedPost newVotedPost = new VotedPost
+                VotedPost newVotedPost = new()
                 {
                     UserID = UserID,
                     PostID = PostID,

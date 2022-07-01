@@ -35,6 +35,13 @@ namespace MyAppBackend.Profiles
                 .ForMember(x => x.CommentsNumber, o => o.MapFrom(x => x.Comments.Count))
                 .ForMember(x => x.Votes, o => o.MapFrom(x => x.Votes.Sum(v => v.Liked ? 1 : -1)))
                 .ForMember(x => x.Voted, o => o.MapFrom(x => x.Votes.First(u => u.UserID == CurrentUserID).Liked));
+
+            CreateMap<GroupMember, GroupViewModel>()
+                .ForMember(x => x.ID, o => o.MapFrom(x => x.Group.ID))
+                .ForMember(x => x.Role, o => o.MapFrom(x => x.Role.RoleName))
+                .ForMember(x => x.MembersNumber, o => o.MapFrom(x => x.Group.Members.Count()))
+                .ForMember(x => x.Description, o => o.MapFrom(x => x.Group.Description))
+                .ForMember(x => x.Name, o => o.MapFrom(x => x.Group.Name));
         }
     }
 }
