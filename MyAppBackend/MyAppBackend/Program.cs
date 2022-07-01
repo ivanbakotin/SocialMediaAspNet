@@ -25,9 +25,8 @@ namespace MyAppBackend
     google auth
     seperate admin panel
     action filter 
-    remove comment replace with [removed] if tree
-    generic post and comment service for most of service methods
     finish profile settings
+    remove comment replace with [removed] if tree
     pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
     email server smtp

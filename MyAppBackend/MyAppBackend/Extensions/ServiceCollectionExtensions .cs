@@ -16,6 +16,7 @@ using MyAppBackend.Services.ProfileService;
 using MyAppBackend.Services.CommentService;
 using MyAppBackend.Services.GroupService;
 using MyAppBackend.Services.GroupRequestService;
+using MyAppBackend.ActionFilters;
 
 namespace MyAppBackend.Extensions
 {
@@ -100,6 +101,8 @@ namespace MyAppBackend.Extensions
             services.AddTransient<ICommentService, Services.CommentService.CommentService>();
             services.AddTransient<IGroupRequestService, Services.GroupRequestService.GroupRequestService>();
             services.AddTransient<IGroupService, Services.GroupService.GroupService>();
+
+            services.AddScoped<PasswordFilter>();
 
             return services;
         }

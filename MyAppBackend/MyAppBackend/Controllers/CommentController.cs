@@ -4,27 +4,17 @@ using MyAppBackend.Models;
 using MyAppBackend.Services.CommentService;
 using MyAppBackend.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 
 namespace MyAppBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CommentController : ControllerBase
+    public class CommentController : BaseController
     {
         private readonly ICommentService commentService;
         public CommentController(ICommentService commentService)
         {
             this.commentService = commentService ?? throw new ArgumentNullException(nameof(commentService));
-        }
-        private int GetCurrentUserID()
-        {
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
-            return Int32.Parse(userID);
         }
 
         [HttpGet("{id}"), Authorize]

@@ -53,40 +53,22 @@ namespace MyAppBackend.Services.UserService
         public async Task ChangePassword(string confirmPassword, string newPassword, int UserID)
         {
             var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
-
-            var hashedPassword = CustomHash.HashString(confirmPassword);
-
-            if (hashedPassword == user.Password)
-            {
-                user.Password = hashedPassword;
-                await context.SaveChangesAsync();
-            }
+            user.Password = CustomHash.HashString(newPassword);
+            await context.SaveChangesAsync();
         }
 
         public async Task ChangeEmail(string confirmPassword, string newEmail, int UserID)
         {
             var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
-
-            var hashedPassword = CustomHash.HashString(confirmPassword);
-
-            if (hashedPassword == user.Password)
-            {
-                user.Email = newEmail;
-                await context.SaveChangesAsync();
-            }
+            user.Email = newEmail;
+            await context.SaveChangesAsync();        
         }
 
         public async Task DeleteUser(string confirmPassword, int UserID)
         {
             var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
-
-            var hashedPassword = CustomHash.HashString(confirmPassword);
-
-            if (hashedPassword == user.Password)
-            {
-                context.Users.Remove(user);
-                await context.SaveChangesAsync();
-            }
+            context.Users.Remove(user);
+            await context.SaveChangesAsync();     
         }
     }
 }

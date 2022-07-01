@@ -2,29 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Services.FriendService;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 
 namespace MyAppBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FriendController : ControllerBase
+    public class FriendController : BaseController
     {
         private readonly IFriendService friendService;
 
         public FriendController(IFriendService friendService)
         {
             this.friendService = friendService ?? throw new ArgumentNullException(nameof(friendService));
-        }
-
-        private int GetCurrentUserID()
-        {
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
-            return Int32.Parse(userID);
         }
 
         [HttpGet("requestspending"), Authorize]

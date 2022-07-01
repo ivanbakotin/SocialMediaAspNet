@@ -1,11 +1,12 @@
 ﻿using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.ProfileService
 {
     public interface IProfileService
     {
-        ProfileViewModel Get(int UserID, int id);
-        bool Update(Profile profile, int UserID);
+        Task<ProfileViewModel> Get(int UserID, int id);
+        Task Update(Profile profile, int UserID);
     }
 }

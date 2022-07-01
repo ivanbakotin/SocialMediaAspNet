@@ -1,17 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyAppBackend.Models;
+using MyAppBackend.ActionFilters;
 using MyAppBackend.Services.UserService;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserService userService;
 
@@ -20,50 +18,45 @@ namespace MyAppBackend.Controllers
             this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
-        private int GetCurrentUserID()
-        {
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
-            return Int32.Parse(userID);
-        }
-
         [HttpGet("search/{param}")]
-        public IActionResult SearchUsers(string param)
+        public async Task<IActionResult> SearchUsers(string param)
         {
-            var result = userService.SearchUsers(param);
+            var result = await userService.SearchUsers(param);
             return Ok(result);
         }
 
         [HttpGet("recommended")]
-        public IActionResult GetRecommended()
+        public async Task<IActionResult> GetRecommended()
         {
-            var result = userService.GetRecommended(GetCurrentUserID());
+            var result = await userService.GetRecommended(GetCurrentUserID());
             return Ok(result);
         }
 
         [HttpPut("resetpassword"), Authorize]
-        public void ResetPassword()
+        public async Task<IActionResult> ResetPassword()
         {
-
+            await userService.ResetPassword();
+            return Ok();
         }
 
-        [HttpPut("changepassword"), Authorize]
-        public void ChangePassword()
+        [HttpPut("changepassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] string confirmPassword, string newPassword)
         {
-
+            await userService.ChangePassword(confirmPassword, newPassword, GetCurrentUserID());
+            return Ok();
         }
 
         [HttpPut("changeemail"), Authorize]
-        public void ChangeEmail()
+        public async Task<IActionResult> ChangeEmail(string confirmPassword, string newEmail)
         {
-
+            await userService.ChangeEmail(confirmPassword, newEmail, GetCurrentUserID());
+            return Ok();
         }
-
+        
         [HttpDelete("delete"), Authorize]
-        public IActionResult DeleteUser()
+        public async Task<IActionResult> DeleteUser([FromBody] string confirmPassword)
         {
-            userService.DeleteUser(GetCurrentUserID());
+            await userService.DeleteUser(confirmPassword, GetCurrentUserID());
             return Ok();
         }
     }

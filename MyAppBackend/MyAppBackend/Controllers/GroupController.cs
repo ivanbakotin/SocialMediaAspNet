@@ -12,21 +12,13 @@ namespace MyAppBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GroupController : ControllerBase
+    public class GroupController : BaseController
     {
         private readonly IGroupService groupService;
 
         public GroupController(IGroupService groupService)
         {
             this.groupService = groupService ?? throw new ArgumentNullException(nameof(groupService));
-        }
-
-        private int GetCurrentUserID()
-        {
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
-            return Int32.Parse(userID);
         }
 
         [HttpGet("search/{param}"), Authorize]
