@@ -69,7 +69,7 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpGet("userrequestspending"), Authorize]
+        [HttpGet("userrequestssent"), Authorize]
         public IActionResult GetUserGroupRequestsSent()
         {
             groupRequestService.GetUserGroupRequestsSent(GetCurrentUserID());

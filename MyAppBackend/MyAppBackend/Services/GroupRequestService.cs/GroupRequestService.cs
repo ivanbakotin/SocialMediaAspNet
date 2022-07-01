@@ -79,6 +79,5 @@ namespace MyAppBackend.Services.GroupRequestService
         {
             throw new NotImplementedException();
         }
-
     }
 }

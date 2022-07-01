@@ -1,17 +1,18 @@
 ﻿using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.PostService
 {
     public interface IPostService
     {
-        List<PostViewModel> GetPosts(int UserID);
-        List<PostViewModel> GetUserPosts(int UserID);
-        PostViewModel GetPost(int UserID, int PostID);
-        PostViewModel CreatePost(Post post, int UserID);
-        bool UpdatePost(string body, int UserID, int PostID);
-        bool DeletePost(int UserID, int PostID);
-        void VotePost(int UserID, int PostID, bool vote);
+        Task<List<PostViewModel>> GetPosts(int UserID);
+        Task<List<PostViewModel>> GetUserPosts(int UserID);
+        Task<PostViewModel> GetPost(int UserID, int PostID);
+        Task<PostViewModel> CreatePost(Post post, int UserID);
+        Task UpdatePost(string body, int UserID, int PostID);
+        Task DeletePost(int UserID, int PostID);
+        Task VotePost(int UserID, int PostID, bool vote);
     }
 }

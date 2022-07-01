@@ -3,6 +3,7 @@ using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.GroupService
 {
@@ -81,14 +82,14 @@ namespace MyAppBackend.Services.GroupService
             if (userToRemove != null && userToRemove.RoleID != 3)
             {
                 context.GroupMembers.Remove(userToRemove);
-                context.SaveChanges();
+                context.SaveChangesAsync();
             }
         }
 
-        public dynamic CreateGroup(Group group, int UserID)
+        public Group CreateGroup(Group group, int UserID)
         {      
-            context.Groups.Add(group);
-            context.SaveChanges();
+            context.Groups.AddAsync(group);
+            context.SaveChangesAsync();
 
             var newMember = new GroupMember
             {
@@ -96,8 +97,8 @@ namespace MyAppBackend.Services.GroupService
                 UserID = UserID,
                 RoleID = 3     
             };
-            context.GroupMembers.Add(newMember);
-            context.SaveChanges();
+            context.GroupMembers.AddAsync(newMember);
+            context.SaveChangesAsync();
 
             return group;
         }

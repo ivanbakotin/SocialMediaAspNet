@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.PostService
 {
@@ -18,85 +20,79 @@ namespace MyAppBackend.Services.PostService
             this.context = context;
         }
 
-        public List<PostViewModel> GetPosts(int UserID)
+        public async Task<List<PostViewModel>> GetPosts(int UserID)
         {
-            var result = mapper.ProjectTo<PostViewModel>(
+            var result = await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where post.UserID == UserID ||
                                       context.Friends.Any(f => (f.UserID2 == UserID && f.UserID1 == post.UserID)
                                                              || (f.UserID1 == UserID && f.UserID2 == post.UserID))
                                 orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
-                                .ToList();
+                                .ToListAsync();
 
             return result;
         }
 
-        public List<PostViewModel> GetUserPosts(int UserID)
+        public async Task<List<PostViewModel>> GetUserPosts(int UserID)
         { 
-            var result = mapper.ProjectTo<PostViewModel>(
+            var result = await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where post.UserID == UserID
                                 orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
-                                .ToList();
+                                .ToListAsync();
 
             return result;
         }
 
-        public PostViewModel GetPost(int UserID, int PostID)
+        public async Task<PostViewModel> GetPost(int UserID, int PostID)
         {
-            var result = mapper.ProjectTo<PostViewModel>(
+            var result = await mapper.ProjectTo<PostViewModel>(
                           from post in context.Posts
                           where post.ID == PostID
                           select post, new { CurrentUserID = UserID })
-                          .FirstOrDefault();
+                          .FirstOrDefaultAsync();
 
             return result;
         }
 
-        public PostViewModel CreatePost(Post post, int UserID)
+        public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
             post.UserID = UserID;
-            context.Posts.Add(post);
-            context.SaveChanges();
+            await context.Posts.AddAsync(post);
+            await context.SaveChangesAsync();
 
             PostViewModel createdPost = mapper.Map<PostViewModel>(post);
          
             return createdPost;
         }
 
-        public bool UpdatePost(string body, int UserID, int PostID)
+        public async Task UpdatePost(string body, int UserID, int PostID)
         {
-            var postToUpdate = context.Posts.Where(p => p.ID == PostID).FirstOrDefault();
+            var postToUpdate = await context.Posts.Where(p => p.ID == PostID).FirstOrDefaultAsync();
 
             if (postToUpdate != null)
             {
                 postToUpdate.Body = body;
-                context.SaveChanges();
-                return true;
+                await context.SaveChangesAsync();
             }
-
-            return false;
         }
 
-        public bool DeletePost(int UserID, int PostID)
+        public async Task DeletePost(int UserID, int PostID)
         {
-            var postToDelete = context.Posts.Where(p => p.ID == PostID).FirstOrDefault();
+            var postToDelete = await context.Posts.Where(p => p.ID == PostID).FirstOrDefaultAsync();
 
             if (postToDelete != null)
             {
                 context.Posts.Remove(postToDelete);
-                context.SaveChanges();
-                return true;
+                await context.SaveChangesAsync();
             }
-
-            return false;
         }
 
-        public void VotePost(int UserID, int PostID, bool vote)
+        public async Task VotePost(int UserID, int PostID, bool vote)
         {
-            var votedPost = context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefault();
+            var votedPost = await context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefaultAsync();
 
             if (votedPost == null)
             {
@@ -107,7 +103,7 @@ namespace MyAppBackend.Services.PostService
                     Liked = vote
                 };
 
-                context.VotedPosts.Add(newVotedPost);
+                await context.VotedPosts.AddAsync(newVotedPost);
             }
             else if (votedPost.Liked != vote)
             {
@@ -117,7 +113,7 @@ namespace MyAppBackend.Services.PostService
                 context.VotedPosts.Remove(votedPost);
             }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }    
     }
 }
