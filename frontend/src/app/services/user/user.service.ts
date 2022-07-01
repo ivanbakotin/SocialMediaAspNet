@@ -14,6 +14,7 @@ export class UserService {
   private searchUsersURL = `${HOSTNAME}User/search/`;
   private recommendedUsersURL = `${HOSTNAME}User/recommended`;
   private deleteUserURL = `${HOSTNAME}User/delete/`;
+  private changePasswordURL = `${HOSTNAME}User/changepassword/`;
 
   public getCurrentUserID() {
     const token = localStorage.getItem('token') || '';
@@ -27,6 +28,12 @@ export class UserService {
 
   public getRecommendedUsers(): Observable<any> {
     return this.http.get(this.recommendedUsersURL, { headers: GetHeader() });
+  }
+
+  public changePassword(): Observable<any> {
+    return this.http.put(this.changePasswordURL + '1', JSON.stringify('123'), {
+      headers: GetHeader(),
+    });
   }
 
   public deleteUser(): Observable<any> {

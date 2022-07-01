@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using MyAppBackend.Controllers;
 using MyAppBackend.Data;
 using MyAppBackend.Utilities;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace MyAppBackend.ActionFilters
 {
-    public class PasswordFilter : IActionFilter
+    public class PasswordFilter : ControllerBase, IActionFilter
     {
         private readonly DataContext context;
 
@@ -18,11 +22,12 @@ namespace MyAppBackend.ActionFilters
         public void OnActionExecuting(ActionExecutingContext _context)
         {
             string confirmPassword;
-            int UserID;
 
-            if (_context.ActionArguments.ContainsKey("confirmPassword") && _context.ActionArguments.ContainsKey("UserID"))
+            var UserID = Int32.Parse(_context.HttpContext.User.Claims.Where(x => x.Type == "ID").Select(x => x.Value).FirstOrDefault());
+
+
+            if (_context.ActionArguments.ContainsKey("confirmPassword"))
             {
-                UserID = (int)_context.ActionArguments["UserID"];
                 confirmPassword = (string)_context.ActionArguments["confirmPassword"];
             } else
             {

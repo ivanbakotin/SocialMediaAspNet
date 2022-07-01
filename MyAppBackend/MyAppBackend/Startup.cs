@@ -21,11 +21,11 @@ namespace MyAppBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.addJwtAuthenticationExtension();
             services.AddHttpContextAccessor();
             services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddServiceInjectionExtension();
             services.addCorsExtension();
-            services.addJwtAuthenticationExtension();
             services.addDbContextExtension();
             services.AddControllers();
             services.AddAutoMapper(typeof(Startup));

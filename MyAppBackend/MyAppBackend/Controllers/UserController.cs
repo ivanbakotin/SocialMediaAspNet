@@ -39,7 +39,8 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPut("changepassword")]
+        [HttpPut("changepassword/{newPassword}"), Authorize]
+        [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> ChangePassword([FromBody] string confirmPassword, string newPassword)
         {
             await userService.ChangePassword(confirmPassword, newPassword, GetCurrentUserID());
@@ -47,13 +48,15 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("changeemail"), Authorize]
+        [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> ChangeEmail(string confirmPassword, string newEmail)
         {
             await userService.ChangeEmail(confirmPassword, newEmail, GetCurrentUserID());
             return Ok();
         }
-        
+
         [HttpDelete("delete"), Authorize]
+        [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> DeleteUser([FromBody] string confirmPassword)
         {
             await userService.DeleteUser(confirmPassword, GetCurrentUserID());

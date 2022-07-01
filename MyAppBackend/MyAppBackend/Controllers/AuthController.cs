@@ -59,10 +59,10 @@ namespace MyAppBackend.Controllers
         {
             var token = authService.IsLoggedIn(jwt);
 
-            //if (token == null)
-            //{
-            //    return Ok();
-            //}
+            if (token == null)
+            {
+                return Ok();
+            }
 
             return Ok(new AuthenticatedResponse { Token = token });
         }
