@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Services.FriendService;
 using System;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
@@ -17,51 +18,51 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("requestspending"), Authorize]
-        public IActionResult GetAllRequestsPending()
+        public async Task<IActionResult> GetAllRequestsPending()
         {
-            var result = friendService.GetAllRequestsPending(GetCurrentUserID());
+            var result = await friendService.GetAllRequestsPending(GetCurrentUserID());
             return Ok(result);
         }
 
         [HttpGet("requestssent"), Authorize]
-        public IActionResult GetAllRequestsSent()
+        public async Task<IActionResult> GetAllRequestsSent()
         {
-            var result = friendService.GetAllRequestsSent(GetCurrentUserID());
+            var result = await friendService.GetAllRequestsSent(GetCurrentUserID());
             return Ok(result);
         }
 
         [HttpGet("friends/{id}"), Authorize]
-        public IActionResult GetAllFriends(int id)
+        public async Task<IActionResult> GetAllFriends(int id)
         {
-            var friends = friendService.GetAllFriends(id);
+            var friends = await friendService.GetAllFriends(id);
             return Ok(friends);
         }
 
         [HttpPost("send/{id}"), Authorize]
-        public IActionResult SendFriendRequest(int id)
+        public async Task<IActionResult> SendFriendRequest(int id)
         {
-            friendService.SendFriendRequest(GetCurrentUserID(), id);
+            await friendService.SendFriendRequest(GetCurrentUserID(), id);
             return Ok();
         }
 
         [HttpDelete("remove/{id}"), Authorize]
-        public IActionResult RemoveFriend(int id)
+        public async Task<IActionResult> RemoveFriend(int id)
         {
-            friendService.RemoveFriend(GetCurrentUserID(), id); 
+            await friendService.RemoveFriend(GetCurrentUserID(), id); 
             return Ok();
         }
 
         [HttpPost("accept/{id}"), Authorize]
-        public IActionResult AcceptFriendRequest(int id)
+        public async Task<IActionResult> AcceptFriendRequest(int id)
         {
-            friendService.AcceptFriendRequest(GetCurrentUserID(), id);
+            await friendService.AcceptFriendRequest(GetCurrentUserID(), id);
             return Ok();
         }
 
         [HttpDelete("decline/{id}"), Authorize]
-        public IActionResult RemoveFriendRequest(int id)
+        public async Task<IActionResult> RemoveFriendRequest(int id)
         {
-            friendService.RemoveFriendRequest(GetCurrentUserID(), id);
+            await friendService.RemoveFriendRequest(GetCurrentUserID(), id);
             return Ok();
         }
     }

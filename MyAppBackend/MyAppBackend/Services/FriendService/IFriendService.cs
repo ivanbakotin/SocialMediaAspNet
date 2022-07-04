@@ -1,13 +1,15 @@
-﻿namespace MyAppBackend.Services.FriendService
+﻿using System.Threading.Tasks;
+
+namespace MyAppBackend.Services.FriendService
 {
     public interface IFriendService
     {
-        dynamic GetAllRequestsPending(int UserID);
-        dynamic GetAllRequestsSent(int UserID);
-        dynamic GetAllFriends(int id);
-        void SendFriendRequest(int UserID, int id);
-        void RemoveFriend(int UserID, int id);
-        void AcceptFriendRequest(int UserID, int id);
-        void RemoveFriendRequest(int UserID, int id);
+        Task<dynamic> GetAllRequestsPending(int UserID);
+        Task<dynamic> GetAllRequestsSent(int UserID);
+        Task<dynamic> GetAllFriends(int id);
+        Task SendFriendRequest(int UserID, int id);
+        Task RemoveFriend(int UserID, int id);
+        Task AcceptFriendRequest(int UserID, int id);
+        Task RemoveFriendRequest(int UserID, int id);
     }
 }

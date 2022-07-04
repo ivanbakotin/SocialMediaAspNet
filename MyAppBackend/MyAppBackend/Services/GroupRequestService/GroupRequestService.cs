@@ -1,4 +1,5 @@
-﻿using MyAppBackend.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyAppBackend.Data;
 using MyAppBackend.Models;
 using System;
 using System.Linq;
