@@ -1,14 +1,16 @@
-﻿namespace MyAppBackend.Services.GroupRequestService
+﻿using System.Threading.Tasks;
+
+namespace MyAppBackend.Services.GroupRequestService
 {
     public interface IGroupRequestService
     {
-        void SendGroupRequest(int id, int UserID);
-        void DeclineGroupRequest(int id, int UserID);
-        void InviteToGroup(int id, int UserID, int MemberID);
-        void AcceptToGroup(int id, int UserID, int GroupID);
-        void GetGroupRequestsSent(int UserID);
-        void GetGroupRequestsPending(int UserID);
-        void GetUserGroupRequestsSent(int UserID);
-        void GetUserGroupRequestsPending(int UserID);
+        Task SendGroupRequest(int id, int UserID);
+        Task DeclineGroupRequest(int id, int UserID);
+        Task InviteToGroup(int id, int UserID, int MemberID);
+        Task AcceptToGroup(int id, int UserID, int GroupID);
+        Task GetGroupRequestsSent(int UserID);
+        Task GetGroupRequestsPending(int UserID);
+        Task GetUserGroupRequestsSent(int UserID);
+        Task GetUserGroupRequestsPending(int UserID);
     }
 }

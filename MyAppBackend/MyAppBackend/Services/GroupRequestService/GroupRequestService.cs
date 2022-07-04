@@ -2,6 +2,7 @@
 using MyAppBackend.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.GroupRequestService
 {
@@ -14,7 +15,7 @@ namespace MyAppBackend.Services.GroupRequestService
             this.context = context;
         }
 
-        public void SendGroupRequest(int id, int UserID)
+        public async Task SendGroupRequest(int id, int UserID)
         {
             var newGroupRequest = new GroupRequest
             {
@@ -22,18 +23,18 @@ namespace MyAppBackend.Services.GroupRequestService
                 GroupID = id,
             };
 
-            context.GroupRequests.Add(newGroupRequest);
-            context.SaveChanges();
+            await context.GroupRequests.AddAsync(newGroupRequest);
+            await context.SaveChangesAsync();
         }
 
-        public void DeclineGroupRequest(int GroupID, int UserID)
+        public async Task DeclineGroupRequest(int GroupID, int UserID)
         {
-            var newGroupRequest = context.GroupRequests.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefault();
+            var newGroupRequest = await context.GroupRequests.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefaultAsync();
             context.GroupRequests.Remove(newGroupRequest);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
-        public void InviteToGroup(int id, int UserID, int MemberID)
+        public async Task InviteToGroup(int id, int UserID, int MemberID)
         {
             var newGroupRequest = new GroupRequest
             {
@@ -42,13 +43,13 @@ namespace MyAppBackend.Services.GroupRequestService
                 GroupID = id,
             };
 
-            context.GroupRequests.Add(newGroupRequest);
-            context.SaveChanges();
+           await context.GroupRequests.AddAsync(newGroupRequest);
+           await context.SaveChangesAsync();
         }
 
-        public void AcceptToGroup(int id, int UserID, int GroupID)
+        public async Task AcceptToGroup(int id, int UserID, int GroupID)
         {
-            var newGroupRequest = context.GroupRequests.Where(x => x.UserID == id && x.GroupID == GroupID).FirstOrDefault();
+            var newGroupRequest = await context.GroupRequests.Where(x => x.UserID == id && x.GroupID == GroupID).FirstOrDefaultAsync();
             context.GroupRequests.Remove(newGroupRequest);
             var newMember = new GroupMember
             {
@@ -56,26 +57,26 @@ namespace MyAppBackend.Services.GroupRequestService
                 UserID = UserID,
                 RoleID = 2
             };
-            context.GroupMembers.Add(newMember);
-            context.SaveChanges();
+            await context.GroupMembers.AddAsync(newMember);
+            await context.SaveChangesAsync();
         }
 
-        public void GetGroupRequestsSent(int UserID)
+        public async Task GetGroupRequestsSent(int UserID)
         {
             throw new NotImplementedException();
         }
 
-        public void GetGroupRequestsPending(int UserID)
+        public async Task GetGroupRequestsPending(int UserID)
         {
             throw new NotImplementedException();
         }
 
-        public void GetUserGroupRequestsSent(int UserID)
+        public async Task GetUserGroupRequestsSent(int UserID)
         {
             throw new NotImplementedException();
         }
 
-        public void GetUserGroupRequestsPending(int UserID)
+        public async Task GetUserGroupRequestsPending(int UserID)
         {
             throw new NotImplementedException();
         }
