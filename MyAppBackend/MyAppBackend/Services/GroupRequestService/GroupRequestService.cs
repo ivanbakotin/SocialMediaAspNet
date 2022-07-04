@@ -44,14 +44,14 @@ namespace MyAppBackend.Services.GroupRequestService
             await context.SaveChangesAsync();
         }
 
-        public async Task AcceptToGroup(int id, int UserID, int GroupID)
+        public async Task AcceptToGroup(int id, int GroupID)
         {
             var newGroupRequest = await context.GroupRequests.Where(x => x.UserID == id && x.GroupID == GroupID).FirstOrDefaultAsync();
             context.GroupRequests.Remove(newGroupRequest);
             GroupMember newMember = new()
             {
-                GroupID = GroupID,
-                UserID = UserID,
+                GroupID = newGroupRequest.GroupID,
+                UserID = id,
                 RoleID = 2
             };
             await context.GroupMembers.AddAsync(newMember);

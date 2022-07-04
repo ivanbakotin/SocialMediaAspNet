@@ -41,7 +41,7 @@ namespace MyAppBackend.Controllers
         [HttpPost("accept/{id}"), Authorize]
         public async Task<IActionResult> AcceptToGroup(int id, [FromBody] int GroupID)
         {
-            await groupRequestService.AcceptToGroup(id, GetCurrentUserID(), GroupID);
+            await groupRequestService.AcceptToGroup(id, GroupID);
             return Ok();
         }
 

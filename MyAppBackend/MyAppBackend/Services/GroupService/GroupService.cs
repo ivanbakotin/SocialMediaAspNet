@@ -56,51 +56,36 @@ namespace MyAppBackend.Services.GroupService
 
         public async Task UpdateGroupInfo(Group body, int GroupID, int UserID)
         {
-            var isOwnerOrAdmin = context.GroupMembers.Any(x => x.GroupID == GroupID && x.UserID == UserID && (x.RoleID == 3 || x.RoleID == 1));
+            var groupToUpdate = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
 
-            if (isOwnerOrAdmin)
+            if (groupToUpdate != null)
             {
-                var groupToUpdate = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
+                groupToUpdate.Description = body.Description;
+            };
 
-                if (groupToUpdate != null)
-                {
-                    groupToUpdate.Description = body.Description;
-                };
-
-                await context.SaveChangesAsync();
-            }
+            await context.SaveChangesAsync();         
         }
 
         public async Task DeleteGroup(int GroupID, int UserID)
         {
-            var isOwner = context.GroupMembers.Any(x => x.GroupID == GroupID && x.RoleID == 3 && x.UserID == UserID);
-            
-            if (isOwner) 
-            {
-                var groupToDelete = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
+            var groupToDelete = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
 
-                if (groupToDelete != null)
-                {
-                    context.Groups.Remove(groupToDelete);
-                    await context.SaveChangesAsync();
-                }
-            }
+            if (groupToDelete != null)
+            {
+                context.Groups.Remove(groupToDelete);
+                await context.SaveChangesAsync();
+            }         
         }
 
         public async Task RemoveGroupUser(int UserID, int GroupID)
         {
-            var isOwnerOrAdmin = context.GroupMembers.Any(x => x.GroupID == GroupID && x.UserID == UserID &&  (x.RoleID == 3 || x.RoleID == 1));
+            var userToRemove = await context.GroupMembers.Where(x => x.UserID == UserID && x.GroupID == GroupID && !(x.RoleID == 3)).FirstOrDefaultAsync();
 
-            if (isOwnerOrAdmin)
+            if (userToRemove != null && userToRemove.RoleID != 3)
             {
-                var userToRemove = await context.GroupMembers.Where(x => x.UserID == UserID && x.GroupID == GroupID && !(x.RoleID == 3)).FirstOrDefaultAsync();
-
-                if (userToRemove != null && userToRemove.RoleID != 3)
-                {
-                    context.GroupMembers.Remove(userToRemove);
-                    await context.SaveChangesAsync();
-                }
-            }
+                context.GroupMembers.Remove(userToRemove);
+                await context.SaveChangesAsync();
+            }      
         }
 
         public async Task<GroupViewModel> CreateGroup(Group group, int UserID)

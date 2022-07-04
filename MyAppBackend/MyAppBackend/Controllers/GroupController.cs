@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.ActionFilters;
 using MyAppBackend.Models;
 using MyAppBackend.Services.GroupService;
 using System;
@@ -54,6 +55,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("info/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> UpdateGroupInfo(Group body, int GroupID)
         {
             await groupService.UpdateGroupInfo(body, GroupID, GetCurrentUserID());
@@ -61,6 +63,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpDelete("{GroupID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerFilter))]
         public async Task<IActionResult> DeleteGroup(int GroupID)
         {
             await groupService.DeleteGroup(GroupID, GetCurrentUserID());
@@ -68,6 +71,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpDelete("removeuser/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> RemoveGroupUser([FromBody] int UserID, int GroupID)
         {
             await groupService.RemoveGroupUser(UserID, GroupID);

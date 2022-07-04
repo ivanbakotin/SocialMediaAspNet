@@ -103,6 +103,8 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IGroupService, Services.GroupService.GroupService>();
 
             services.AddScoped<PasswordFilter>();
+            services.AddScoped<GroupOwnerAdminFilter>();
+            services.AddScoped<GroupOwnerFilter>();
 
             return services;
         }
