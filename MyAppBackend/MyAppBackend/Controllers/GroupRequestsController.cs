@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.ActionFilters;
 using MyAppBackend.Services.GroupRequestService;
 using System;
 using System.Threading.Tasks;
@@ -31,17 +32,26 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPost("invite/{id}"), Authorize]
-        public async Task<IActionResult> InviteToGroup(int id, [FromBody] int MemberID)
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
+        [HttpPost("invite/{GroupID}"), Authorize]
+        public async Task<IActionResult> InviteToGroup(int GroupID, [FromBody] int MemberID)
         {
-            await groupRequestService.InviteToGroup(id, GetCurrentUserID(), MemberID);
+            await groupRequestService.InviteToGroup(GroupID, GetCurrentUserID(), MemberID);
             return Ok();
         }
 
         [HttpPost("accept/{GroupID}"), Authorize]
-        public async Task<IActionResult> AcceptToGroup(int GroupID)
+        public async Task<IActionResult> AcceptGroupInvitation(int GroupID)
         {
-            await groupRequestService.AcceptToGroup(GetCurrentUserID(), GroupID);
+            await groupRequestService.AcceptInvitation(GetCurrentUserID(), GroupID);
+            return Ok();
+        }
+
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
+        [HttpPost("accept/{GroupID}/{UserID}"), Authorize]
+        public async Task<IActionResult> AcceptRequest(int UserID, int GroupID)
+        {
+            await groupRequestService.AcceptRequest(UserID, GroupID);
             return Ok();
         }
 

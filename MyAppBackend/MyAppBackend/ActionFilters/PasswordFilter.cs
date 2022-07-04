@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using MyAppBackend.ApiModels;
 using MyAppBackend.Data;
+using MyAppBackend.Models;
 using MyAppBackend.Utilities;
 using System;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace MyAppBackend.ActionFilters
         {
             string confirmPassword;
 
-            var UserID = Int32.Parse(_context.HttpContext.User.Claims
+            int UserID = Int32.Parse(_context.HttpContext.User.Claims
                                                                 .Where(x => x.Type == "ID")
                                                                 .Select(x => x.Value)
                                                                 .FirstOrDefault());
@@ -36,10 +37,10 @@ namespace MyAppBackend.ActionFilters
                 return;
             }
 
-            var user = context.Users.Where(x => x.ID == UserID).FirstOrDefault();
+            User user = context.Users.Where(x => x.ID == UserID).FirstOrDefault();
             _context.HttpContext.Items.Add("userObject", user);
 
-            var hashedPassword = CustomHash.HashString(confirmPassword);
+            string hashedPassword = CustomHash.HashString(confirmPassword);
 
             if (hashedPassword != user.Password)
             {

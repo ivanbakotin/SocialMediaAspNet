@@ -33,7 +33,7 @@ namespace MyAppBackend.ActionFilters
                 return;
             }
 
-            var isOwner = context.GroupMembers.Any(x => x.GroupID == GroupID && x.RoleID == 3 && x.UserID == UserID);
+            bool isOwner = context.GroupMembers.Any(x => x.GroupID == GroupID && x.RoleID == 3 && x.UserID == UserID);
 
             if (isOwner)
             {

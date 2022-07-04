@@ -57,6 +57,10 @@ import { GroupRequestPendingComponent } from './components/requests/group-reques
 import { GroupRequestSentComponent } from './components/requests/group-request-sent/group-request-sent.component';
 import { FriendRequestPendingComponent } from './components/requests/friend-request-pending/friend-request-pending.component';
 import { FriendRequestSentComponent } from './components/requests/friend-request-sent/friend-request-sent.component';
+import { GroupInfoComponent } from './components/group/group-info/group-info.component';
+import { GroupPostsComponent } from './components/group/group-posts/group-posts.component';
+import { GroupUsersComponent } from './components/group/group-users/group-users.component';
+import { SearchGroupUsersComponent } from './components/group/search-group-users/search-group-users.component';
 
 @NgModule({
   declarations: [
@@ -108,6 +112,10 @@ import { FriendRequestSentComponent } from './components/requests/friend-request
     GroupRequestSentComponent,
     FriendRequestPendingComponent,
     FriendRequestSentComponent,
+    GroupInfoComponent,
+    GroupPostsComponent,
+    GroupUsersComponent,
+    SearchGroupUsersComponent,
   ],
   imports: [
     BrowserModule,

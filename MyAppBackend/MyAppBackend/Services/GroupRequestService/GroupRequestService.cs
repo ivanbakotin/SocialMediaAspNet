@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,12 +38,11 @@ namespace MyAppBackend.Services.GroupRequestService
                 UserID = UserID,
                 GroupID = id,
             };
-
             await context.GroupRequests.AddAsync(newGroupRequest);
             await context.SaveChangesAsync();
         }
 
-        public async Task AcceptToGroup(int UserID, int GroupID)
+        public async Task AcceptInvitation(int UserID, int GroupID)
         {
             var newGroupRequest = await context.GroupRequests.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefaultAsync();
             context.GroupRequests.Remove(newGroupRequest);
@@ -56,6 +54,11 @@ namespace MyAppBackend.Services.GroupRequestService
             };
             await context.GroupMembers.AddAsync(newMember);
             await context.SaveChangesAsync();
+        }
+
+        public async Task AcceptRequest(int UserID, int GroupID)
+        {
+
         }
 
         public async Task<List<GroupRequest>> GetGroupRequestsSent(int GroupID)
