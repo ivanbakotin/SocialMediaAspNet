@@ -43,6 +43,10 @@ import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
 import { SearchgroupsComponent } from './components/searchgroups/searchgroups.component';
 import { CreateGroupComponent } from './components/create-group/create-group.component';
+import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ChangeEmailComponent } from './components/change-email/change-email.component';
+import { DeleteUserComponent } from './components/delete-user/delete-user.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +84,10 @@ import { CreateGroupComponent } from './components/create-group/create-group.com
     GroupComponent,
     SearchgroupsComponent,
     CreateGroupComponent,
+    UpdateProfileComponent,
+    ChangePasswordComponent,
+    ChangeEmailComponent,
+    DeleteUserComponent,
   ],
   imports: [
     BrowserModule,

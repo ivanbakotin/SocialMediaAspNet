@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.isLoggedIn().subscribe((response) => {
-      if (response.token != null) {
+      if (response?.token != null) {
         localStorage.setItem('token', response.token);
       }
     });

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.ActionFilters;
+using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
 using MyAppBackend.Services.UserService;
 using System;
@@ -40,27 +41,27 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPut("changepassword/{newPassword}"), Authorize]
+        [HttpPut("changepassword"), Authorize]
         [ServiceFilter(typeof(PasswordFilter))]
-        public async Task<IActionResult> ChangePassword([FromBody] string confirmPassword, string newPassword)
+        public async Task<IActionResult> ChangePassword([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangePassword(newPassword, userObject);
+            await userService.ChangePassword(user.changeField, userObject);
             return Ok();
         }
 
         [HttpPut("changeemail"), Authorize]
         [ServiceFilter(typeof(PasswordFilter))]
-        public async Task<IActionResult> ChangeEmail(string confirmPassword, string newEmail)
+        public async Task<IActionResult> ChangeEmail([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangeEmail(newEmail, userObject);
+            await userService.ChangeEmail(user.changeField, userObject);
             return Ok();
         }
 
         [HttpDelete("delete"), Authorize]
         [ServiceFilter(typeof(PasswordFilter))]
-        public async Task<IActionResult> DeleteUser([FromBody] string confirmPassword)
+        public async Task<IActionResult> DeleteUser([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
             await userService.DeleteUser(userObject);

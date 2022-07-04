@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using MyAppBackend.ApiModels;
 using MyAppBackend.Data;
 using MyAppBackend.Utilities;
 using System;
@@ -20,11 +21,15 @@ namespace MyAppBackend.ActionFilters
         {
             string confirmPassword;
 
-            var UserID = Int32.Parse(_context.HttpContext.User.Claims.Where(x => x.Type == "ID").Select(x => x.Value).FirstOrDefault());
+            var UserID = Int32.Parse(_context.HttpContext.User.Claims
+                                                                .Where(x => x.Type == "ID")
+                                                                .Select(x => x.Value)
+                                                                .FirstOrDefault());
 
-            if (_context.ActionArguments.ContainsKey("confirmPassword"))
+            if (_context.ActionArguments.ContainsKey("user"))
             {
-                confirmPassword = (string)_context.ActionArguments["confirmPassword"];
+                UserChange userChange = (UserChange)_context.ActionArguments["user"];
+                confirmPassword = userChange.confirmPassword;
             } else
             {
                 _context.Result = new BadRequestObjectResult("Bad parameters");
@@ -40,7 +45,6 @@ namespace MyAppBackend.ActionFilters
             {
                 _context.Result = new ForbidResult();
             }
-
         }
 
         public void OnActionExecuted(ActionExecutedContext context) {}

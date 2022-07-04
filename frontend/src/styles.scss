@@ -5,6 +5,10 @@
   font-size: var(--font-size-sm);
 }
 
+.ajs-dialog * {
+  font-size: var(--font-size-sm) !important;
+}
+
 *,
 *::before,
 *::after {

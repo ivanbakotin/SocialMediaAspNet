@@ -15,6 +15,7 @@ export class UserService {
   private recommendedUsersURL = `${HOSTNAME}User/recommended`;
   private deleteUserURL = `${HOSTNAME}User/delete/`;
   private changePasswordURL = `${HOSTNAME}User/changepassword/`;
+  private changeEmailURL = `${HOSTNAME}User/changeemail/`;
 
   public getCurrentUserID() {
     const token = localStorage.getItem('token') || '';
@@ -30,13 +31,22 @@ export class UserService {
     return this.http.get(this.recommendedUsersURL, { headers: GetHeader() });
   }
 
-  public changePassword(): Observable<any> {
-    return this.http.put(this.changePasswordURL + '123', JSON.stringify('1'), {
+  public changePassword(body: any): Observable<any> {
+    return this.http.put(this.changePasswordURL, body, {
       headers: GetHeader(),
     });
   }
 
-  public deleteUser(): Observable<any> {
-    return this.http.delete(this.deleteUserURL, { headers: GetHeader() });
+  public changeEmail(body: any): Observable<any> {
+    return this.http.put(this.changeEmailURL, body, {
+      headers: GetHeader(),
+    });
+  }
+
+  public deleteUser(body: any): Observable<any> {
+    return this.http.delete(this.deleteUserURL, {
+      headers: GetHeader(),
+      body,
+    });
   }
 }
