@@ -1,13 +1,14 @@
 ﻿using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.Auth
 {
     public interface IAuthService
     {
-        string Login(LoginUser user);
-        bool Register(User user);
-        string IsLoggedIn(string token);
-        void Logout(int UserID);
+        Task<string> Login(LoginUser user);
+        Task<bool> Register(User user);
+        Task<string> IsLoggedIn(string token);
+        Task Logout(int UserID);
     }
 }

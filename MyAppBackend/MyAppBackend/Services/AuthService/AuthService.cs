@@ -4,6 +4,7 @@ using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.Utilities;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.Auth
 {
@@ -16,9 +17,9 @@ namespace MyAppBackend.Services.Auth
             this.context = context;
         }
 
-        public string Login(LoginUser user)
+        public async Task<string> Login(LoginUser user)
         {
-            var userObject = context.Users.Include(u => u.Role).Where(u => u.Email == user.Email).FirstOrDefault();
+            var userObject = await context.Users.Include(u => u.Role).Where(u => u.Email == user.Email).FirstOrDefaultAsync();
 
             if (userObject == null)
             {
@@ -42,14 +43,14 @@ namespace MyAppBackend.Services.Auth
                     Jwt = tokenString
                 };
 
-                context.Sessions.Add(session);
-                context.SaveChanges();
+                await context.Sessions.AddAsync(session);
+                await context.SaveChangesAsync();
             }
 
             return tokenString;
         }
 
-        public bool Register(User user)
+        public async Task<bool> Register(User user)
         {
             //check password, email regex
 
@@ -70,20 +71,20 @@ namespace MyAppBackend.Services.Auth
                 RoleID = 2
             };
 
-            context.Users.Add(newUser);
-            context.SaveChanges();
+            await context .Users.AddAsync(newUser);
+            await context.SaveChangesAsync();
 
             Profile newProfile = new Profile { UserID = newUser.ID };
 
-            context.Profiles.Add(newProfile);
-            context.SaveChanges();
+            await context.Profiles.AddAsync(newProfile);
+            await context.SaveChangesAsync();
 
             return true;
         }
 
-        public string IsLoggedIn(string token)
+        public async Task<string> IsLoggedIn(string token)
         {
-            var session = context.Sessions.Include(x => x.User.Role).Where(x => x.Jwt == token).FirstOrDefault();
+            var session = await context.Sessions.Include(x => x.User.Role).Where(x => x.Jwt == token).FirstOrDefaultAsync();
 
             if (session == null)
             {
@@ -100,20 +101,20 @@ namespace MyAppBackend.Services.Auth
                 Jwt = tokenString
             };
 
-            context.Sessions.Add(newSession);
-            context.SaveChanges();
+            await context.Sessions.AddAsync(newSession);
+            await context.SaveChangesAsync();
 
             return tokenString;
         }
 
-        public void Logout(int UserID)
+        public async Task Logout(int UserID)
         {
-            var sessionToDelete = context.Sessions.Where(x => x.UserID == UserID).ToList();
+            var sessionToDelete = await context.Sessions.Where(x => x.UserID == UserID).ToListAsync();
 
             if (sessionToDelete != null)
             {
                 context.Sessions.RemoveRange(sessionToDelete);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
     }

@@ -6,12 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly IAuthService authService;
 
@@ -20,18 +21,10 @@ namespace MyAppBackend.Controllers
             this.authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
-        private int GetCurrentUserID()
-        {
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var userID = claims.Where(p => p.Type == "ID").FirstOrDefault()?.Value;
-            return Int32.Parse(userID);
-        }
-
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginUser user)
+        public async Task<IActionResult> Login([FromBody] LoginUser user)
         {
-            var token = authService.Login(user);
+            var token = await authService.Login(user);
 
             if (token == null)
             {
@@ -42,9 +35,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
+        public async Task<IActionResult> Register([FromBody] User user)
         {
-            bool flag = authService.Register(user);
+            bool flag = await authService.Register(user);
 
             if (!flag)
             {
@@ -55,9 +48,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("isloggedin")]
-        public IActionResult IsLoggedIn([FromBody] string jwt)
+        public async Task<IActionResult> IsLoggedIn([FromBody] string jwt)
         {
-            var token = authService.IsLoggedIn(jwt);
+            var token = await authService.IsLoggedIn(jwt);
 
             if (token == null)
             {
@@ -68,9 +61,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpDelete("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            authService.Logout(GetCurrentUserID());
+            await authService.Logout(GetCurrentUserID());
             return Ok();
         }
     }
