@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyAppBackend.Extensions;
 using MyAppBackend.Settings;
-using System.Text.Json.Serialization;
 
 namespace MyAppBackend
 {

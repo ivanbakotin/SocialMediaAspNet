@@ -1,0 +1,13 @@
+.requests__item {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+
+  h3 {
+    font-size: var(--font-size-sm);
+  }
+
+  .btn {
+    font-size: var(--font-size-sm);
+  }
+}

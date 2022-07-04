@@ -1,0 +1,12 @@
+<li class="requests__item">
+  <h3>{{ request.username }}</h3>
+
+  <div class="btns">
+    <button class="btn accept" (click)="acceptRequest(request.id)">
+      Accept
+    </button>
+    <button class="btn decline" (click)="declineRequest(request.id)">
+      Decline
+    </button>
+  </div>
+</li>

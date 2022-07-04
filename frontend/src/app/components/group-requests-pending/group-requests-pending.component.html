@@ -1,0 +1,11 @@
+<section class="requests">
+  <h2 class="requests__title">Requests pending</h2>
+  <ul class="requests__list">
+    <app-group-request-pending
+      *ngFor="let r of requestsPending"
+      [request]="r"
+    ></app-group-request-pending>
+  </ul>
+
+  <div *ngIf="!requestsPending.length">No pending requests!</div>
+</section>

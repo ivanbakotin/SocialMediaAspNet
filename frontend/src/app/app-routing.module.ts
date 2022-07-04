@@ -12,6 +12,8 @@ import { FriendsComponent } from './pages/logged-in/profile/friends/friends.comp
 import { RequestsComponent } from './pages/logged-in/profile/requests/requests.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
 import { GroupsComponent } from './pages/logged-in/groups/groups.component';
+import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
+import { GroupRequestsComponent } from './pages/logged-in/profile/group-requests/group-requests.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -95,8 +97,12 @@ const routes: Routes = [
             component: FriendsComponent,
           },
           {
-            path: 'requests',
-            component: RequestsComponent,
+            path: 'grouprequests',
+            component: GroupRequestsComponent,
+          },
+          {
+            path: 'friendrequests',
+            component: FriendRequestsComponent,
           },
           {
             path: 'details',

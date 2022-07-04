@@ -38,10 +38,10 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPost("accept/{id}"), Authorize]
-        public async Task<IActionResult> AcceptToGroup(int id, [FromBody] int GroupID)
+        [HttpPost("accept/{GroupID}"), Authorize]
+        public async Task<IActionResult> AcceptToGroup(int GroupID)
         {
-            await groupRequestService.AcceptToGroup(id, GroupID);
+            await groupRequestService.AcceptToGroup(GetCurrentUserID(), GroupID);
             return Ok();
         }
 

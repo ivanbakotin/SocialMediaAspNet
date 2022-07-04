@@ -16,8 +16,21 @@ export class GrouprequestsService {
   private getUserGroupRequestsSentURL = `${HOSTNAME}GroupRequests/userrequestssent`;
   private getUserGroupRequestsPendingURL = `${HOSTNAME}GroupRequests/userrequestspending`;
 
-  public getGroupRequestsSent(id: number): Observable<any> {
-    return this.http.get(this.getGroupRequestsSentURL + id, {
+  private acceptRequestURL = `${HOSTNAME}GroupRequests/accept/`;
+  private declineRequestURL = `${HOSTNAME}GroupRequests/decline/`;
+
+  public acceptRequest(id: number): Observable<any> {
+    return this.http.post(
+      this.acceptRequestURL + id,
+      {},
+      {
+        headers: GetHeader(),
+      }
+    );
+  }
+
+  public declineRequest(id: number): Observable<any> {
+    return this.http.delete(this.declineRequestURL + id, {
       headers: GetHeader(),
     });
   }

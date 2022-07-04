@@ -56,11 +56,18 @@
     Friends
   </button>
   <button
-    routerLink="requests"
+    routerLink="friendrequests"
     *ngIf="currentUserID == profile?.id"
     routerLinkActive="is-active"
   >
-    Requests
+    Friend Requests
+  </button>
+  <button
+    routerLink="grouprequests"
+    *ngIf="currentUserID == profile?.id"
+    routerLinkActive="is-active"
+  >
+    Group Requests
   </button>
   <button
     routerLink="settings"

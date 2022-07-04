@@ -47,6 +47,16 @@ import { UpdateProfileComponent } from './components/update-profile/update-profi
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ChangeEmailComponent } from './components/change-email/change-email.component';
 import { DeleteUserComponent } from './components/delete-user/delete-user.component';
+import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
+import { GroupRequestsComponent } from './pages/logged-in/profile/group-requests/group-requests.component';
+import { RequestSentComponent } from './components/request-sent/request-sent.component';
+import { RequestPendingComponent } from './components/request-pending/request-pending.component';
+import { FriendRequestsSentComponent } from './components/friend-requests-sent/friend-requests-sent.component';
+import { FriendRequestsPendingComponent } from './components/friend-requests-pending/friend-requests-pending.component';
+import { GroupRequestsPendingComponent } from './components/group-requests-pending/group-requests-pending.component';
+import { GroupRequestsSentComponent } from './components/group-requests-sent/group-requests-sent.component';
+import { GroupRequestPendingComponent } from './components/group-request-pending/group-request-pending.component';
+import { GroupRequestSentComponent } from './components/group-request-sent/group-request-sent.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +98,16 @@ import { DeleteUserComponent } from './components/delete-user/delete-user.compon
     ChangePasswordComponent,
     ChangeEmailComponent,
     DeleteUserComponent,
+    FriendRequestsComponent,
+    GroupRequestsComponent,
+    RequestSentComponent,
+    RequestPendingComponent,
+    FriendRequestsSentComponent,
+    FriendRequestsPendingComponent,
+    GroupRequestsPendingComponent,
+    GroupRequestsSentComponent,
+    GroupRequestPendingComponent,
+    GroupRequestSentComponent,
   ],
   imports: [
     BrowserModule,
