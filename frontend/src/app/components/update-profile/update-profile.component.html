@@ -1,0 +1,27 @@
+<div>
+  <button (click)="setEditing()">Edit Profile</button>
+  <form
+    *ngIf="isEditing"
+    #updateProfileForm="ngForm"
+    (submit)="updateProfile(updateProfileForm)"
+  >
+    <div>
+      <input [(ngModel)]="profile.id" type="hidden" name="id" />
+      <input [(ngModel)]="profile.userID" type="hidden" name="userID" />
+    </div>
+    <div>
+      <label for="bio">Biography:</label>
+      <input [(ngModel)]="profile.bio" type="text" name="bio" id="bio" />
+    </div>
+    <div>
+      <label for="gender">Gender:</label>
+      <input
+        [(ngModel)]="profile.gender"
+        type="text"
+        name="gender"
+        id="gender"
+      />
+    </div>
+    <input type="submit" value="Change" />
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<div>
+  <button (click)="setEditing()">Delete Account</button>
+  <form
+    *ngIf="isEditing"
+    #deleteUserForm="ngForm"
+    (submit)="deleteUser(deleteUserForm)"
+  >
+    <div>
+      <label for="confirmPassword">Password:</label>
+      <input ngModel type="text" name="confirmPassword" id="confirmPassword" />
+    </div>
+    <input type="submit" value="Delete" />
+  </form>
+</div>

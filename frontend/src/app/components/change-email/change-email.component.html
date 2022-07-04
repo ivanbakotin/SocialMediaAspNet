@@ -1,0 +1,18 @@
+<div>
+  <button (click)="setEditing()">Change Email</button>
+  <form
+    *ngIf="isEditing"
+    #changeEmailForm="ngForm"
+    (submit)="changeEmail(changeEmailForm)"
+  >
+    <div>
+      <label for="confirmPassword">Old Password:</label>
+      <input ngModel type="text" name="confirmPassword" id="confirmPassword" />
+    </div>
+    <div>
+      <label for="changeField">New email:</label>
+      <input ngModel type="text" name="changeField" id="changeField" />
+    </div>
+    <input type="submit" value="Change" />
+  </form>
+</div>

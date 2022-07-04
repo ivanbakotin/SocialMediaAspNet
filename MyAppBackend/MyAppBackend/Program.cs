@@ -24,8 +24,6 @@ namespace MyAppBackend
     loading frontend on start - during check is loggedin
     google auth
     seperate admin panel
-    action filter 
-    finish profile settings
     remove comment replace with [removed] if tree
     pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
@@ -33,6 +31,5 @@ namespace MyAppBackend
     make everything async backend
     tags/hashtags on posts
     implement groups
-    use alertyfy for confirming actions
     if owner, if friend
  */
