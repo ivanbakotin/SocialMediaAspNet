@@ -49,14 +49,14 @@ import { ChangeEmailComponent } from './components/change-email/change-email.com
 import { DeleteUserComponent } from './components/delete-user/delete-user.component';
 import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
 import { GroupRequestsComponent } from './pages/logged-in/profile/group-requests/group-requests.component';
-import { RequestSentComponent } from './components/request-sent/request-sent.component';
-import { RequestPendingComponent } from './components/request-pending/request-pending.component';
-import { FriendRequestsSentComponent } from './components/friend-requests-sent/friend-requests-sent.component';
-import { FriendRequestsPendingComponent } from './components/friend-requests-pending/friend-requests-pending.component';
-import { GroupRequestsPendingComponent } from './components/group-requests-pending/group-requests-pending.component';
-import { GroupRequestsSentComponent } from './components/group-requests-sent/group-requests-sent.component';
-import { GroupRequestPendingComponent } from './components/group-request-pending/group-request-pending.component';
-import { GroupRequestSentComponent } from './components/group-request-sent/group-request-sent.component';
+import { FriendRequestsSentComponent } from './components/requests/friend-requests-sent/friend-requests-sent.component';
+import { FriendRequestsPendingComponent } from './components/requests/friend-requests-pending/friend-requests-pending.component';
+import { GroupRequestsPendingComponent } from './components/requests/group-requests-pending/group-requests-pending.component';
+import { GroupRequestsSentComponent } from './components/requests/group-requests-sent/group-requests-sent.component';
+import { GroupRequestPendingComponent } from './components/requests/group-request-pending/group-request-pending.component';
+import { GroupRequestSentComponent } from './components/requests/group-request-sent/group-request-sent.component';
+import { FriendRequestPendingComponent } from './components/requests/friend-request-pending/friend-request-pending.component';
+import { FriendRequestSentComponent } from './components/requests/friend-request-sent/friend-request-sent.component';
 
 @NgModule({
   declarations: [
@@ -100,14 +100,14 @@ import { GroupRequestSentComponent } from './components/group-request-sent/group
     DeleteUserComponent,
     FriendRequestsComponent,
     GroupRequestsComponent,
-    RequestSentComponent,
-    RequestPendingComponent,
     FriendRequestsSentComponent,
     FriendRequestsPendingComponent,
     GroupRequestsPendingComponent,
     GroupRequestsSentComponent,
     GroupRequestPendingComponent,
     GroupRequestSentComponent,
+    FriendRequestPendingComponent,
+    FriendRequestSentComponent,
   ],
   imports: [
     BrowserModule,

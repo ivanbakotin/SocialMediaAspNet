@@ -3,11 +3,11 @@ import { FriendService } from 'src/app/services/friend/friend.service';
 import { GroupRequestsPendingSharedService } from 'src/app/services/grouprequests/group-requests-pending-shared.service';
 
 @Component({
-  selector: 'app-request-pending',
-  templateUrl: './request-pending.component.html',
-  styleUrls: ['./request-pending.component.scss'],
+  selector: 'app-friend-request-pending',
+  templateUrl: './friend-request-pending.component.html',
+  styleUrls: ['./friend-request-pending.component.scss'],
 })
-export class RequestPendingComponent implements OnInit {
+export class FriendRequestPendingComponent implements OnInit {
   constructor(
     private friendService: FriendService,
     private sharedService: GroupRequestsPendingSharedService

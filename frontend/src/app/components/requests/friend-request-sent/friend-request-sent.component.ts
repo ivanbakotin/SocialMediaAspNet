@@ -1,14 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FriendService } from 'src/app/services/friend/friend.service';
-
 import { GroupRequestsSentSharedService } from 'src/app/services/grouprequests/group-requests-sent-shared.service';
 
 @Component({
-  selector: 'app-request-sent',
-  templateUrl: './request-sent.component.html',
-  styleUrls: ['./request-sent.component.scss'],
+  selector: 'app-friend-request-sent',
+  templateUrl: './friend-request-sent.component.html',
+  styleUrls: ['./friend-request-sent.component.scss'],
 })
-export class RequestSentComponent implements OnInit {
+export class FriendRequestSentComponent implements OnInit {
   constructor(
     private friendService: FriendService,
     private sharedService: GroupRequestsSentSharedService
