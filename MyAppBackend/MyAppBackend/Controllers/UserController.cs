@@ -46,7 +46,7 @@ namespace MyAppBackend.Controllers
         public async Task<IActionResult> ChangePassword([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangePassword(user.changeField, userObject);
+            await userService.ChangePassword(user.ChangeField, userObject);
             return Ok();
         }
 
@@ -55,7 +55,7 @@ namespace MyAppBackend.Controllers
         public async Task<IActionResult> ChangeEmail([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangeEmail(user.changeField, userObject);
+            await userService.ChangeEmail(user.ChangeField, userObject);
             return Ok();
         }
 

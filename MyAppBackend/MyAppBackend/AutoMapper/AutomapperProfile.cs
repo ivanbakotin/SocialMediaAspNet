@@ -39,7 +39,7 @@ namespace MyAppBackend.Profiles
             CreateMap<GroupMember, GroupViewModel>()
                 .ForMember(x => x.ID, o => o.MapFrom(x => x.Group.ID))
                 .ForMember(x => x.Role, o => o.MapFrom(x => x.Role.RoleName))
-                .ForMember(x => x.MembersNumber, o => o.MapFrom(x => x.Group.Members.Count()))
+                .ForMember(x => x.MembersNumber, o => o.MapFrom(x => x.Group.Members.Count))
                 .ForMember(x => x.Description, o => o.MapFrom(x => x.Group.Description))
                 .ForMember(x => x.Name, o => o.MapFrom(x => x.Group.Name));
         }

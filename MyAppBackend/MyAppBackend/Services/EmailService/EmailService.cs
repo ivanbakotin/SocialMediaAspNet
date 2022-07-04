@@ -24,12 +24,16 @@ namespace MyAppBackend.Services.Email
         public async Task SendEmailAsync(ResetEmail resetEmail)
         {
             //store code in database
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(_mailSettings.Email);
+            var email = new MimeMessage
+            {
+                Sender = MailboxAddress.Parse(_mailSettings.Email)
+            };
             email.To.Add(MailboxAddress.Parse(resetEmail.Email));
             email.Subject = "Password Reset Social Media Request";
-            var builder = new BodyBuilder();
-            builder.HtmlBody = CustomHash.GetRandomHash();
+            var builder = new BodyBuilder
+            {
+                HtmlBody = CustomHash.GetRandomHash()
+            };
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
             smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);

@@ -1,0 +1,42 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { GetHeader } from 'src/app/utils/constants';
+import { HOSTNAME } from 'src/app/utils/constants';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GrouprequestsService {
+  constructor(private http: HttpClient) {}
+
+  private getGroupRequestsSentURL = `${HOSTNAME}GroupRequests/requestssent/`;
+  private getGroupRequestsPendingURL = `${HOSTNAME}GroupRequests/requestspending/`;
+  private getUserGroupRequestsSentURL = `${HOSTNAME}GroupRequests/userrequestssent`;
+  private getUserGroupRequestsPendingURL = `${HOSTNAME}GroupRequests/userrequestspending`;
+
+  public getGroupRequestsSent(id: number): Observable<any> {
+    return this.http.get(this.getGroupRequestsSentURL + id, {
+      headers: GetHeader(),
+    });
+  }
+
+  public getGroupRequestsPending(id: number): Observable<any> {
+    return this.http.get(this.getGroupRequestsPendingURL + id, {
+      headers: GetHeader(),
+    });
+  }
+
+  public getUserGroupRequestsSent(): Observable<any> {
+    return this.http.get(this.getUserGroupRequestsSentURL, {
+      headers: GetHeader(),
+    });
+  }
+
+  public getUserGroupRequestsPending(): Observable<any> {
+    return this.http.get(this.getUserGroupRequestsPendingURL, {
+      headers: GetHeader(),
+    });
+  }
+}

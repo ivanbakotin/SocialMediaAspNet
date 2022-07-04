@@ -45,32 +45,32 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpGet("requestssent/{id}"), Authorize]
-        public async Task<IActionResult> GetGroupRequestsSent(int id)
+        [HttpGet("requestssent/{GroupID}"), Authorize]
+        public async Task<IActionResult> GetGroupRequestsSent(int GroupID)
         {
-            await groupRequestService.GetGroupRequestsSent(GetCurrentUserID());
-            return Ok();
+            var result = await groupRequestService.GetGroupRequestsSent(GroupID);
+            return Ok(result);
         }
 
-        [HttpGet("requestspending/{id}"), Authorize]
-        public async Task<IActionResult> GetGroupRequestsPending(int id)
+        [HttpGet("requestspending/{GroupID}"), Authorize]
+        public async Task<IActionResult> GetGroupRequestsPending(int GroupID)
         {
-            await groupRequestService.GetGroupRequestsPending(GetCurrentUserID());
-            return Ok();
+            var result = await groupRequestService.GetGroupRequestsPending(GroupID);
+            return Ok(result);
         }
 
         [HttpGet("userrequestssent"), Authorize]
         public async Task<IActionResult> GetUserGroupRequestsSent()
         {
-            await groupRequestService.GetUserGroupRequestsSent(GetCurrentUserID());
-            return Ok();
+            var result = await groupRequestService.GetUserGroupRequestsSent(GetCurrentUserID());
+            return Ok(result);
         }
 
         [HttpGet("userrequestspending"), Authorize]
         public async Task<IActionResult> GetUserGroupRequestsPending()
         {
-            await groupRequestService.GetUserGroupRequestsPending(GetCurrentUserID());
-            return Ok();
+            var result = await groupRequestService.GetUserGroupRequestsPending(GetCurrentUserID());
+            return Ok(result);
         }
     }
 }

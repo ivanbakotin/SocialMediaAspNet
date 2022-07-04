@@ -63,7 +63,7 @@ namespace MyAppBackend.Services.Auth
 
             string hashedPassword = CustomHash.HashString(user.Password);
 
-            User newUser = new User
+            User newUser = new()
             {
                 Username = user.Username,
                 Email = user.Email,
@@ -74,7 +74,7 @@ namespace MyAppBackend.Services.Auth
             await context .Users.AddAsync(newUser);
             await context.SaveChangesAsync();
 
-            Profile newProfile = new Profile { UserID = newUser.ID };
+            Profile newProfile = new() { UserID = newUser.ID };
 
             await context.Profiles.AddAsync(newProfile);
             await context.SaveChangesAsync();

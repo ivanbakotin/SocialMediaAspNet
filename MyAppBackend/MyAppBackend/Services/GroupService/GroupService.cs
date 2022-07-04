@@ -134,7 +134,7 @@ namespace MyAppBackend.Services.GroupService
                                                 Name = x.Group.Name,
                                                 Description = x.Group.Description,
                                                 ID = x.Group.ID,
-                                                MembersNumber = x.Group.Members.Count()
+                                                MembersNumber = x.Group.Members.Count
                                          })).ToListAsync();
 
             return result;

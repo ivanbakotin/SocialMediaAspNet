@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Models;
 using MyAppBackend.Services.GroupService;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers

@@ -96,8 +96,8 @@ namespace MyAppBackend.Services.FriendService
                 UserID2 = UserID
             };
 
-            context.Friends.AddAsync(newFriend);
-            context.SaveChangesAsync();
+            await context.Friends.AddAsync(newFriend);
+            await context.SaveChangesAsync();
         }
 
         public async Task RemoveFriendRequest(int UserID, int id)
@@ -110,7 +110,7 @@ namespace MyAppBackend.Services.FriendService
             if (toDeleteRequest != null)
             {
                 context.FriendRequests.Remove(toDeleteRequest);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
         }
     }

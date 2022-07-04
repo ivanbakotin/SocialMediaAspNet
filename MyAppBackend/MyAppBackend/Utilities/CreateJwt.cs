@@ -13,9 +13,11 @@ namespace MyAppBackend.Utilities
     {
         public static string GetJwt(string role, string ID)
         {
-            var claims = new List<Claim>();
-            claims.Add(new Claim("role", role));
-            claims.Add(new Claim("ID", ID));
+            var claims = new List<Claim>
+            {
+                new Claim("role", role),
+                new Claim("ID", ID)
+            };
 
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

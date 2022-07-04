@@ -29,7 +29,7 @@ namespace MyAppBackend.ActionFilters
             if (_context.ActionArguments.ContainsKey("user"))
             {
                 UserChange userChange = (UserChange)_context.ActionArguments["user"];
-                confirmPassword = userChange.confirmPassword;
+                confirmPassword = userChange.ConfirmPassword;
             } else
             {
                 _context.Result = new BadRequestObjectResult("Bad parameters");

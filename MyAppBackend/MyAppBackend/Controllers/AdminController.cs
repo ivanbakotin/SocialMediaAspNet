@@ -10,12 +10,6 @@ namespace MyAppBackend.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly IPostService postService;
-        public AdminController(IPostService postService)
-        {
-            this.postService = postService ?? throw new ArgumentNullException(nameof(postService));
-        }
-
         [HttpDelete("user/{id}"), Authorize]
         public async Task<IActionResult> RemoveUser()
         {

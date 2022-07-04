@@ -22,7 +22,7 @@ namespace MyAppBackend.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection addJwtAuthenticationExtension(this IServiceCollection services)
+        public static IServiceCollection AddJwtAuthenticationExtension(this IServiceCollection services)
         {
             services.AddAuthentication(opt => {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -45,7 +45,7 @@ namespace MyAppBackend.Extensions
             return services;
         }
 
-        public static IServiceCollection addCorsExtension(this IServiceCollection services)
+        public static IServiceCollection AddCorsExtension(this IServiceCollection services)
         {
             services.AddCors(options =>
             {
@@ -60,7 +60,7 @@ namespace MyAppBackend.Extensions
             return services;
         }
 
-        public static IServiceCollection addEmailExtension(this IServiceCollection services, IConfiguration Configuration)
+        public static IServiceCollection AddEmailExtension(this IServiceCollection services, IConfiguration Configuration)
         {
             services.AddSingleton(
                 Configuration
@@ -71,7 +71,7 @@ namespace MyAppBackend.Extensions
             return services;
         }
 
-        public static IServiceCollection addDbContextExtension(this IServiceCollection services)
+        public static IServiceCollection AddDbContextExtension(this IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlServer("WebApiDatabase");

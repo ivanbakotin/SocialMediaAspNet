@@ -2,7 +2,7 @@
 {
     public class UserChange
     {
-        public string confirmPassword { get; set; }
-        public string changeField { get; set; }
+        public string ConfirmPassword { get; set; }
+        public string ChangeField { get; set; }
     }
 }
