@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.ActionFilters;
+using MyAppBackend.Models;
 using MyAppBackend.Services.UserService;
 using System;
 using System.Threading.Tasks;
@@ -43,7 +44,8 @@ namespace MyAppBackend.Controllers
         [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> ChangePassword([FromBody] string confirmPassword, string newPassword)
         {
-            await userService.ChangePassword(confirmPassword, newPassword, GetCurrentUserID());
+            User userObject = (User)HttpContext.Items["userObject"];
+            await userService.ChangePassword(newPassword, userObject);
             return Ok();
         }
 
@@ -51,7 +53,8 @@ namespace MyAppBackend.Controllers
         [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> ChangeEmail(string confirmPassword, string newEmail)
         {
-            await userService.ChangeEmail(confirmPassword, newEmail, GetCurrentUserID());
+            User userObject = (User)HttpContext.Items["userObject"];
+            await userService.ChangeEmail(newEmail, userObject);
             return Ok();
         }
 
@@ -59,7 +62,8 @@ namespace MyAppBackend.Controllers
         [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> DeleteUser([FromBody] string confirmPassword)
         {
-            await userService.DeleteUser(confirmPassword, GetCurrentUserID());
+            User userObject = (User)HttpContext.Items["userObject"];
+            await userService.DeleteUser(userObject);
             return Ok();
         }
     }

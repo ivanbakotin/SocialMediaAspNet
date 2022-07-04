@@ -1,4 +1,5 @@
-﻿using MyAppBackend.ViewModels;
+﻿using MyAppBackend.Models;
+using MyAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,8 +10,8 @@ namespace MyAppBackend.Services.UserService
         Task<List<UserViewModel>> SearchUsers(string param);
         Task<List<UserViewModel>> GetRecommended(int UserID);
         Task ResetPassword();
-        Task ChangePassword(string confirmPassword, string newPassword, int UserID);
-        Task ChangeEmail(string confirmPassword, string newEmail, int UserID);
-        Task DeleteUser(string confirmPassword, int UserID);
+        Task ChangePassword(string newPassword, User userObject);
+        Task ChangeEmail(string newEmail, User userObject);
+        Task DeleteUser(User userObject);
     }
 }

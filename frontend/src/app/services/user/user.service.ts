@@ -31,7 +31,7 @@ export class UserService {
   }
 
   public changePassword(): Observable<any> {
-    return this.http.put(this.changePasswordURL + '1', JSON.stringify('123'), {
+    return this.http.put(this.changePasswordURL + '123', JSON.stringify('1'), {
       headers: GetHeader(),
     });
   }

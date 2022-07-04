@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using MyAppBackend.Controllers;
 using MyAppBackend.Data;
 using MyAppBackend.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 
 namespace MyAppBackend.ActionFilters
 {
@@ -25,7 +22,6 @@ namespace MyAppBackend.ActionFilters
 
             var UserID = Int32.Parse(_context.HttpContext.User.Claims.Where(x => x.Type == "ID").Select(x => x.Value).FirstOrDefault());
 
-
             if (_context.ActionArguments.ContainsKey("confirmPassword"))
             {
                 confirmPassword = (string)_context.ActionArguments["confirmPassword"];
@@ -36,6 +32,7 @@ namespace MyAppBackend.ActionFilters
             }
 
             var user = context.Users.Where(x => x.ID == UserID).FirstOrDefault();
+            _context.HttpContext.Items.Add("userObject", user);
 
             var hashedPassword = CustomHash.HashString(confirmPassword);
 
@@ -43,6 +40,7 @@ namespace MyAppBackend.ActionFilters
             {
                 _context.Result = new ForbidResult();
             }
+
         }
 
         public void OnActionExecuted(ActionExecutedContext context) {}

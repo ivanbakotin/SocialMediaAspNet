@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MyAppBackend.Utilities;
+using MyAppBackend.Models;
 
 namespace MyAppBackend.Services.UserService
 {
@@ -50,24 +51,25 @@ namespace MyAppBackend.Services.UserService
             throw new NotImplementedException();
         }
 
-        public async Task ChangePassword(string confirmPassword, string newPassword, int UserID)
+        public async Task ChangePassword(string newPassword, User userObject)
         {
-            var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
-            user.Password = CustomHash.HashString(newPassword);
+            userObject.Password = CustomHash.HashString(newPassword);
             await context.SaveChangesAsync();
         }
 
-        public async Task ChangeEmail(string confirmPassword, string newEmail, int UserID)
+        public async Task ChangeEmail(string newEmail, User userObject)
         {
-            var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
-            user.Email = newEmail;
-            await context.SaveChangesAsync();        
+            var emailExists = context.Users.Any(x => x.Email == newEmail);
+            if (!emailExists)
+            {
+                userObject.Email = newEmail;
+                await context.SaveChangesAsync();        
+            }
         }
 
-        public async Task DeleteUser(string confirmPassword, int UserID)
+        public async Task DeleteUser(User userObject)
         {
-            var user = await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
-            context.Users.Remove(user);
+            context.Users.Remove(userObject);
             await context.SaveChangesAsync();     
         }
     }
