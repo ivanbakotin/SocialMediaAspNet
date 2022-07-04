@@ -24,7 +24,7 @@ namespace MyAppBackend.ActionFilters
                                                                 .Select(x => x.Value)
                                                                 .FirstOrDefault());
 
-            if (_context.ActionArguments.ContainsKey("user"))
+            if (_context.ActionArguments.ContainsKey("GroupID"))
             {
                 GroupID = (int)_context.ActionArguments["GroupID"];
             }
