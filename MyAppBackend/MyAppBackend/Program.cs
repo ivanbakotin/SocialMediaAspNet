@@ -21,14 +21,13 @@ namespace MyAppBackend
 
 /*
     comments as tree -- last
+    remove comment replace with [removed] if tree
     loading frontend on start - during check is loggedin
     google auth
     seperate admin panel
-    remove comment replace with [removed] if tree
     pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
     email server smtp
-    make everything async backend
     tags/hashtags on posts
     implement groups
     if owner, if friend

@@ -14,9 +14,7 @@ namespace MyAppBackend.Services.GroupService
         Task<GroupViewModel> CreateGroup(Group group, int UserID);
         Task UpdateGroupInfo(Group body, int GroupID, int UserID);
         Task DeleteGroup(int id, int UserID);
-
-
-        dynamic SearchGroupUsers(int id, string param);
+        Task<dynamic> SearchGroupUsers(int id, string param);
         Task<List<GroupMember>> GetGroupUsers(int id);
         Task<List<Post>> GetGroupPosts(int id);
         Task RemoveGroupUser(int UserID, int GroupID);

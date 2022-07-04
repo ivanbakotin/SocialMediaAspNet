@@ -26,13 +26,13 @@ namespace MyAppBackend.Services.GroupService
             return await context.Groups.Where(x => x.Name.Contains(param)).ToListAsync();
         }
 
-        public dynamic SearchGroupUsers(int GroupID, string param)
+        public async Task<dynamic> SearchGroupUsers(int GroupID, string param)
         {
-            var result = context.Groups
+            var result = await context.Groups
                             .Where(x => x.ID == GroupID)
                             .Select(x => x.Members
                             .Select(x => new User { Username = x.User.Username, ID = x.User.ID}))
-                            .ToList();
+                            .ToListAsync();
             return result;
         }
 
