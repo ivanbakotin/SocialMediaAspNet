@@ -23,7 +23,6 @@ export class GroupRequestsSentComponent implements OnInit {
 
   getRequestsSent() {
     this.groupService.getUserGroupRequestsSent().subscribe((response) => {
-      console.log(response);
       this.sharedService.updateGroups(response);
       this.requestsSent = response;
     });

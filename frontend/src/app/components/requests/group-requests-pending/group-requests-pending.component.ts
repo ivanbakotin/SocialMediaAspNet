@@ -25,7 +25,6 @@ export class GroupRequestsPendingComponent implements OnInit {
 
   getRequestsPending() {
     this.groupService.getUserGroupRequestsPending().subscribe((response) => {
-      console.log(response);
       this.sharedService.updateGroups(response);
       this.requestsPending = response;
     });

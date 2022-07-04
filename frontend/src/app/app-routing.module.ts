@@ -65,20 +65,6 @@ const routes: Routes = [
       {
         path: 'group/:id',
         component: GroupComponent,
-        children: [
-          {
-            path: '',
-            component: OverviewComponent,
-          },
-          {
-            path: 'members',
-            component: FriendsComponent,
-          },
-          {
-            path: 'requests',
-            component: RequestsComponent,
-          },
-        ],
       },
       {
         path: 'thread/:id',
