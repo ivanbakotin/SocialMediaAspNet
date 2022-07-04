@@ -4,6 +4,7 @@ using MyAppBackend.Models;
 using MyAppBackend.Services.CommentService;
 using MyAppBackend.ViewModels;
 using System;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
@@ -18,45 +19,45 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("{id}"), Authorize]
-        public IActionResult GetComments(int id)
+        public async Task<IActionResult> GetComments(int id)
         {
-            var comments = commentService.GetComments(GetCurrentUserID(), id);
+            var comments = await commentService.GetComments(GetCurrentUserID(), id);
             return Ok(comments);
         }
 
         [HttpGet("comment/{id}"), Authorize]
-        public IActionResult GetComment(int id)
+        public async Task<IActionResult> GetComment(int id)
         {
             // get one comment 
-            var comments = commentService.GetComments(GetCurrentUserID(), id);
+            var comments = await commentService.GetComments(GetCurrentUserID(), id);
             return Ok(comments);
         }
 
         [HttpPost, Authorize]
-        public IActionResult CreateComment([FromBody] Comment comment)
+        public async Task<IActionResult> CreateComment([FromBody] Comment comment)
         {
-            CommentViewModel createdComment = commentService.CreateComment(comment, GetCurrentUserID());
+            CommentViewModel createdComment = await commentService.CreateComment(comment, GetCurrentUserID());
             return Ok(createdComment);
         }
 
         [HttpPut("update/{id}"), Authorize]
-        public IActionResult UpdateComment([FromBody] Comment comment, int id)
+        public async Task<IActionResult> UpdateComment([FromBody] Comment comment, int id)
         {
-            commentService.UpdateComment(comment, GetCurrentUserID(), id);
+            await commentService.UpdateComment(comment, GetCurrentUserID(), id);
             return Ok();
         }
 
         [HttpDelete("delete/{id}"), Authorize]
-        public IActionResult DeleteComment(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            commentService.DeleteComment(GetCurrentUserID(), id);
+            await commentService.DeleteComment(GetCurrentUserID(), id);
             return Ok();
         }
 
         [HttpPost("vote/{id}"), Authorize]
-        public IActionResult VoteComment([FromBody] bool vote, int id)
+        public async Task<IActionResult> VoteComment([FromBody] bool vote, int id)
         {
-            commentService.VoteComment(GetCurrentUserID(), id, vote);
+            await commentService.VoteComment(GetCurrentUserID(), id, vote);
             return Ok();
         }
     }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Services.PostService;
 using System;
+using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
@@ -16,20 +17,20 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpDelete("user/{id}"), Authorize]
-        public IActionResult RemoveUser()
+        public async Task<IActionResult> RemoveUser()
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("post/{id}"), Authorize]
-        public IActionResult RemovePost(int id)
+        public async Task<IActionResult> RemovePost(int id)
         {
-            postService.DeletePost(1, id);
-            return Ok();
+
+            throw new NotImplementedException();
         }
 
         [HttpDelete("comment/{id}"), Authorize]
-        public IActionResult RemoveComment()
+        public async Task<IActionResult> RemoveComment()
         {
             throw new NotImplementedException();
         }
