@@ -42,9 +42,12 @@ namespace MyAppBackend.Services.GroupService
             return groupMembers;
         }
 
-        public async Task<List<PostViewModel>> GetGroupPosts(int GroupID)
+        public async Task<List<PostViewModel>> GetGroupPosts(int GroupID, int UserID)
         {
-            var groupPosts = await mapper.ProjectTo<PostViewModel>(context.Posts.Where(x => x.GroupID == GroupID)).ToListAsync();
+            var groupPosts = await mapper.ProjectTo<PostViewModel>(from post in context.Posts
+                                                                   where post.GroupID == GroupID
+                                                                   orderby post.ID descending
+                                                                   select post, new { CurrentUserID = UserID }).ToListAsync();
             return groupPosts;
         }
 

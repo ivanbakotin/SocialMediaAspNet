@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { PostSharedService } from 'src/app/services/post/postShared.service';
@@ -15,10 +15,12 @@ export class CreatePostComponent implements OnInit {
     private postService: PostService
   ) {}
 
+  @Input() groupID: number | null = null;
+
   ngOnInit(): void {}
 
   submitForm(form: NgForm) {
-    form.value.groupID = 6;
+    form.value.groupID = this.groupID;
     this.postService.createPost(form.value).subscribe((response) => {
       form.reset();
       this.sharedService.addPost(response);

@@ -43,7 +43,7 @@ namespace MyAppBackend.Controllers
         [HttpGet("posts/{GroupID}"), Authorize]
         public async Task<IActionResult> GetGroupPosts(int GroupID)
         {
-            var result = await groupService.GetGroupPosts(GroupID);
+            var result = await groupService.GetGroupPosts(GroupID, GetCurrentUserID());
             return Ok(result);
         }
 

@@ -10,4 +10,17 @@ section {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  align-items: center;
+}
+
+.middle {
+  width: min(600px, 85%);
+}
+
+.aside {
+  width: min(400px, 30%);
+
+  @media (max-width: 800px) {
+    display: none;
+  }
 }

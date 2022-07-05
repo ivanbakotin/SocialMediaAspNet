@@ -26,6 +26,7 @@ export class GroupPostsComponent implements OnInit {
       this.groupService
         .getGroupPosts(routeParams['id'])
         .subscribe((response) => {
+          console.log(response);
           this.posts = response;
           this.sharedService.updatePosts(response);
         });

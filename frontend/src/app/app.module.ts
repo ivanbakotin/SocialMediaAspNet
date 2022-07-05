@@ -62,7 +62,6 @@ import { GroupInfoComponent } from './components/group/group-info/group-info.com
 import { GroupPostsComponent } from './components/group/group-posts/group-posts.component';
 import { GroupUsersComponent } from './components/group/group-users/group-users.component';
 import { SearchGroupUsersComponent } from './components/group/search-group-users/search-group-users.component';
-import { CreateGroupPostComponent } from './components/group/create-group-post/create-group-post.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +117,6 @@ import { CreateGroupPostComponent } from './components/group/create-group-post/c
     GroupPostsComponent,
     GroupUsersComponent,
     SearchGroupUsersComponent,
-    CreateGroupPostComponent,
   ],
   imports: [
     BrowserModule,
