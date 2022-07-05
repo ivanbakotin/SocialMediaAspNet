@@ -1,0 +1,9 @@
+<app-create-post></app-create-post>
+
+<h2 class="title">Timeline</h2>
+
+<ul *ngIf="posts.length">
+  <app-post *ngFor="let post of posts" [post]="post"></app-post>
+</ul>
+
+<p class="no-posts" *ngIf="!posts.length">No posts to show! Create some!</p>

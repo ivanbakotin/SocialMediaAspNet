@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  border: solid 1px lightgray;
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 3px 3px 3px lightgray;
+}
+
+.div-flex {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.circle {
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--color-tertiary);
+  border-radius: 50%;
+}
+
+h2 {
+  vertical-align: middle;
+  word-break: break-all;
+  font-size: var(--font-size-sm);
+}
+
+p {
+  word-break: break-all;
+  font-size: var(--font-size-xsm);
+}
+
+span {
+  word-break: break-all;
+  font-size: var(--font-size-xsm);
+}
