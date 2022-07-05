@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-group',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent implements OnInit {
-  constructor() {}
+  constructor(private route: ActivatedRoute) {}
+
+  groupID!: number;
 
   ngOnInit(): void {
-    //service id
+    this.route.params.subscribe((routeParams) => {
+      this.groupID = routeParams['id'];
+    });
   }
 }

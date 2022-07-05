@@ -5,3 +5,9 @@
   gap: 10rem;
   justify-content: center;
 }
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}

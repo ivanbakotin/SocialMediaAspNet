@@ -1,0 +1,17 @@
+div {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+}
+
+h2 {
+  font-size: var(--font-size-sm);
+}
+
+p {
+  font-size: var(--font-size-xsm);
+}

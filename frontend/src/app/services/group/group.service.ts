@@ -25,11 +25,11 @@ export class GroupService {
   }
 
   public getGroupInfo(id: number): Observable<any> {
-    return this.http.post(this.getGroupInfoURL + id, { headers: GetHeader() });
+    return this.http.get(this.getGroupInfoURL + id, { headers: GetHeader() });
   }
 
   public getGroupPosts(id: number): Observable<any> {
-    return this.http.post(this.getGroupPostsURL + id, { headers: GetHeader() });
+    return this.http.get(this.getGroupPostsURL + id, { headers: GetHeader() });
   }
 
   public createGroup(body: any): Observable<any> {

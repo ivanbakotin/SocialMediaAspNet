@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { GroupService } from 'src/app/services/group/group.service';
 import { GroupSharedService } from 'src/app/services/group/group-shared.service';

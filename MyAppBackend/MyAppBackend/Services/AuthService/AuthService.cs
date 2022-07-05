@@ -93,14 +93,13 @@ namespace MyAppBackend.Services.Auth
 
             string tokenString = CreateJwt.GetJwt(session.User.Role.Name, session.User.ID.ToString());
 
-            context.Sessions.RemoveRange(session);
-
             var newSession = new Session
             {
-                UserID = 1,
+                UserID = session.UserID,
                 Jwt = tokenString
             };
 
+            context.Sessions.RemoveRange(session);
             await context.Sessions.AddAsync(newSession);
             await context.SaveChangesAsync();
 

@@ -47,7 +47,12 @@ h2 {
   }
 
   &__name {
+    cursor: pointer;
     font-size: var(--font-size-sm);
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
   &__btn {

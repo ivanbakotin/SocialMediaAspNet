@@ -5,6 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ErrorService } from './services/error/error.service';
 import { AlertifyService } from './services/alertify/alertify.service';
@@ -61,6 +62,7 @@ import { GroupInfoComponent } from './components/group/group-info/group-info.com
 import { GroupPostsComponent } from './components/group/group-posts/group-posts.component';
 import { GroupUsersComponent } from './components/group/group-users/group-users.component';
 import { SearchGroupUsersComponent } from './components/group/search-group-users/search-group-users.component';
+import { CreateGroupPostComponent } from './components/group/create-group-post/create-group-post.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +118,7 @@ import { SearchGroupUsersComponent } from './components/group/search-group-users
     GroupPostsComponent,
     GroupUsersComponent,
     SearchGroupUsersComponent,
+    CreateGroupPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,6 +128,7 @@ import { SearchGroupUsersComponent } from './components/group/search-group-users
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatPaginatorModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorService, multi: true },

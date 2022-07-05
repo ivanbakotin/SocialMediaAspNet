@@ -18,6 +18,7 @@ export class CreatePostComponent implements OnInit {
   ngOnInit(): void {}
 
   submitForm(form: NgForm) {
+    form.value.groupID = 6;
     this.postService.createPost(form.value).subscribe((response) => {
       form.reset();
       this.sharedService.addPost(response);

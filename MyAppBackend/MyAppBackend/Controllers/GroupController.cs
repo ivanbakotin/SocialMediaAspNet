@@ -47,6 +47,13 @@ namespace MyAppBackend.Controllers
             return Ok(result);
         }
 
+        [HttpPost("post"), Authorize]
+        public async Task<IActionResult> CreateGroupPost(Post post)
+        {
+            var result = await groupService.CreateGroupPost(post, GetCurrentUserID());
+            return Ok(result);
+        }
+
         [HttpGet("info/{GroupID}"), Authorize]
         public async Task<IActionResult> GetGroupInfo(int GroupID)
         {

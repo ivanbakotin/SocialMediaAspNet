@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { GroupService } from 'src/app/services/group/group.service';
 
@@ -11,8 +11,12 @@ export class GroupInfoComponent implements OnInit {
   constructor(private groupService: GroupService) {}
 
   info!: any;
+  @Input() groupID!: number;
 
   ngOnInit(): void {
-    //this.groupService.getGroupInfo().subscribe()
+    this.groupService.getGroupInfo(this.groupID).subscribe((response) => {
+      console.log(response);
+      this.info = response;
+    });
   }
 }

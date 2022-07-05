@@ -12,11 +12,12 @@ namespace MyAppBackend.Services.GroupService
         Task<List<Group>> GetRecommendedGroups(int UserID);
         Task<List<IEnumerable<GroupViewModel>>> GetUserGroups(int UserID);
         Task<GroupViewModel> CreateGroup(Group group, int UserID);
+        Task<PostViewModel> CreateGroupPost(Post post, int UserID);
         Task UpdateGroupInfo(Group body, int GroupID, int UserID);
         Task DeleteGroup(int id, int UserID);
         Task<dynamic> SearchGroupUsers(int id, string param);
         Task<List<GroupMember>> GetGroupUsers(int id);
-        Task<List<Post>> GetGroupPosts(int id);
+        Task<List<PostViewModel>> GetGroupPosts(int id);
         Task RemoveGroupUser(int UserID, int GroupID);
     }
 }

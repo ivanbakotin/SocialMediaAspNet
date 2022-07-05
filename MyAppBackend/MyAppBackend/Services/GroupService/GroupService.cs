@@ -42,10 +42,22 @@ namespace MyAppBackend.Services.GroupService
             return groupMembers;
         }
 
-        public async Task<List<Post>> GetGroupPosts(int GroupID)
+        public async Task<List<PostViewModel>> GetGroupPosts(int GroupID)
         {
-            var groupPosts = await context.Posts.Where(x => x.GroupID == GroupID).ToListAsync();
+            var groupPosts = await mapper.ProjectTo<PostViewModel>(context.Posts.Where(x => x.GroupID == GroupID)).ToListAsync();
             return groupPosts;
+        }
+
+        public async Task<PostViewModel> CreateGroupPost(Post post, int UserID)
+        {
+            //check if member of group action filter
+            post.UserID = UserID;
+            await context.Posts.AddAsync(post);
+            await context.SaveChangesAsync();
+
+            PostViewModel createdPost = mapper.Map<PostViewModel>(post);
+
+            return createdPost;
         }
 
         public async Task<Group> GetGroupInfo(int GroupID)
