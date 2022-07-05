@@ -108,8 +108,7 @@ const routes: Routes = [
     canActivate: [RoleGuardService],
   },
   {
-    //doesnt work
-    path: '*',
+    path: '**',
     component: NotFoundComponent,
   },
 ];

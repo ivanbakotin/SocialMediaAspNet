@@ -20,6 +20,13 @@ namespace MyAppBackend.Controllers
             this.userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
+        [HttpGet("current")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var result = await userService.GetCurrentUser(GetCurrentUserID());
+            return Ok(result);
+        }
+
         [HttpGet("search/{param}")]
         public async Task<IActionResult> SearchUsers(string param)
         {

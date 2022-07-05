@@ -32,7 +32,10 @@
       <div class="post__header">
         <div class="post__info">
           <h3 class="post__title">{{ post.title }}</h3>
-          <div class="post__creator" [routerLink]="['/profile/' + post.userID]">
+          <div
+            class="post__creator"
+            [routerLink]="['/profile/' + post.username]"
+          >
             {{ post.username }}
           </div>
         </div>
@@ -44,7 +47,7 @@
       </div>
 
       <div *ngIf="!post.isEditing">
-        <p class="post__paragraph">{{ post.body }}</p>
+        <p class="post__paragraph" [innerHtml]="post.body"></p>
       </div>
 
       <div *ngIf="post.isEditing">

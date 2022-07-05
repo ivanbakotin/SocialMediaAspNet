@@ -14,11 +14,13 @@ export class NavComponent implements OnInit {
     private userService: UserService
   ) {}
 
-  currentUserID!: Number;
+  currentUsername!: Number;
   activeNav: boolean = false;
 
   ngOnInit(): void {
-    this.currentUserID = this.userService.getCurrentUserID();
+    this.userService.getCurrentUsername().subscribe((response) => {
+      this.currentUsername = response.username;
+    });
   }
 
   logout() {

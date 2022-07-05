@@ -25,14 +25,19 @@ export class ProfileComponent implements OnInit {
 
   profile!: Profile;
   currentUserID!: number;
+  currentUsername!: string;
 
   ngOnInit(): void {
     this.route.params.subscribe((routeParams) => {
-      this.sharedService.updateID(routeParams['id']);
       this.getProfile(routeParams['id']);
     });
 
+    this.userService.getCurrentUsername().subscribe((response) => {
+      this.currentUsername = response.username;
+    });
+
     this.currentUserID = this.userService.getCurrentUserID();
+    this.sharedService.updateID(this.currentUserID);
   }
 
   sendFriendRequest() {

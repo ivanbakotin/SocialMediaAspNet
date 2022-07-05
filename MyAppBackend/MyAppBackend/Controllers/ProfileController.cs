@@ -19,10 +19,10 @@ namespace MyAppBackend.Controllers
             this.profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         }
 
-        [HttpGet("{id}"), Authorize]
-        public async Task<IActionResult> GetProfile(int id)
+        [HttpGet("{username}"), Authorize]
+        public async Task<IActionResult> GetProfile(string username)
         {
-            ProfileViewModel profile = await profileService.Get(id, GetCurrentUserID());
+            ProfileViewModel profile = await profileService.Get(username, GetCurrentUserID());
             return Ok(profile);
         }
 

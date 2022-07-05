@@ -18,12 +18,14 @@ namespace MyAppBackend.Services.ProfileService
             this.context = context;
         }
 
-        public async Task<ProfileViewModel> Get(int UserID, int id)
+        public async Task<ProfileViewModel> Get(string username, int UserID)
         {
+            var user = await context.Users.Where(x => x.Username == username).FirstOrDefaultAsync();
+
             var result = await mapper.ProjectTo<ProfileViewModel>(
                                 from p in context.Profiles
-                                where p.UserID == UserID
-                                select p, new { CurrentUserID = id })
+                                where p.UserID == user.ID
+                                select p, new { CurrentUserID = UserID })
                                 .FirstOrDefaultAsync();
             return result;
         }

@@ -10,7 +10,7 @@
 
   <ul [ngClass]="activeNav ? 'mobile-aside' : 'mobile-aside hidden'">
     <li><a routerLink="/home">Home</a></li>
-    <li><a [routerLink]="['/profile/' + currentUserID]">Profile</a></li>
+    <li><a [routerLink]="['/profile/' + currentUsername]">Profile</a></li>
     <li><a routerLink="/groups">Groups</a></li>
     <li>
       <a a href="#" (click)="logout()">LOGOUT</a>

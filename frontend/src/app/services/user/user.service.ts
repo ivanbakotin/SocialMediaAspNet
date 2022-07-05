@@ -11,6 +11,7 @@ import { HOSTNAME, GetHeader } from 'src/app/utils/constants';
 export class UserService {
   constructor(private http: HttpClient) {}
 
+  private getCurrentUsernameURL = `${HOSTNAME}User/current`;
   private searchUsersURL = `${HOSTNAME}User/search/`;
   private recommendedUsersURL = `${HOSTNAME}User/recommended`;
   private deleteUserURL = `${HOSTNAME}User/delete/`;
@@ -21,6 +22,10 @@ export class UserService {
     const token = localStorage.getItem('token') || '';
     const tokenPayload = decode(token);
     return (<any>tokenPayload).ID;
+  }
+
+  public getCurrentUsername(): Observable<any> {
+    return this.http.get(this.getCurrentUsernameURL, { headers: GetHeader() });
   }
 
   public searchUsers(param: string): Observable<any> {

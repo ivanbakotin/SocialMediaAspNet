@@ -16,15 +16,15 @@ export class ProfilepreviewComponent implements OnInit {
   ) {}
 
   profile!: Profile;
-  currentUserID!: number;
 
   ngOnInit(): void {
-    this.currentUserID = this.userService.getCurrentUserID();
-    this.getProfile();
+    this.userService.getCurrentUsername().subscribe((response) => {
+      this.getProfile(response.username);
+    });
   }
 
-  getProfile() {
-    this.profileService.getProfile(this.currentUserID).subscribe((response) => {
+  getProfile(username: string) {
+    this.profileService.getProfile(username).subscribe((response) => {
       this.profile = response;
     });
   }

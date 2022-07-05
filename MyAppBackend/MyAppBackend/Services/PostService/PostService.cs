@@ -59,6 +59,8 @@ namespace MyAppBackend.Services.PostService
 
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
+            
+
             post.UserID = UserID;
             await context.Posts.AddAsync(post);
             await context.SaveChangesAsync();

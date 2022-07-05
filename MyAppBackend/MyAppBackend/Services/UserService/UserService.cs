@@ -32,6 +32,11 @@ namespace MyAppBackend.Services.UserService
             return result;
         }
 
+        public async Task<User> GetCurrentUser(int UserID)
+        {
+            return await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
+        }
+
         public async Task<List<UserViewModel>> GetRecommended(int UserID)
         {
             var result = await mapper.ProjectTo

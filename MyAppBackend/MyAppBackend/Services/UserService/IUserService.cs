@@ -7,6 +7,7 @@ namespace MyAppBackend.Services.UserService
 {
     public interface IUserService
     {
+        Task<User> GetCurrentUser(int UserID);
         Task<List<UserViewModel>> SearchUsers(string param);
         Task<List<UserViewModel>> GetRecommended(int UserID);
         Task ResetPassword();
