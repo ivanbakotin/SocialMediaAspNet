@@ -34,9 +34,9 @@ namespace MyAppBackend.Controllers
 
         [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         [HttpPost("invite/{GroupID}"), Authorize]
-        public async Task<IActionResult> InviteToGroup(int GroupID, [FromBody] int MemberID)
+        public async Task<IActionResult> InviteToGroup(int GroupID, [FromBody] int UserID)
         {
-            await groupRequestService.InviteToGroup(GroupID, GetCurrentUserID(), MemberID);
+            await groupRequestService.InviteToGroup(GroupID, UserID, GetCurrentUserID());
             return Ok();
         }
 

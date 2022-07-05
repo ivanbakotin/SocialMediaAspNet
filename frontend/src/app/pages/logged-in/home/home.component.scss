@@ -1,34 +1,30 @@
 :host {
-  display: flex;
-  gap: 5rem;
   margin-top: 5rem;
+  display: flex;
   flex: 1;
+  gap: 10rem;
   justify-content: center;
+
+  @media (max-width: 800px) {
+    flex-wrap: wrap;
+  }
 }
 
 section {
   display: flex;
   flex-direction: column;
+  gap: 3rem;
   align-items: center;
-  gap: 5rem;
 }
 
-.app-posts {
+.middle {
   width: min(600px, 85%);
-}
-
-.app-profile {
-  width: min(400px, 30%);
 
   @media (max-width: 800px) {
-    display: none;
+    order: 2;
   }
 }
 
-.app-bookmarked {
-  width: min(400px, 30%);
-
-  @media (max-width: 800px) {
-    display: none;
-  }
+.aside {
+  width: min(400px, 40%);
 }

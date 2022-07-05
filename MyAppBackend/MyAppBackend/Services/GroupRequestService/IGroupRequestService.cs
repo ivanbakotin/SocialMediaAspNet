@@ -8,7 +8,7 @@ namespace MyAppBackend.Services.GroupRequestService
     {
         Task SendGroupRequest(int id, int UserID);
         Task DeclineGroupRequest(int id, int UserID);
-        Task InviteToGroup(int id, int UserID, int MemberID);
+        Task InviteToGroup(int GroupID, int UserID, int MemberID);
         Task AcceptInvitation(int UserID, int GroupID);
         Task AcceptRequest(int UserID, int GroupID);
         Task<List<GroupRequest>> GetGroupRequestsSent(int GroupID);

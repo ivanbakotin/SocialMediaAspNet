@@ -1,0 +1,18 @@
+<form>
+  <input
+    (input)="searchUsers(search.value)"
+    type="search"
+    name="search"
+    id="search"
+    placeholder="Search To Invite..."
+    #search
+  />
+</form>
+
+<ul class="search-results">
+  <li *ngFor="let user of searchResults">
+    <a [routerLink]="['/profile/' + user.id]">{{ user.username }}</a>
+
+    <button (click)="inviteToGroup(user.id)">Invite</button>
+  </li>
+</ul>

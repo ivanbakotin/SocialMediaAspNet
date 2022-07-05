@@ -30,13 +30,13 @@ namespace MyAppBackend.Services.GroupRequestService
             await context.SaveChangesAsync();
         }
 
-        public async Task InviteToGroup(int id, int UserID, int MemberID)
+        public async Task InviteToGroup(int GroupID, int UserID, int MemberID)
         {
             GroupRequest newGroupRequest = new()
             {
                 MemberID = MemberID,
                 UserID = UserID,
-                GroupID = id,
+                GroupID = GroupID,
             };
             await context.GroupRequests.AddAsync(newGroupRequest);
             await context.SaveChangesAsync();

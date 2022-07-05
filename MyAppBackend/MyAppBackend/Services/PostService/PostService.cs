@@ -24,7 +24,7 @@ namespace MyAppBackend.Services.PostService
         {
             var result = await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
-                                where post.UserID == UserID ||
+                                where  post.GroupID == null && post.UserID == UserID ||
                                       context.Friends.Any(f => (f.UserID2 == UserID && f.UserID1 == post.UserID)
                                                              || (f.UserID1 == UserID && f.UserID2 == post.UserID))
                                 orderby post.ID descending
