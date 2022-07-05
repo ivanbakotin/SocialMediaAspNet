@@ -20,7 +20,7 @@ import { LoginComponent } from './pages/logged-out/login/login.component';
 import { ResetComponent } from './pages/logged-out/reset/reset.component';
 import { ForgotComponent } from './pages/logged-out/forgot/forgot.component';
 
-import { NotFoundComponent } from './components/not-found/not-found.component';
+import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 
 import { AuthGuardService } from './services/auth/authGuard.service';
 import { RoleGuardService } from './services/auth/roleGuard.service';
