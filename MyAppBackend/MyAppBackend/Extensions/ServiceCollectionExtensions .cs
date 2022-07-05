@@ -105,6 +105,7 @@ namespace MyAppBackend.Extensions
             services.AddScoped<PasswordFilter>();
             services.AddScoped<GroupOwnerAdminFilter>();
             services.AddScoped<GroupOwnerFilter>();
+            services.AddScoped<MemberFilter>();
 
             return services;
         }

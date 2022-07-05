@@ -27,6 +27,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("searchusers/{GroupID}/{param}"), Authorize]
+        [ServiceFilter(typeof(MemberFilter))]
         public async Task<IActionResult> SearchGroupUsers(int GroupID, string param)
         {
             var result = await groupService.SearchGroupUsers(GroupID, param);
@@ -34,6 +35,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("users/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(MemberFilter))]
         public async Task<IActionResult> GetGroupUsers(int GroupID)
         {
             var result = await groupService.GetGroupUsers(GroupID);
@@ -41,6 +43,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("posts/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(MemberFilter))]
         public async Task<IActionResult> GetGroupPosts(int GroupID)
         {
             var result = await groupService.GetGroupPosts(GroupID, GetCurrentUserID());
@@ -48,6 +51,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("post"), Authorize]
+        [ServiceFilter(typeof(MemberFilter))]
         public async Task<IActionResult> CreateGroupPost(Post post)
         {
             var result = await groupService.CreateGroupPost(post, GetCurrentUserID());
@@ -55,6 +59,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("info/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(MemberFilter))]
         public async Task<IActionResult> GetGroupInfo(int GroupID)
         {
             var result = await groupService.GetGroupInfo(GroupID);

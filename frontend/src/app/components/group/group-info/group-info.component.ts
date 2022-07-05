@@ -15,7 +15,6 @@ export class GroupInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.groupService.getGroupInfo(this.groupID).subscribe((response) => {
-      console.log(response);
       this.info = response;
     });
   }

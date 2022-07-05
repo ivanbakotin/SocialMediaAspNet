@@ -1,12 +1,19 @@
-<section class="aside">
-  <app-search-group-users></app-search-group-users>
-</section>
+<nav>
+  <button>Overview</button>
+  <button>Requests</button>
+</nav>
 
-<section class="middle">
-  <app-group-info [groupID]="groupID"></app-group-info>
-  <app-group-posts [groupID]="groupID"></app-group-posts>
-</section>
+<div class="sections">
+  <section class="aside">
+    <app-search-group-users></app-search-group-users>
+  </section>
 
-<section class="aside">
-  <app-group-invite></app-group-invite>
-</section>
+  <section class="middle">
+    <app-group-info [groupID]="groupID"></app-group-info>
+    <app-group-posts [groupID]="groupID"></app-group-posts>
+  </section>
+
+  <section class="aside">
+    <app-group-invite [groupID]="groupID"></app-group-invite>
+  </section>
+</div>
