@@ -30,14 +30,10 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((routeParams) => {
       this.getProfile(routeParams['id']);
-    });
-
-    this.userService.getCurrentUsername().subscribe((response) => {
-      this.currentUsername = response.username;
+      this.currentUsername = routeParams['id'];
     });
 
     this.currentUserID = this.userService.getCurrentUserID();
-    this.sharedService.updateID(this.currentUserID);
   }
 
   sendFriendRequest() {
@@ -64,6 +60,7 @@ export class ProfileComponent implements OnInit {
   getProfile(id: any) {
     this.profileService.getProfile(id).subscribe((response) => {
       this.sharedService.updateProfile(response);
+      this.sharedService.updateID(response.id);
       this.profile = response;
     });
   }

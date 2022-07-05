@@ -33,7 +33,7 @@
 
 <div class="btns">
   <button
-    [routerLink]="['/profile/' + profile.username]"
+    [routerLink]="['/profile/' + profile?.username]"
     *ngIf="displayService.checkIsFriend(currentUserID, profile)"
     [routerLinkActiveOptions]="{ exact: true }"
     routerLinkActive="is-active"

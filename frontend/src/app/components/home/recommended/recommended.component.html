@@ -2,7 +2,10 @@
 
 <ul class="recommended">
   <li *ngFor="let user of recommendedUsers">
-    <div class="recommended__username" [routerLink]="['/profile/' + user.id]">
+    <div
+      class="recommended__username"
+      [routerLink]="['/profile/' + user.username]"
+    >
       {{ user.username }}
     </div>
   </li>

@@ -20,9 +20,10 @@ export class OverviewComponent implements OnInit {
   id!: number;
 
   ngOnInit(): void {
-    this.sharedService.userID.subscribe((id) => (this.id = id));
+    this.sharedService.userID.subscribe(
+      (id) => ((this.id = id), this.getUserPosts())
+    );
     this.postSharedService.post.subscribe((posts) => (this.posts = posts));
-    this.getUserPosts();
   }
 
   getUserPosts() {
