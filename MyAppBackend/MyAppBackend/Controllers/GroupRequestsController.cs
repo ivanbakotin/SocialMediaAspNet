@@ -32,8 +32,8 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         [HttpPost("invite/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> InviteToGroup(int GroupID, [FromBody] int UserID)
         {
             await groupRequestService.InviteToGroup(GroupID, UserID, GetCurrentUserID());
@@ -47,8 +47,8 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         [HttpPost("accept/{GroupID}/{UserID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> AcceptRequest(int UserID, int GroupID)
         {
             await groupRequestService.AcceptRequest(UserID, GroupID);
@@ -56,6 +56,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("requestssent/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> GetGroupRequestsSent(int GroupID)
         {
             var result = await groupRequestService.GetGroupRequestsSent(GroupID);
@@ -63,6 +64,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet("requestspending/{GroupID}"), Authorize]
+        [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> GetGroupRequestsPending(int GroupID)
         {
             var result = await groupRequestService.GetGroupRequestsPending(GroupID);

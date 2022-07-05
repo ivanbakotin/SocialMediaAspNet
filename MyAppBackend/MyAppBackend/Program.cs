@@ -27,8 +27,7 @@ namespace MyAppBackend
     seperate admin panel
     pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
-    email server smtp
-    tags/hashtags on posts
+    email server smtp ethereal
+    tags on posts, groups
     implement groups
-    if owner, if friend
  */

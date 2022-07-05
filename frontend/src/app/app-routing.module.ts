@@ -9,11 +9,10 @@ import { SettingsComponent } from './pages/logged-in/profile/settings/settings.c
 import { DetailsComponent } from './pages/logged-in/profile/details/details.component';
 import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
 import { FriendsComponent } from './pages/logged-in/profile/friends/friends.component';
-import { RequestsComponent } from './pages/logged-in/profile/requests/requests.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
 import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
-import { GroupRequestsComponent } from './pages/logged-in/profile/group-requests/group-requests.component';
+import { UserGroupRequestsComponent } from './pages/logged-in/profile/user-group-requests/user-group-requests.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -84,7 +83,7 @@ const routes: Routes = [
           },
           {
             path: 'grouprequests',
-            component: GroupRequestsComponent,
+            component: UserGroupRequestsComponent,
           },
           {
             path: 'friendrequests',

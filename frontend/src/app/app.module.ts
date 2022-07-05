@@ -24,11 +24,11 @@ import { HomeComponent } from './pages/logged-in/home/home.component';
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { ForgotComponent } from './pages/logged-out/forgot/forgot.component';
 import { ResetComponent } from './pages/logged-out/reset/reset.component';
-import { PostsComponent } from './components/posts/posts.component';
+import { PostsComponent } from './components/home/timeline/posts.component';
 import { PostComponent } from './components/post/post.component';
-import { SearchComponent } from './components/search/search.component';
+import { SearchComponent } from './components/home/search/search.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
-import { ProfilepreviewComponent } from './components/profilepreview/profilepreview.component';
+import { ProfilepreviewComponent } from './components/home/profilepreview/profilepreview.component';
 import { SettingsComponent } from './pages/logged-in/profile/settings/settings.component';
 import { DetailsComponent } from './pages/logged-in/profile/details/details.component';
 import { OverviewComponent } from './pages/logged-in/profile/overview/overview.component';
@@ -39,17 +39,16 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { MainPostComponent } from './components/main-post/main-post.component';
 import { CreateCommentComponent } from './components/create-comment/create-comment.component';
-import { RecommendedComponent } from './components/recommended/recommended.component';
+import { RecommendedComponent } from './components/home/recommended/recommended.component';
 import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { GroupComponent } from './pages/logged-in/group/group.component';
-import { SearchgroupsComponent } from './components/searchgroups/searchgroups.component';
-import { CreateGroupComponent } from './components/create-group/create-group.component';
+import { SearchgroupsComponent } from './components/groups/searchgroups/searchgroups.component';
+import { CreateGroupComponent } from './components/groups/create-group/create-group.component';
 import { UpdateProfileComponent } from './components/update-profile/update-profile.component';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ChangeEmailComponent } from './components/change-email/change-email.component';
 import { DeleteUserComponent } from './components/delete-user/delete-user.component';
 import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
-import { GroupRequestsComponent } from './pages/logged-in/profile/group-requests/group-requests.component';
 import { FriendRequestsSentComponent } from './components/requests/friend-requests-sent/friend-requests-sent.component';
 import { FriendRequestsPendingComponent } from './components/requests/friend-requests-pending/friend-requests-pending.component';
 import { GroupRequestsPendingComponent } from './components/requests/group-requests-pending/group-requests-pending.component';
@@ -63,6 +62,11 @@ import { GroupPostsComponent } from './components/group/group-posts/group-posts.
 import { GroupUsersComponent } from './components/group/group-users/group-users.component';
 import { SearchGroupUsersComponent } from './components/group/search-group-users/search-group-users.component';
 import { GroupInviteComponent } from './components/group/group-invite/group-invite.component';
+import { UserGroupRequestsComponent } from './pages/logged-in/profile/user-group-requests/user-group-requests.component';
+import { UserGroupRequestPendingComponent } from './components/requests/user-group-request-pending/user-group-request-pending.component';
+import { UserGroupRequestSentComponent } from './components/requests/user-group-request-sent/user-group-request-sent.component';
+import { UserGroupRequestsPendingComponent } from './components/requests/user-group-requests-pending/user-group-requests-pending.component';
+import { UserGroupRequestsSentComponent } from './components/requests/user-group-requests-sent/user-group-requests-sent.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +109,6 @@ import { GroupInviteComponent } from './components/group/group-invite/group-invi
     ChangeEmailComponent,
     DeleteUserComponent,
     FriendRequestsComponent,
-    GroupRequestsComponent,
     FriendRequestsSentComponent,
     FriendRequestsPendingComponent,
     GroupRequestsPendingComponent,
@@ -119,6 +122,11 @@ import { GroupInviteComponent } from './components/group/group-invite/group-invi
     GroupUsersComponent,
     SearchGroupUsersComponent,
     GroupInviteComponent,
+    UserGroupRequestsComponent,
+    UserGroupRequestsSentComponent,
+    UserGroupRequestsPendingComponent,
+    UserGroupRequestSentComponent,
+    UserGroupRequestPendingComponent,
   ],
   imports: [
     BrowserModule,
