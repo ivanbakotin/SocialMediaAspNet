@@ -11,11 +11,18 @@ import { HOSTNAME } from 'src/app/utils/constants';
 export class GroupService {
   constructor(private http: HttpClient) {}
 
+  private searchGroupsURL = `${HOSTNAME}Group/search/`;
   private getGroupInfoURL = `${HOSTNAME}Group/info/`;
   private getGroupPostsURL = `${HOSTNAME}Group/posts/`;
   private createGroupURL = `${HOSTNAME}Group/create`;
   private getUserGroupsURL = `${HOSTNAME}Group/getusergroups`;
   private deleteGroupURL = `${HOSTNAME}Group/`;
+
+  public searchGroups(param: string): Observable<any> {
+    return this.http.get(this.searchGroupsURL + param, {
+      headers: GetHeader(),
+    });
+  }
 
   public getGroupInfo(id: number): Observable<any> {
     return this.http.post(this.getGroupInfoURL + id, { headers: GetHeader() });
