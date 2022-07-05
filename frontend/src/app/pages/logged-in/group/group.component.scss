@@ -4,6 +4,10 @@
   flex: 1;
   gap: 10rem;
   justify-content: center;
+
+  @media (max-width: 800px) {
+    flex-wrap: wrap;
+  }
 }
 
 section {
@@ -15,12 +19,12 @@ section {
 
 .middle {
   width: min(600px, 85%);
+
+  @media (max-width: 800px) {
+    order: 2;
+  }
 }
 
 .aside {
-  width: min(400px, 30%);
-
-  @media (max-width: 800px) {
-    display: none;
-  }
+  width: min(400px, 40%);
 }
