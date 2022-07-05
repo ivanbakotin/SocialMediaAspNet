@@ -27,7 +27,7 @@ namespace MyAppBackend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -126,7 +126,7 @@ namespace MyAppBackend.Migrations
                         column: x => x.GroupID,
                         principalTable: "Groups",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_GroupMembers_Roles_RoleID",
                         column: x => x.RoleID,
@@ -308,7 +308,7 @@ namespace MyAppBackend.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TagName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostID = table.Column<int>(type: "int", nullable: true),
                     GroupID = table.Column<int>(type: "int", nullable: true)
                 },

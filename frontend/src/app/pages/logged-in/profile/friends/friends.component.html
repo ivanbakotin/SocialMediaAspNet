@@ -3,7 +3,9 @@
   <ul class="friends__list">
     <li class="friends__item" *ngFor="let r of friends">
       <h3>{{ r.username }}</h3>
-      <button (click)="removeFriend(r.id)">Remove</button>
+      <button *ngIf="currentUserID == userID" (click)="removeFriend(r.id)">
+        Remove
+      </button>
     </li>
   </ul>
 

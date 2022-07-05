@@ -10,7 +10,8 @@ namespace MyAppBackend.ModelBuilderConfig
         {
             modelBuilder
                 .HasMany(c => c.Members)
-                .WithOne(e => e.Group);
+                .WithOne(e => e.Group)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

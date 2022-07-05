@@ -33,7 +33,7 @@ namespace MyAppBackend.Services.Auth
                 return null;
             }
 
-            string tokenString = CreateJwt.GetJwt(userObject.Role.RoleName, userObject.ID.ToString());
+            string tokenString = CreateJwt.GetJwt(userObject.Role.Name, userObject.ID.ToString());
 
             if (user.RememberMe)
             {
@@ -91,7 +91,7 @@ namespace MyAppBackend.Services.Auth
                 return null;
             }
 
-            string tokenString = CreateJwt.GetJwt(session.User.Role.RoleName, session.User.ID.ToString());
+            string tokenString = CreateJwt.GetJwt(session.User.Role.Name, session.User.ID.ToString());
 
             context.Sessions.RemoveRange(session);
 

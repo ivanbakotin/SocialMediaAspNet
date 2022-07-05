@@ -10,7 +10,7 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220630092515_init")]
+    [Migration("20220705064320_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -260,7 +260,7 @@ namespace MyAppBackend.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("RoleName")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
@@ -298,11 +298,11 @@ namespace MyAppBackend.Migrations
                     b.Property<int?>("GroupID")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("PostID")
                         .HasColumnType("int");
-
-                    b.Property<string>("TagName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
@@ -455,9 +455,9 @@ namespace MyAppBackend.Migrations
             modelBuilder.Entity("MyAppBackend.Models.GroupMember", b =>
                 {
                     b.HasOne("MyAppBackend.Models.Group", "Group")
-                        .WithMany()
+                        .WithMany("Members")
                         .HasForeignKey("GroupID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MyAppBackend.Models.Role", "Role")
@@ -506,7 +506,7 @@ namespace MyAppBackend.Migrations
 
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>
                 {
-                    b.HasOne("MyAppBackend.Models.Group", "group")
+                    b.HasOne("MyAppBackend.Models.Group", "Group")
                         .WithMany()
                         .HasForeignKey("GroupID");
 
@@ -516,7 +516,7 @@ namespace MyAppBackend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("group");
+                    b.Navigation("Group");
 
                     b.Navigation("User");
                 });
@@ -623,6 +623,11 @@ namespace MyAppBackend.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Votes");
+                });
+
+            modelBuilder.Entity("MyAppBackend.Models.Group", b =>
+                {
+                    b.Navigation("Members");
                 });
 
             modelBuilder.Entity("MyAppBackend.Models.Post", b =>

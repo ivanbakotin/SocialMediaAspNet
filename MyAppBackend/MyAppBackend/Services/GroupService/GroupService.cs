@@ -115,7 +115,7 @@ namespace MyAppBackend.Services.GroupService
                                         .Select(x => x.Groups
                                         .Select(x => 
                                             new GroupViewModel {                                       
-                                                Role = x.Role.RoleName,
+                                                Role = x.Role.Name,
                                                 Name = x.Group.Name,
                                                 Description = x.Group.Description,
                                                 ID = x.Group.ID,

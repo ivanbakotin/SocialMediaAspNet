@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { SharedService } from 'src/app/services/profile/shared.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-friends',
@@ -11,14 +12,17 @@ import { SharedService } from 'src/app/services/profile/shared.service';
 export class FriendsComponent implements OnInit {
   constructor(
     private friendService: FriendService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private userService: UserService
   ) {}
 
   friends: any = [];
   userID!: number;
+  currentUserID!: number;
 
   ngOnInit(): void {
     this.sharedService.userID.subscribe((id) => (this.userID = id));
+    this.currentUserID = this.userService.getCurrentUserID();
 
     this.friendService.getFriends(this.userID).subscribe((response) => {
       this.friends = response[0].friends1.concat(
