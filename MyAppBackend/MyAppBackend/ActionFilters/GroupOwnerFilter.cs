@@ -35,7 +35,7 @@ namespace MyAppBackend.ActionFilters
 
             bool isOwner = context.GroupMembers.Any(x => x.GroupID == GroupID && x.RoleID == 3 && x.UserID == UserID);
 
-            if (isOwner)
+            if (!isOwner)
             {
                 _context.Result = new ForbidResult();
             }

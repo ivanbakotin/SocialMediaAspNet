@@ -25,4 +25,6 @@
       <div class="group__info">{{ group.membersCount }} member/s</div>
     </li>
   </ul>
+
+  <h3 class="no-groups" *ngIf="!groups.length">No groups to show!</h3>
 </section>

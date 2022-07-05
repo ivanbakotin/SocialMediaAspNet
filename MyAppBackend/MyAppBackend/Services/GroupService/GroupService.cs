@@ -67,7 +67,11 @@ namespace MyAppBackend.Services.GroupService
         }
 
         public async Task DeleteGroup(int GroupID, int UserID)
-        {
+        { 
+            var membersToDelete = await context.GroupMembers.Where(x => x.GroupID == GroupID).ToListAsync();
+
+            context.GroupMembers.RemoveRange(membersToDelete);
+
             var groupToDelete = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
 
             if (groupToDelete != null)
