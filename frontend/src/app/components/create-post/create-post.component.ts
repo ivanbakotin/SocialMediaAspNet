@@ -18,12 +18,8 @@ export class CreatePostComponent implements OnInit {
   ngOnInit(): void {}
 
   submitForm(form: NgForm) {
-    const body = {
-      title: form.value.title,
-      body: form.value.body,
-    };
-
-    this.postService.createPost(body).subscribe((response) => {
+    this.postService.createPost(form.value).subscribe((response) => {
+      form.reset();
       this.sharedService.addPost(response);
     });
   }

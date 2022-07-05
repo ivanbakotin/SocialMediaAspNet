@@ -19,7 +19,7 @@ export class CreateGroupComponent implements OnInit {
 
   submitForm(form: NgForm) {
     this.groupService.createGroup(form.value).subscribe((response) => {
-      console.log(response);
+      form.reset();
       this.groupSharedService.addGroup(response);
     });
   }

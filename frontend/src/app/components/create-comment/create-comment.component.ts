@@ -23,6 +23,7 @@ export class CreateCommentComponent implements OnInit {
     form.value.postID = this.route.snapshot.params['id'];
 
     this.commentService.createComment(form.value).subscribe((response) => {
+      form.reset();
       this.sharedService.addComment(response);
     });
   }
