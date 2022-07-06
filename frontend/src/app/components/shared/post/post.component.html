@@ -57,13 +57,12 @@
           class="form"
         >
           <textarea
-            ngModel
             class="post_paragraph"
             name="body"
             id="body"
             cols="15"
             rows="10"
-            [value]="post.body"
+            [ngModel]="post.body"
           ></textarea>
           <div>
             <button (click)="endEditing()">Cancel</button>

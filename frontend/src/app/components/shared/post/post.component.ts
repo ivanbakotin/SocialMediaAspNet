@@ -24,27 +24,6 @@ export class PostComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserID = this.userService.getCurrentUserID();
-    this.createTagsLinks();
-  }
-
-  createTagsLinks() {
-    this.post.body = this.post.body
-      .split(' ')
-      .map((word) => {
-        if (word[0] == '#') {
-          return `<mark>${word}</mark>`;
-        }
-
-        if (word[0] == '@') {
-          return `<a href=profile/${word.slice(
-            1,
-            word.length + 1
-          )}>${word}</a>`;
-        }
-
-        return word;
-      })
-      .join(' ');
   }
 
   vote(vote: boolean) {

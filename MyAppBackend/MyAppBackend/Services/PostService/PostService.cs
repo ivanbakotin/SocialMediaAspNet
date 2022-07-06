@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,14 +60,13 @@ namespace MyAppBackend.Services.PostService
 
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
-            
-
+            post.Body = ConvertBody(post.Body);
             post.UserID = UserID;
             await context.Posts.AddAsync(post);
             await context.SaveChangesAsync();
 
             PostViewModel createdPost = mapper.Map<PostViewModel>(post);
-         
+
             return createdPost;
         }
 
@@ -117,5 +117,23 @@ namespace MyAppBackend.Services.PostService
 
             await context.SaveChangesAsync();
         }    
+
+        private string ConvertBody(string body)
+        {
+            return string.Join(" ", body.Split(" ").Select(x =>
+            {
+                if (x[0] == '#')
+                {
+                    return $"<mark>{x}</mark>";
+                }
+
+                if (x[0] == '@')
+                {
+                    return $"<a href='profile/{x.Substring(1)}'>{x}</a>";
+                }
+
+                return x;
+            }));
+        }
     }
 }
