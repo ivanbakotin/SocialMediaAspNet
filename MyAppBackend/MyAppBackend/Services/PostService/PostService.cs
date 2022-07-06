@@ -64,12 +64,15 @@ namespace MyAppBackend.Services.PostService
             post.UserID = UserID;
             await context.Posts.AddAsync(post);
             await context.SaveChangesAsync();
-            CreatePostTags(post.ID, body);
+            await CreatePostTags(post.ID, body);
             return mapper.Map<PostViewModel>(post);
         }
 
         public async Task UpdatePost(string body, int UserID, int PostID)
         {
+            //remove post tags 
+            //add post tags
+
             var postToUpdate = await context.Posts.Where(p => p.ID == PostID).FirstOrDefaultAsync();
 
             if (postToUpdate != null)

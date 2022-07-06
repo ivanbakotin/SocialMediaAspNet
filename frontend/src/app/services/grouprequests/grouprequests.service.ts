@@ -52,6 +52,12 @@ export class GrouprequestsService {
     });
   }
 
+  public getGroupRequestsSent(id: number): Observable<any> {
+    return this.http.get(this.getGroupRequestsPendingURL + id, {
+      headers: GetHeader(),
+    });
+  }
+
   public getUserGroupRequestsSent(): Observable<any> {
     return this.http.get(this.getUserGroupRequestsSentURL, {
       headers: GetHeader(),
