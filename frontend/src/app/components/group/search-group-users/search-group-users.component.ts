@@ -16,7 +16,6 @@ export class SearchGroupUsersComponent implements OnInit {
   searchGroups(param: string) {
     if (param) {
       this.groupService.searchGroups(param).subscribe((response: any) => {
-        console.log(response);
         this.searchResults = response;
       });
     } else {

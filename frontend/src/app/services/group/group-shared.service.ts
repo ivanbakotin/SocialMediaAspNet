@@ -7,6 +7,13 @@ import { BehaviorSubject } from 'rxjs';
 export class GroupSharedService {
   constructor() {}
 
+  private groupIDSource = new BehaviorSubject<number>(0);
+  groupID = this.groupIDSource.asObservable();
+
+  updateGroupID(groupID: number) {
+    this.groupIDSource.next(groupID);
+  }
+
   private groupSource = new BehaviorSubject<any[]>([]);
   group = this.groupSource.asObservable();
 

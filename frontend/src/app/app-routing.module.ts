@@ -13,6 +13,8 @@ import { GroupComponent } from './pages/logged-in/group/group.component';
 import { GroupsComponent } from './pages/logged-in/groups/groups.component';
 import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
 import { UserGroupRequestsComponent } from './pages/logged-in/profile/user-group-requests/user-group-requests.component';
+import { GroupRequestsComponent } from './components/group/invitations/group-requests/group-requests.component';
+import { GroupInviteComponent } from './components/group/invitations/group-invite/group-invite.component';
 
 import { LoggedOutComponent } from './pages/logged-out/logged-out.component';
 import { RegisterComponent } from './pages/logged-out/register/register.component';
@@ -64,6 +66,16 @@ const routes: Routes = [
       {
         path: 'group/:id',
         component: GroupComponent,
+        children: [
+          {
+            path: '',
+            component: GroupInviteComponent,
+          },
+          {
+            path: 'requests',
+            component: GroupRequestsComponent,
+          },
+        ],
       },
       {
         path: 'thread/:id',

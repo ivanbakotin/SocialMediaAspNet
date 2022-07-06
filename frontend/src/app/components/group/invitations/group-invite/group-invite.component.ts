@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { UserService } from 'src/app/services/user/user.service';
 import { GrouprequestsService } from 'src/app/services/grouprequests/grouprequests.service';
+import { GroupSharedService } from 'src/app/services/group/group-shared.service';
+
 @Component({
   selector: 'app-group-invite',
   templateUrl: './group-invite.component.html',
@@ -10,16 +12,18 @@ import { GrouprequestsService } from 'src/app/services/grouprequests/groupreques
 export class GroupInviteComponent implements OnInit {
   constructor(
     private userService: UserService,
-    private grouprequestsService: GrouprequestsService
+    private grouprequestsService: GrouprequestsService,
+    private sharedService: GroupSharedService
   ) {}
 
   ngOnInit(): void {}
 
-  @Input() groupID!: number;
+  groupID!: number;
 
   searchResults: any[] = [];
 
   inviteToGroup(userID: number) {
+    this.sharedService.groupID.subscribe((id) => (this.groupID = id));
     this.grouprequestsService.inviteToGroup(this.groupID, userID).subscribe();
   }
 

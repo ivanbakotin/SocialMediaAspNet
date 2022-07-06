@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 import { GroupService } from 'src/app/services/group/group.service';
 import { PostSharedService } from 'src/app/services/post/postShared.service';
+import { GroupSharedService } from 'src/app/services/group/group-shared.service';
 
 @Component({
   selector: 'app-group-posts',
@@ -13,22 +13,19 @@ export class GroupPostsComponent implements OnInit {
   constructor(
     private sharedService: PostSharedService,
     private groupService: GroupService,
-    private route: ActivatedRoute
+    private groupSharedService: GroupSharedService
   ) {}
 
   posts: any = [];
-  @Input() groupID!: number;
+  groupID!: number;
 
   ngOnInit(): void {
+    this.groupSharedService.groupID.subscribe((id) => (this.groupID = id));
     this.sharedService.post.subscribe((posts) => (this.posts = posts));
 
-    this.route.params.subscribe((routeParams) => {
-      this.groupService
-        .getGroupPosts(routeParams['id'])
-        .subscribe((response) => {
-          this.posts = response;
-          this.sharedService.updatePosts(response);
-        });
+    this.groupService.getGroupPosts(this.groupID).subscribe((response) => {
+      this.posts = response;
+      this.sharedService.updatePosts(response);
     });
   }
 }

@@ -28,6 +28,6 @@ namespace MyAppBackend
     pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
     fix dates
     email server smtp ethereal
-    tags on posts, groups
-    implement groups
+    tags groups
+    implement group requests
  */

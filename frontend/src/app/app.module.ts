@@ -51,22 +51,24 @@ import { DeleteUserComponent } from './components/profile/delete-user/delete-use
 import { FriendRequestsComponent } from './pages/logged-in/profile/friend-requests/friend-requests.component';
 import { FriendRequestsSentComponent } from './components/profile/friend-requests-sent/friend-requests-sent.component';
 import { FriendRequestsPendingComponent } from './components/profile/friend-requests-pending/friend-requests-pending.component';
-import { GroupRequestsPendingComponent } from './components/group/group-requests-pending/group-requests-pending.component';
-import { GroupRequestsSentComponent } from './components/group/group-requests-sent/group-requests-sent.component';
-import { GroupRequestPendingComponent } from './components/group/group-request-pending/group-request-pending.component';
-import { GroupRequestSentComponent } from './components/group/group-request-sent/group-request-sent.component';
+import { GroupRequestsPendingComponent } from './components/group/invitations/group-requests/group-requests-pending/group-requests-pending.component';
+import { GroupRequestsSentComponent } from './components/group/invitations/group-requests/group-requests-sent/group-requests-sent.component';
+import { GroupRequestPendingComponent } from './components/group/invitations/group-requests/group-request-pending/group-request-pending.component';
+import { GroupRequestSentComponent } from './components/group/invitations/group-requests/group-request-sent/group-request-sent.component';
 import { FriendRequestPendingComponent } from './components/profile/friend-request-pending/friend-request-pending.component';
 import { FriendRequestSentComponent } from './components/profile/friend-request-sent/friend-request-sent.component';
 import { GroupInfoComponent } from './components/group/group-info/group-info.component';
 import { GroupPostsComponent } from './components/group/group-posts/group-posts.component';
 import { GroupUsersComponent } from './components/group/group-users/group-users.component';
 import { SearchGroupUsersComponent } from './components/group/search-group-users/search-group-users.component';
-import { GroupInviteComponent } from './components/group/group-invite/group-invite.component';
+import { GroupInviteComponent } from './components/group/invitations/group-invite/group-invite.component';
 import { UserGroupRequestsComponent } from './pages/logged-in/profile/user-group-requests/user-group-requests.component';
 import { UserGroupRequestPendingComponent } from './components/profile/user-group-request-pending/user-group-request-pending.component';
 import { UserGroupRequestSentComponent } from './components/profile/user-group-request-sent/user-group-request-sent.component';
 import { UserGroupRequestsPendingComponent } from './components/profile/user-group-requests-pending/user-group-requests-pending.component';
 import { UserGroupRequestsSentComponent } from './components/profile/user-group-requests-sent/user-group-requests-sent.component';
+import { InvitationsComponent } from './components/group/invitations/invitations.component';
+import { GroupRequestsComponent } from './components/group/invitations/group-requests/group-requests.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +129,8 @@ import { UserGroupRequestsSentComponent } from './components/profile/user-group-
     UserGroupRequestsPendingComponent,
     UserGroupRequestSentComponent,
     UserGroupRequestPendingComponent,
+    InvitationsComponent,
+    GroupRequestsComponent,
   ],
   imports: [
     BrowserModule,
