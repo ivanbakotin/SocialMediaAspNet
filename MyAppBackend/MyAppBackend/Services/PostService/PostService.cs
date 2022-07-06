@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,14 +59,13 @@ namespace MyAppBackend.Services.PostService
 
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
-            post.Body = ConvertBody(post.Body);
+            var body = post.Body;
+            post.Body = ConvertBody(body);
             post.UserID = UserID;
             await context.Posts.AddAsync(post);
             await context.SaveChangesAsync();
-
-            PostViewModel createdPost = mapper.Map<PostViewModel>(post);
-
-            return createdPost;
+            CreatePostTags(post.ID, body);
+            return mapper.Map<PostViewModel>(post);
         }
 
         public async Task UpdatePost(string body, int UserID, int PostID)
@@ -134,6 +132,20 @@ namespace MyAppBackend.Services.PostService
 
                 return x;
             }));
+        }
+
+        private async Task CreatePostTags(int postID, string body)
+        {
+            foreach (string word in body.Split(" "))
+            {
+                if (word[0] == '#')
+                {
+                    Tag newTag = new() { Name = word, PostID = postID };
+                    await context.Tags.AddAsync(newTag);
+                }
+            }
+
+            await context.SaveChangesAsync();
         }
     }
 }
