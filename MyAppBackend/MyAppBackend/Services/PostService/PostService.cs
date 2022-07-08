@@ -107,11 +107,12 @@ namespace MyAppBackend.Services.PostService
                 };
 
                 await context.VotedPosts.AddAsync(newVotedPost);
-            }
+            } 
             else if (votedPost.Liked != vote)
             {
                 votedPost.Liked = vote;
-            } else
+            } 
+            else
             {
                 context.VotedPosts.Remove(votedPost);
             }
