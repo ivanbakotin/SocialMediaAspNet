@@ -38,7 +38,7 @@ namespace MyAppBackend.Services.PostService
         { 
             var result = await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
-                                where post.UserID == UserID
+                                where post.GroupID == null && post.UserID == UserID
                                 orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
                                 .ToListAsync();
@@ -59,7 +59,7 @@ namespace MyAppBackend.Services.PostService
 
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
-            var body = post.Body;
+            var body = post.Body.Trim();
             post.Body = ConvertBody(body);
             post.UserID = UserID;
             await context.Posts.AddAsync(post);

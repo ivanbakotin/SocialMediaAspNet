@@ -18,6 +18,7 @@ export class GroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((routeParams) => {
+      console.log(routeParams);
       this.groupShared.updateGroupID(routeParams['id']);
     });
   }

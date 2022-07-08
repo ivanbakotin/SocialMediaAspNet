@@ -20,12 +20,17 @@ export class GroupPostsComponent implements OnInit {
   groupID!: number;
 
   ngOnInit(): void {
-    this.groupSharedService.groupID.subscribe((id) => (this.groupID = id));
-    this.sharedService.post.subscribe((posts) => (this.posts = posts));
+    this.groupSharedService.groupID.subscribe(
+      (id) => (
+        (this.posts = []),
+        (this.groupID = id),
+        this.groupService.getGroupPosts(this.groupID).subscribe((response) => {
+          this.posts = response;
+          this.sharedService.updatePosts(response);
+        })
+      )
+    );
 
-    this.groupService.getGroupPosts(this.groupID).subscribe((response) => {
-      this.posts = response;
-      this.sharedService.updatePosts(response);
-    });
+    this.sharedService.post.subscribe((posts) => (this.posts = posts));
   }
 }

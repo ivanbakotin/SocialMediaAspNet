@@ -18,10 +18,13 @@ export class GroupInfoComponent implements OnInit {
   groupID!: number;
 
   ngOnInit(): void {
-    this.groupSharedService.groupID.subscribe((id) => (this.groupID = id));
-
-    this.groupService.getGroupInfo(this.groupID).subscribe((response) => {
-      this.info = response;
-    });
+    this.groupSharedService.groupID.subscribe(
+      (id) => (
+        (this.groupID = id),
+        this.groupService.getGroupInfo(this.groupID).subscribe((response) => {
+          this.info = response;
+        })
+      )
+    );
   }
 }

@@ -29,5 +29,5 @@ namespace MyAppBackend
     fix dates
     email server smtp ethereal
     tags groups
-    implement group requests
+    finish up group requests
  */
