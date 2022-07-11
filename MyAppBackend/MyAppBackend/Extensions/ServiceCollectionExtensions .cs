@@ -92,20 +92,21 @@ namespace MyAppBackend.Extensions
 
         public static IServiceCollection AddServiceInjectionExtension(this IServiceCollection services)
         {
-            services.AddTransient<IEmailService, Services.Email.EmailService>();
-            services.AddTransient<IAuthService, Services.Auth.AuthService>();
-            services.AddTransient<IPostService, Services.PostService.PostService>();
-            services.AddTransient<IFriendService, Services.FriendService.FriendService>();
-            services.AddTransient<IUserService, Services.UserService.UserService>();
-            services.AddTransient<IProfileService, Services.ProfileService.ProfileService>();
-            services.AddTransient<ICommentService, Services.CommentService.CommentService>();
-            services.AddTransient<IGroupRequestService, Services.GroupRequestService.GroupRequestService>();
-            services.AddTransient<IGroupService, Services.GroupService.GroupService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<IFriendService, FriendService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IGroupRequestService, GroupRequestService>();
+            services.AddTransient<IGroupService, GroupService>();
 
             services.AddScoped<PasswordFilter>();
             services.AddScoped<GroupOwnerAdminFilter>();
             services.AddScoped<GroupOwnerFilter>();
             services.AddScoped<MemberFilter>();
+            services.AddScoped<PostOwnerFilter>();
 
             return services;
         }

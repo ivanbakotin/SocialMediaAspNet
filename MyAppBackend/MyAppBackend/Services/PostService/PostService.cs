@@ -114,7 +114,7 @@ namespace MyAppBackend.Services.PostService
             await context.SaveChangesAsync();
         }    
 
-        private string ConvertBody(string body)
+        private static string ConvertBody(string body)
         {
             return string.Join(" ", body.Split(" ").Select(x =>
             {
@@ -125,7 +125,7 @@ namespace MyAppBackend.Services.PostService
 
                 if (x[0] == '@')
                 {
-                    return $"<a href='profile/{x.Substring(1)}'>{x}</a>";
+                    return $"<a href='profile/{x[1..]}'>{x}</a>";
                 }
 
                 return x;

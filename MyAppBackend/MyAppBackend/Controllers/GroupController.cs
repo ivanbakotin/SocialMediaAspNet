@@ -59,7 +59,7 @@ namespace MyAppBackend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("info/{GroupID}"]
+        [HttpGet("info/{GroupID}")]
         [ServiceFilter(typeof(MemberFilter))]
         public async Task<IActionResult> GetGroupInfo(int GroupID)
         {
