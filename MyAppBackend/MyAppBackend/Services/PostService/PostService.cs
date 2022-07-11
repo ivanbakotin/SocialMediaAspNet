@@ -54,6 +54,8 @@ namespace MyAppBackend.Services.PostService
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
             var body = post.Body.Trim();
+            post.Summary = body[..200];
+            post.PreHtmlBody = body;
             post.Body = ConvertBody(body);
             post.UserID = UserID;
             await context.Posts.AddAsync(post);
