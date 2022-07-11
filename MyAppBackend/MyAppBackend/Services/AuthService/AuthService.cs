@@ -17,7 +17,7 @@ namespace MyAppBackend.Services.Auth
             this.context = context;
         }
 
-        public async Task<string> Login(LoginUser user)
+        public async Task<AuthenticatedResponse> Login(LoginUser user)
         {
             var userObject = await context.Users.Include(u => u.Role).Where(u => u.Email == user.Email).FirstOrDefaultAsync();
 
@@ -47,7 +47,7 @@ namespace MyAppBackend.Services.Auth
                 await context.SaveChangesAsync();
             }
 
-            return tokenString;
+            return new AuthenticatedResponse { Token = tokenString };
         }
 
         public async Task<bool> Register(User user)
