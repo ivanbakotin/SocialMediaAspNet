@@ -76,7 +76,7 @@ namespace MyAppBackend.Services.PostService
             }
         }
 
-        public async Task DeletePost(int UserID, int PostID)
+        public async Task DeletePost(int PostID)
         {
             var postToDelete = await context.Posts.Where(p => p.ID == PostID).FirstOrDefaultAsync();
 

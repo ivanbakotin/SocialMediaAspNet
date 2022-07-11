@@ -11,6 +11,9 @@ namespace MyAppBackend.ModelBuilderConfig
             modelBuilder
                 .HasMany(c => c.Votes)
                 .WithOne(e => e.Post);
+
+            modelBuilder.Property(x => x.Title).HasMaxLength(150).IsRequired();
+            modelBuilder.Property(x => x.Body).HasMaxLength(800).IsRequired();
         }
     }
 }

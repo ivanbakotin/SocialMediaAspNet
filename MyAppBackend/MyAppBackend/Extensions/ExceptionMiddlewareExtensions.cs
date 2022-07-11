@@ -14,15 +14,17 @@ namespace MyAppBackend.Extensions
             {
                 appError.Run(async context =>
                 {
+                   
                     context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     context.Response.ContentType = "application/json";
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
+                    var body = context.Response.Body;
                     if (contextFeature != null)
                     {                     
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,
-                            Error = "Internal Server Error!"
+                            Error = contextFeature.Error.Message
                         }.ToString());
                     }
                 });

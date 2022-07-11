@@ -12,7 +12,7 @@ namespace MyAppBackend.Services.PostService
         Task<PostViewModel> GetPost(int UserID, int PostID);
         Task<PostViewModel> CreatePost(Post post, int UserID);
         Task UpdatePost(string body, int UserID, int PostID);
-        Task DeletePost(int UserID, int PostID);
+        Task DeletePost(int PostID);
         Task VotePost(int UserID, int PostID, bool vote);
     }
 }

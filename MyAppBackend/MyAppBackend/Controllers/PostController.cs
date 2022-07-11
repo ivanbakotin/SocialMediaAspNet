@@ -64,7 +64,7 @@ namespace MyAppBackend.Controllers
         [HttpDelete("delete/{PostID}"), Authorize]
         public async Task<IActionResult> DeletePost(int PostID)
         {
-            await postService.DeletePost(GetCurrentUserID(), PostID);
+            await postService.DeletePost(PostID);
             return Ok();
         }
 
