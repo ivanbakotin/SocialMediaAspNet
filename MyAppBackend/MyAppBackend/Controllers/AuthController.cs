@@ -23,7 +23,7 @@ namespace MyAppBackend.Controllers
         {
             var response = await authService.Login(user);
 
-            if (response == null)
+            if (response.Token == null)
             {
                 return StatusCode(409, "Wrong email or password");
             }

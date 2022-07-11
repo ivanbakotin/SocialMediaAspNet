@@ -19,7 +19,6 @@ namespace MyAppBackend.Controllers
         {
             this.commentService = commentService ?? throw new ArgumentNullException(nameof(commentService));
             this.postService = postService ?? throw new ArgumentNullException(nameof(postService));
-
         }
 
         [HttpDelete("post/{id}")]
