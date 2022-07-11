@@ -10,8 +10,8 @@ namespace MyAppBackend.Services.CommentService
     {
         Task<List<CommentViewModel>> GetComments(int UserID, int PostID);
         Task<CommentViewModel> CreateComment(Comment comment, int UserID);
-        Task UpdateComment(Comment comment, int UserID, int CommnetID);
-        Task DeleteComment(int UserID, int CommnetID);
+        Task UpdateComment(Comment comment, int CommnetID);
+        Task DeleteComment(int CommnetID);
         Task VoteComment(int UserID, int CommnetID, bool vote);
     }
 }

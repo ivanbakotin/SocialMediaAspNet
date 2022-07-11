@@ -16,10 +16,9 @@ namespace MyAppBackend.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpDelete("post/{id}"), Authorize]
+        [HttpDelete("post/{id}"), Authorize(Roles="admin")]
         public async Task<IActionResult> RemovePost(int id)
         {
-
             throw new NotImplementedException();
         }
 

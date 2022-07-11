@@ -40,7 +40,7 @@ namespace MyAppBackend.Services.CommentService
             return mapper.Map<CommentViewModel>(comment);
         }
 
-        public async Task UpdateComment(Comment comment, int UserID, int CommentID)
+        public async Task UpdateComment(Comment comment, int CommentID)
         {
             var commentToUpdate = await context.Comments.Where(p => p.ID == CommentID).FirstOrDefaultAsync();
 
@@ -51,7 +51,7 @@ namespace MyAppBackend.Services.CommentService
             }
         }
 
-        public async Task DeleteComment(int UserID, int CommentID)
+        public async Task DeleteComment(int CommentID)
         {
             var commentToDelete = await context.Comments.Where(p => p.ID == CommentID).FirstOrDefaultAsync();
 
