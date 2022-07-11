@@ -12,10 +12,10 @@ namespace Backend.Tests
     public class AuthControllerTests
     {
         [Fact]
-        public async Task Test1()
+        public async Task Login()
         {
             //Arrange
-            LoginUser user = new() { Username = "ivan", Password = "1", Email = "ivan", RememberMe = false };
+            LoginUser user = new() { Username = "", Password = "", Email = "", RememberMe = false };
             var response = A.Fake<AuthenticatedResponse>();
             var dataStore = A.Fake<IAuthService>();
             A.CallTo(() => dataStore.Login(user)).Returns(Task.FromResult(response));
@@ -25,9 +25,26 @@ namespace Backend.Tests
             IActionResult actionResult = await controller.Login(user);
 
             //Assert
-            var objectResponse = Assert.IsType<OkObjectResult>(actionResult);
-            var tokenObject = objectResponse.Value as AuthenticatedResponse;
-            Assert.NotNull(tokenObject.Token);
+            var objectResponse = Assert.IsType<ObjectResult>(actionResult);
+            Assert.Equal(409, objectResponse.StatusCode);
+        }
+
+        [Fact]
+        public async Task Register()
+        {
+            //Arrange
+            User user = new() { Username = "", Password = "", Email = "" };
+            bool flag = false;
+            var dataStore = A.Fake<IAuthService>();
+            A.CallTo(() => dataStore.Register(user)).Returns(Task.FromResult(flag));
+            AuthController controller = new(dataStore);
+
+            //Act
+            IActionResult actionResult = await controller.Register(user);
+
+            //Assert
+            var objectResponse = Assert.IsType<ObjectResult>(actionResult);
+            Assert.Equal(409, objectResponse.StatusCode);
         }
     }
 }
