@@ -1,4 +1,4 @@
-using FakeItEasy;
+﻿using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.ApiModels;
 using MyAppBackend.Controllers;
@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Backend.Tests
 {
-    public class AuthControllerTests
+    public class AuthControllerTest
     {
         [Fact]
         public async Task Login()
