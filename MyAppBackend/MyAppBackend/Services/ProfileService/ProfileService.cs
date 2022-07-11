@@ -22,12 +22,11 @@ namespace MyAppBackend.Services.ProfileService
         {
             var user = await context.Users.Where(x => x.Username == username).FirstOrDefaultAsync();
 
-            var result = await mapper.ProjectTo<ProfileViewModel>(
+            return await mapper.ProjectTo<ProfileViewModel>(
                                 from p in context.Profiles
                                 where p.UserID == user.ID
                                 select p, new { CurrentUserID = UserID })
                                 .FirstOrDefaultAsync();
-            return result;
         }
 
         public async Task Update(Profile profile, int UserID)

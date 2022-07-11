@@ -20,28 +20,25 @@ namespace MyAppBackend.Services.FriendService
 
         public async Task<dynamic> GetAllRequestsPending(int UserID)
         {
-            var result = await context.Users.Where(u => u.ID == UserID)
+            return await context.Users.Where(u => u.ID == UserID)
                                       .Select(x => new
                                       {
                                           Requests = x.FriendRequestsThem.Select(p => new { p.Follower.Username, p.Follower.ID })
                                       }).ToListAsync();
-
-            return result;
         }
 
         public async Task<dynamic> GetAllRequestsSent(int UserID)
         {
-            var result = await context.Users.Where(u => u.ID == UserID)
+            return await context.Users.Where(u => u.ID == UserID)
                                       .Select(x => new
                                       {
                                           Requests = x.FriendRequestsMe.Select(p => new { p.User.Username, p.User.ID })
                                       }).ToListAsync();
-            return result;
         }
 
         public async Task<dynamic> GetAllFriends(int id)
         {
-            var result = await context.Users.Where(f => f.ID == id)
+            return await context.Users.Where(f => f.ID == id)
                                       .Select(x => new
                                       {
                                           Friends1 = x.Friends1.Where(x => x.UserID1 != id).Select(p => new { p.User1.Username, p.User1.ID }),
@@ -49,7 +46,6 @@ namespace MyAppBackend.Services.FriendService
                                           Friends2 = x.Friends2.Where(x => x.UserID1 != id).Select(p =>  new { p.User1.Username, p.User1.ID }),
                                           Friends22 = x.Friends2.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
                                       }).ToListAsync();
-            return result;
         }
 
         public async Task SendFriendRequest(int UserID, int id) 

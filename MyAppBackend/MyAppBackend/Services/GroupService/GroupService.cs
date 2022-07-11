@@ -28,45 +28,37 @@ namespace MyAppBackend.Services.GroupService
 
         public async Task<dynamic> SearchGroupUsers(int GroupID, string param)
         {
-            var result = await context.Groups
+            return await context.Groups
                             .Where(x => x.ID == GroupID)
                             .Select(x => x.Members
                             .Select(x => new User { Username = x.User.Username, ID = x.User.ID}))
                             .ToListAsync();
-            return result;
         }
 
         public async Task<List<GroupMember>> GetGroupUsers(int GroupID)
         {
-            var groupMembers = await context.GroupMembers.Where(x => x.GroupID == GroupID).ToListAsync();
-            return groupMembers;
+            return await context.GroupMembers.Where(x => x.GroupID == GroupID).ToListAsync();
         }
 
         public async Task<List<PostViewModel>> GetGroupPosts(int GroupID, int UserID)
         {
-            var groupPosts = await mapper.ProjectTo<PostViewModel>(from post in context.Posts
+            return await mapper.ProjectTo<PostViewModel>(from post in context.Posts
                                                                    where post.GroupID == GroupID
                                                                    orderby post.ID descending
                                                                    select post, new { CurrentUserID = UserID }).ToListAsync();
-            return groupPosts;
         }
 
         public async Task<PostViewModel> CreateGroupPost(Post post, int UserID)
         {
-            //check if member of group action filter
             post.UserID = UserID;
             await context.Posts.AddAsync(post);
             await context.SaveChangesAsync();
-
-            PostViewModel createdPost = mapper.Map<PostViewModel>(post);
-
-            return createdPost;
+            return mapper.Map<PostViewModel>(post);
         }
 
         public async Task<Group> GetGroupInfo(int GroupID)
         {
-            var group = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
-            return group;
+            return await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
         }
 
         public async Task UpdateGroupInfo(Group body, int GroupID, int UserID)
@@ -123,25 +115,22 @@ namespace MyAppBackend.Services.GroupService
 
             GroupViewModel newGroup = mapper.Map<GroupViewModel>(newMember);
             newGroup.Role = "owner";
-
             return newGroup;
         }
 
         public async Task<List<IEnumerable<GroupViewModel>>> GetUserGroups(int UserID)
         {
-            var result = await context.Users
-                                        .Where(x => x.ID == UserID)
-                                        .Select(x => x.Groups
-                                        .Select(x => 
-                                            new GroupViewModel {                                       
-                                                Role = x.Role.Name,
-                                                Name = x.Group.Name,
-                                                Description = x.Group.Description,
-                                                ID = x.Group.ID,
-                                                MembersNumber = x.Group.Members.Count
-                                         })).ToListAsync();
-
-            return result;
+            return await context.Users
+                            .Where(x => x.ID == UserID)
+                            .Select(x => x.Groups
+                            .Select(x => 
+                                new GroupViewModel {                                       
+                                    Role = x.Role.Name,
+                                    Name = x.Group.Name,
+                                    Description = x.Group.Description,
+                                    ID = x.Group.ID,
+                                    MembersNumber = x.Group.Members.Count
+                             })).ToListAsync();
         }
 
         public Task<List<Group>> GetRecommendedGroups(int UserID)

@@ -25,14 +25,6 @@ namespace MyAppBackend.Controllers
             return Ok(comments);
         }
 
-        [HttpGet("comment/{id}"), Authorize]
-        public async Task<IActionResult> GetComment(int id)
-        {
-            // get one comment 
-            var comments = await commentService.GetComments(GetCurrentUserID(), id);
-            return Ok(comments);
-        }
-
         [HttpPost, Authorize]
         public async Task<IActionResult> CreateComment([FromBody] Comment comment)
         {

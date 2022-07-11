@@ -27,17 +27,17 @@ namespace MyAppBackend.Controllers
             return Ok(posts);
         }
 
-        [HttpGet("posts/{id}"), Authorize]
-        public async Task<IActionResult> GetUserPosts(int id)
+        [HttpGet("posts/{UserID}"), Authorize]
+        public async Task<IActionResult> GetUserPosts(int UserID)
         {
-            List<PostViewModel> posts = await postService.GetUserPosts(id);
+            List<PostViewModel> posts = await postService.GetUserPosts(UserID);
             return Ok(posts);
         }
 
-        [HttpGet("{id}"), Authorize]
-        public async Task<IActionResult> GetPost(int id)
+        [HttpGet("{PostID}"), Authorize]
+        public async Task<IActionResult> GetPost(int PostID)
         {
-            PostViewModel post = await postService.GetPost(GetCurrentUserID(), id);
+            PostViewModel post = await postService.GetPost(GetCurrentUserID(), PostID);
 
             if (post == null)
             {
@@ -54,24 +54,24 @@ namespace MyAppBackend.Controllers
             return Ok(createdPost);
         }
 
-        [HttpPut("update/{id}"), Authorize]
-        public async Task<IActionResult> UpdatePost([FromBody] string body, int id)
+        [HttpPut("update/{PostID}"), Authorize]
+        public async Task<IActionResult> UpdatePost([FromBody] string body, int PostID)
         {
-            await postService.UpdatePost(body, GetCurrentUserID(), id);
+            await postService.UpdatePost(body, GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpDelete("delete/{id}"), Authorize]
-        public async Task<IActionResult> DeletePost(int id)
+        [HttpDelete("delete/{PostID}"), Authorize]
+        public async Task<IActionResult> DeletePost(int PostID)
         {
-            await postService.DeletePost(GetCurrentUserID(), id);
+            await postService.DeletePost(GetCurrentUserID(), PostID);
             return Ok();
         }
 
-        [HttpPost("vote/{id}"), Authorize]
-        public async Task<IActionResult> VotePost([FromBody] bool vote, int id)
+        [HttpPost("vote/{PostID}"), Authorize]
+        public async Task<IActionResult> VotePost([FromBody] bool vote, int PostID)
         {
-            await postService.VotePost(GetCurrentUserID(), id, vote);
+            await postService.VotePost(GetCurrentUserID(), PostID, vote);
             return Ok();
         }
     }

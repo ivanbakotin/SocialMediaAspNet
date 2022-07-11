@@ -24,12 +24,10 @@ namespace MyAppBackend.Services.UserService
 
         public async Task<List<UserViewModel>> SearchUsers(string param)
         {
-            var result = await mapper.ProjectTo<UserViewModel>(from user in context.Users
+            return await mapper.ProjectTo<UserViewModel>(from user in context.Users
                          where user.Username.Contains(param)
                          select user
                          ).ToListAsync();
-
-            return result;
         }
 
         public async Task<User> GetCurrentUser(int UserID)
@@ -39,7 +37,7 @@ namespace MyAppBackend.Services.UserService
 
         public async Task<List<UserViewModel>> GetRecommended(int UserID)
         {
-            var result = await mapper.ProjectTo
+            return await mapper.ProjectTo
                             <UserViewModel>(context.Users
                                 .Where(x => x.ID != UserID && 
                                        !context.Friends.Any(f => (f.UserID2 == UserID )
@@ -47,8 +45,6 @@ namespace MyAppBackend.Services.UserService
                                 .OrderByDescending(u => u.Posts.Count)
                                 .Take(5))
                                 .ToListAsync();
-
-            return result;
         }
 
         public async Task ResetPassword()

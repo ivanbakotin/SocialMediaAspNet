@@ -23,13 +23,11 @@ namespace MyAppBackend.Services.CommentService
 
         public async Task<List<CommentViewModel>> GetComments(int UserID, int PostID)
         {
-            var result = await mapper.ProjectTo<CommentViewModel>(
+            return await mapper.ProjectTo<CommentViewModel>(
                                 from comment in context.Comments
                                 where comment.PostID == PostID
                                 select comment, new { CurrentUserID = UserID })
                                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<CommentViewModel> CreateComment(Comment comment, int UserID)
@@ -39,10 +37,7 @@ namespace MyAppBackend.Services.CommentService
             comment.CommentID = comment?.CommentID;
             await context.Comments.AddAsync(comment);
             await context.SaveChangesAsync();
-
-            CommentViewModel createdPost = mapper.Map<CommentViewModel>(comment);
-
-            return createdPost;
+            return mapper.Map<CommentViewModel>(comment);
         }
 
         public async Task UpdateComment(Comment comment, int UserID, int CommentID)

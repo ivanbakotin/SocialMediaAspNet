@@ -63,26 +63,22 @@ namespace MyAppBackend.Services.GroupRequestService
 
         public async Task<List<GroupRequest>> GetGroupRequestsSent(int GroupID)
         {
-            var result = await context.GroupRequests.Where(x => x.GroupID == GroupID && x.MemberID != null).ToListAsync();
-            return result;
+            return await context.GroupRequests.Where(x => x.GroupID == GroupID && x.MemberID != null).ToListAsync();
         }
 
         public async Task<List<GroupRequest>> GetGroupRequestsPending(int GroupID)
         {
-            var result = await context.GroupRequests.Where(x => x.GroupID == GroupID && x.MemberID == null).ToListAsync();
-            return result;
+            return await context.GroupRequests.Where(x => x.GroupID == GroupID && x.MemberID == null).ToListAsync();
         }
 
         public async Task<List<GroupRequest>> GetUserGroupRequestsSent(int UserID)
         {
-            var result = await context.GroupRequests.Where(x => x.UserID == UserID && x.MemberID == null).ToListAsync();
-            return result;
+            return await context.GroupRequests.Where(x => x.UserID == UserID && x.MemberID == null).ToListAsync();
         }
 
         public async Task<List<GroupRequest>> GetUserGroupRequestsPending(int UserID)
         {
-            var result = await context.GroupRequests.Where(x => x.UserID == UserID && x.MemberID != null).ToListAsync();
-            return result;
+            return await context.GroupRequests.Where(x => x.UserID == UserID && x.MemberID != null).ToListAsync();
         }
     }
 }

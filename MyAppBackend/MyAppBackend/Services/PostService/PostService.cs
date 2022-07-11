@@ -22,7 +22,7 @@ namespace MyAppBackend.Services.PostService
 
         public async Task<List<PostViewModel>> GetPosts(int UserID)
         {
-            var result = await mapper.ProjectTo<PostViewModel>(
+            return await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where  post.GroupID == null && post.UserID == UserID ||
                                       context.Friends.Any(f => (f.UserID2 == UserID && f.UserID1 == post.UserID)
@@ -30,31 +30,25 @@ namespace MyAppBackend.Services.PostService
                                 orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
                                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<List<PostViewModel>> GetUserPosts(int UserID)
-        { 
-            var result = await mapper.ProjectTo<PostViewModel>(
+        {
+            return await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
                                 where post.GroupID == null && post.UserID == UserID
                                 orderby post.ID descending
                                 select post, new { CurrentUserID = UserID })
                                 .ToListAsync();
-
-            return result;
         }
 
         public async Task<PostViewModel> GetPost(int UserID, int PostID)
         {
-            var result = await mapper.ProjectTo<PostViewModel>(
+            return await mapper.ProjectTo<PostViewModel>(
                           from post in context.Posts
                           where post.ID == PostID
                           select post, new { CurrentUserID = UserID })
                           .FirstOrDefaultAsync();
-
-            return result;
         }
 
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
