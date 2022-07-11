@@ -47,14 +47,14 @@ namespace MyAppBackend.Controllers
         [HttpPost("isloggedin")]
         public async Task<IActionResult> IsLoggedIn([FromBody] string jwt)
         {
-            var token = await authService.IsLoggedIn(jwt);
+            var response = await authService.IsLoggedIn(jwt);
 
-            if (token == null)
+            if (response == null)
             {
                 return Ok();
             }
 
-            return Ok(new AuthenticatedResponse { Token = token });
+            return Ok(response);
         }
 
         [HttpDelete("logout")]

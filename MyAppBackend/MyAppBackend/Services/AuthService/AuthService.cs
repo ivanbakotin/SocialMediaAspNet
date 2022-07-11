@@ -82,7 +82,7 @@ namespace MyAppBackend.Services.Auth
             return true;
         }
 
-        public async Task<string> IsLoggedIn(string token)
+        public async Task<AuthenticatedResponse> IsLoggedIn(string token)
         {
             var session = await context.Sessions.Include(x => x.User.Role).Where(x => x.Jwt == token).FirstOrDefaultAsync();
 
@@ -103,7 +103,7 @@ namespace MyAppBackend.Services.Auth
             await context.Sessions.AddAsync(newSession);
             await context.SaveChangesAsync();
 
-            return tokenString;
+            return new AuthenticatedResponse { Token = tokenString }; ;
         }
 
         public async Task Logout(int UserID)

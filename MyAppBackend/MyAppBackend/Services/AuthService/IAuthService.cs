@@ -8,7 +8,7 @@ namespace MyAppBackend.Services.Auth
     {
         Task<AuthenticatedResponse> Login(LoginUser user);
         Task<bool> Register(User user);
-        Task<string> IsLoggedIn(string token);
+        Task<AuthenticatedResponse> IsLoggedIn(string token);
         Task Logout(int UserID);
     }
 }
