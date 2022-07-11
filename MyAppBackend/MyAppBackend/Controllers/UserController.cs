@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : BaseController
@@ -41,14 +42,14 @@ namespace MyAppBackend.Controllers
             return Ok(result);
         }
 
-        [HttpPut("resetpassword"), Authorize]
+        [HttpPut("resetpassword")]
         public async Task<IActionResult> ResetPassword()
         {
             await userService.ResetPassword();
             return Ok();
         }
 
-        [HttpPut("changepassword"), Authorize]
+        [HttpPut("changepassword")]
         [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> ChangePassword([FromBody] UserChange user)
         {
@@ -57,7 +58,7 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPut("changeemail"), Authorize]
+        [HttpPut("changeemail")]
         [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> ChangeEmail([FromBody] UserChange user)
         {
@@ -66,7 +67,7 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpDelete("delete"), Authorize]
+        [HttpDelete("delete")]
         [ServiceFilter(typeof(PasswordFilter))]
         public async Task<IActionResult> DeleteUser([FromBody] UserChange user)
         {

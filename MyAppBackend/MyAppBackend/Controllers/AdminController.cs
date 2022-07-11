@@ -1,29 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MyAppBackend.Services.PostService;
 using System;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
+    [Authorize(Roles="admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
     {
-        [HttpDelete("user/{id}"), Authorize]
-        public async Task<IActionResult> RemoveUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        [HttpDelete("post/{id}"), Authorize(Roles="admin")]
+        [HttpDelete("post/{id}")]
         public async Task<IActionResult> RemovePost(int id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpDelete("comment/{id}"), Authorize]
-        public async Task<IActionResult> RemoveComment()
+        [HttpDelete("comment/{id}")]
+        public async Task<IActionResult> RemoveComment(int id)
         {
             throw new NotImplementedException();
         }

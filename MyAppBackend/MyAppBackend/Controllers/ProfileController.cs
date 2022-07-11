@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProfileController : BaseController
@@ -19,14 +20,14 @@ namespace MyAppBackend.Controllers
             this.profileService = profileService ?? throw new ArgumentNullException(nameof(profileService));
         }
 
-        [HttpGet("{username}"), Authorize]
+        [HttpGet("{username}")]
         public async Task<IActionResult> GetProfile(string username)
         {
             ProfileViewModel profile = await profileService.Get(username, GetCurrentUserID());
             return Ok(profile);
         }
 
-        [HttpPut(), Authorize]
+        [HttpPut]
         public async Task<IActionResult> UpdateProfile([FromBody] Profile profile)
         {
             await profileService.Update(profile, GetCurrentUserID());

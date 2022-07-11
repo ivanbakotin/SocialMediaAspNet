@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class GroupRequestsController : BaseController
@@ -18,21 +19,21 @@ namespace MyAppBackend.Controllers
             this.groupRequestService = groupRequestService ?? throw new ArgumentNullException(nameof(groupRequestService));
         }
 
-        [HttpPost("send/{id}"), Authorize]
+        [HttpPost("send/{id}")]
         public async Task<IActionResult> SendGroupRequest(int id)
         {
             await groupRequestService.SendGroupRequest(id, GetCurrentUserID());
             return Ok();
         }
 
-        [HttpDelete("decline/{id}"), Authorize]
+        [HttpDelete("decline/{id}")]
         public async Task<IActionResult> DeclineGroupRequest(int id)
         {
             await groupRequestService.DeclineGroupRequest(id, GetCurrentUserID());
             return Ok();
         }
 
-        [HttpPost("invite/{GroupID}"), Authorize]
+        [HttpPost("invite/{GroupID}")]
         [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> InviteToGroup(int GroupID, [FromBody] int UserID)
         {
@@ -40,14 +41,14 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpPost("accept/{GroupID}"), Authorize]
+        [HttpPost("accept/{GroupID}")]
         public async Task<IActionResult> AcceptGroupInvitation(int GroupID)
         {
             await groupRequestService.AcceptInvitation(GetCurrentUserID(), GroupID);
             return Ok();
         }
 
-        [HttpPost("accept/{GroupID}/{UserID}"), Authorize]
+        [HttpPost("accept/{GroupID}/{UserID}")]
         [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> AcceptRequest(int UserID, int GroupID)
         {
@@ -55,7 +56,7 @@ namespace MyAppBackend.Controllers
             return Ok();
         }
 
-        [HttpGet("requestssent/{GroupID}"), Authorize]
+        [HttpGet("requestssent/{GroupID}")]
         [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> GetGroupRequestsSent(int GroupID)
         {
@@ -63,7 +64,7 @@ namespace MyAppBackend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("requestspending/{GroupID}"), Authorize]
+        [HttpGet("requestspending/{GroupID}")]
         [ServiceFilter(typeof(GroupOwnerAdminFilter))]
         public async Task<IActionResult> GetGroupRequestsPending(int GroupID)
         {
@@ -71,14 +72,14 @@ namespace MyAppBackend.Controllers
             return Ok(result);
         }
 
-        [HttpGet("userrequestssent"), Authorize]
+        [HttpGet("userrequestssent")]
         public async Task<IActionResult> GetUserGroupRequestsSent()
         {
             var result = await groupRequestService.GetUserGroupRequestsSent(GetCurrentUserID());
             return Ok(result);
         }
 
-        [HttpGet("userrequestspending"), Authorize]
+        [HttpGet("userrequestspending")]
         public async Task<IActionResult> GetUserGroupRequestsPending()
         {
             var result = await groupRequestService.GetUserGroupRequestsPending(GetCurrentUserID());
