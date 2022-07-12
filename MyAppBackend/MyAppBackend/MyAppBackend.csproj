@@ -25,12 +25,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\FriendRepositories\" />
-    <Folder Include="Repositories\FriendRequestRepositories\" />
-    <Folder Include="Repositories\CommentRepositories\" />
-    <Folder Include="Repositories\SessionRepositories\" />
-    <Folder Include="Repositories\VotedCommentRepositories\" />
-  </ItemGroup>
-
 </Project>

@@ -49,7 +49,7 @@ namespace MyAppBackend.Services.Auth
                 };
 
                 context.Sessions.Add(session);
-                context.SaveChanges();
+                unitOfWork.Save();
             }
 
             return new AuthenticatedResponse { Token = tokenString };
@@ -93,13 +93,13 @@ namespace MyAppBackend.Services.Auth
                 RoleID = 2
             };
 
-            await context .Users.AddAsync(newUser);
-            await context.SaveChangesAsync();
+            unitOfWork.Users.Add(newUser);
+            unitOfWork.Save();
 
             Profile newProfile = new() { UserID = newUser.ID };
 
             await context.Profiles.AddAsync(newProfile);
-            await context.SaveChangesAsync();
+            unitOfWork.Save();
         }
 
         public async Task<AuthenticatedResponse> IsLoggedIn(string token)
@@ -121,7 +121,7 @@ namespace MyAppBackend.Services.Auth
 
             context.Sessions.RemoveRange(session);
             await context.Sessions.AddAsync(newSession);
-            await context.SaveChangesAsync();
+            unitOfWork.Save();
 
             return new AuthenticatedResponse { Token = tokenString }; ;
         }
@@ -133,7 +133,7 @@ namespace MyAppBackend.Services.Auth
             if (sessionToDelete != null)
             {
                 context.Sessions.RemoveRange(sessionToDelete);
-                await context.SaveChangesAsync();
+                unitOfWork.Save();
             }
         }
     }
