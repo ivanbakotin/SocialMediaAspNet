@@ -40,7 +40,7 @@ namespace MyAppBackend
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyAppBackend v1"));
             }
-            //app.ConfigureExceptionHandler();
+            app.ConfigureExceptionHandler();
             app.UseHttpsRedirection();
             app.UseCors("EnableCORS");
             app.UseRouting();
