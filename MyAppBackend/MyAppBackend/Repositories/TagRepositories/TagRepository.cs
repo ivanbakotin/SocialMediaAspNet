@@ -2,7 +2,7 @@
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 
-namespace MyAppBackend.Repositories.VotedRepositories
+namespace MyAppBackend.Repositories.TagRepositories
 {
     public class TagRepository : Repository<Tag>, ITagRepository
     {

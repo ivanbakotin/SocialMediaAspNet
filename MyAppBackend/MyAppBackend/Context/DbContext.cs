@@ -44,6 +44,7 @@ namespace MyAppBackend.Data
            new GroupMemberConfig().Configure(modelBuilder.Entity<GroupMember>());
            new GroupRequestsConfig().Configure(modelBuilder.Entity<GroupRequest>());
            new GroupConfig().Configure(modelBuilder.Entity<Group>());
+           new TagConfig().Configure(modelBuilder.Entity<Tag>());
         }
     }
 }

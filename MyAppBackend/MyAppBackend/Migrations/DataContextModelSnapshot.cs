@@ -88,7 +88,8 @@ namespace MyAppBackend.Migrations
 
                     b.HasIndex("FollowerID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID", "FollowerID")
+                        .IsUnique();
 
                     b.ToTable("FriendRequests");
                 });
@@ -567,7 +568,8 @@ namespace MyAppBackend.Migrations
 
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Group");
 

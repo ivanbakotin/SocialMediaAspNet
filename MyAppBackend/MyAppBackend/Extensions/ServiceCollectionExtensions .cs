@@ -104,7 +104,7 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IGroupRequestService, GroupRequestService>();
             services.AddTransient<IGroupService, GroupService>();
 
-            services.AddScoped<UnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             services.AddScoped<PasswordFilter>();
             services.AddScoped<GroupOwnerAdminFilter>();

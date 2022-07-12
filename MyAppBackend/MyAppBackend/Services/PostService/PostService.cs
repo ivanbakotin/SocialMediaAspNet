@@ -11,9 +11,9 @@ namespace MyAppBackend.Services.PostService
     public class PostService : IPostService
     {
         private readonly IMapper mapper;
-        private readonly UnitOfWork unitOfWork;
+        private readonly IUnitOfWork unitOfWork;
 
-        public PostService(IMapper mapper, UnitOfWork unitOfWork)
+        public PostService(IMapper mapper, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;

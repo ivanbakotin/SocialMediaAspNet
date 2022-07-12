@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.Repositories;
 using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -14,16 +15,18 @@ namespace MyAppBackend.Services.GroupService
     {
         private readonly IMapper mapper;
         private readonly DataContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public GroupService(DataContext context, IMapper mapper)
+        public GroupService(DataContext context, IMapper mapper, IUnitOfWork unitOfWork)
         {
             this.context = context;
             this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<Group>> SearchGroups(string param) 
+        public async Task<IEnumerable<Group>> SearchGroups(string param) 
         {
-            return await context.Groups.Where(x => x.Name.Contains(param)).ToListAsync();
+            return await unitOfWork.Groups.FindAll(x => x.Name.Contains(param));
         }
 
         public async Task<dynamic> SearchGroupUsers(int GroupID, string param)

@@ -10,7 +10,7 @@ using MyAppBackend.Data;
 namespace MyAppBackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220711072943_init")]
+    [Migration("20220712121001_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,7 +90,8 @@ namespace MyAppBackend.Migrations
 
                     b.HasIndex("FollowerID");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserID", "FollowerID")
+                        .IsUnique();
 
                     b.ToTable("FriendRequests");
                 });
@@ -569,7 +570,8 @@ namespace MyAppBackend.Migrations
 
                     b.HasOne("MyAppBackend.Models.Post", "Post")
                         .WithMany()
-                        .HasForeignKey("PostID");
+                        .HasForeignKey("PostID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Group");
 

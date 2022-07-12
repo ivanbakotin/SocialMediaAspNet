@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MyAppBackend.Data;
+using MyAppBackend.Repositories.GroupRepositories;
 using MyAppBackend.Repositories.PostRepositories;
+using MyAppBackend.Repositories.TagRepositories;
 using MyAppBackend.Repositories.VotedRepositories;
 
 namespace MyAppBackend.Repositories
@@ -17,11 +19,13 @@ namespace MyAppBackend.Repositories
             Posts = new PostRepository(this.context, this.mapper);
             VotedPosts = new VotedPostRepository(this.context, this.mapper);
             Tags = new TagRepository(this.context, this.mapper);
+            Groups = new GroupRepository(this.context, this.mapper);
         }
 
         public IPostRepository Posts { get; private set; }
         public IVotedPostRepository VotedPosts { get; private set; }
         public ITagRepository Tags { get; private set; }
+        public IGroupRepository Groups { get; private set; }
 
         public void Dispose()
         {

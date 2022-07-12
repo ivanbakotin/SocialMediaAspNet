@@ -7,7 +7,7 @@ namespace MyAppBackend.Services.GroupService
 {
     public interface IGroupService
     {
-        Task<List<Group>> SearchGroups(string param);
+        Task<IEnumerable<Group>> SearchGroups(string param);
         Task<Group> GetGroupInfo(int id);
         Task<List<Group>> GetRecommendedGroups(int UserID);
         Task<List<IEnumerable<GroupViewModel>>> GetUserGroups(int UserID);
