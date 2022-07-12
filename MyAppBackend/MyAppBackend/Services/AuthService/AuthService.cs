@@ -2,6 +2,7 @@
 using MyAppBackend.ApiModels;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.Repositories;
 using MyAppBackend.Utilities;
 using System;
 using System.Linq;
@@ -12,16 +13,18 @@ namespace MyAppBackend.Services.Auth
 {
     public class AuthService : IAuthService
     {
+        private readonly IUnitOfWork unitOfWork;
         private readonly DataContext context;
 
-        public AuthService(DataContext context)
+        public AuthService(IUnitOfWork unitOfWork, DataContext context)
         {
+            this.unitOfWork = unitOfWork;
             this.context = context;
         }
 
         public async Task<AuthenticatedResponse> Login(LoginUser user)
         {
-            var userObject = await context.Users.Include(u => u.Role).Where(u => u.Email == user.Email).FirstOrDefaultAsync();
+            var userObject = await unitOfWork.Users.FindUser(user);
 
             if (userObject == null)
             {
@@ -45,8 +48,8 @@ namespace MyAppBackend.Services.Auth
                     Jwt = tokenString
                 };
 
-                await context.Sessions.AddAsync(session);
-                await context.SaveChangesAsync();
+                context.Sessions.Add(session);
+                context.SaveChanges();
             }
 
             return new AuthenticatedResponse { Token = tokenString };

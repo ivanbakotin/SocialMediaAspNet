@@ -1,7 +1,8 @@
 ﻿using MyAppBackend.Repositories.GroupRepositories;
 using MyAppBackend.Repositories.PostRepositories;
 using MyAppBackend.Repositories.TagRepositories;
-using MyAppBackend.Repositories.VotedRepositories;
+using MyAppBackend.Repositories.UserRepositories;
+using MyAppBackend.Repositories.VotedPostRepositories;
 using System;
 
 namespace MyAppBackend.Repositories
@@ -12,6 +13,7 @@ namespace MyAppBackend.Repositories
         IVotedPostRepository VotedPosts { get;  }
         ITagRepository Tags { get; }
         IGroupRepository Groups { get; }
+        IUserRepository Users { get; }
         int Save();
     }
 }

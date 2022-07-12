@@ -2,7 +2,7 @@
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 
-namespace MyAppBackend.Repositories.VotedRepositories
+namespace MyAppBackend.Repositories.VotedPostRepositories
 {
     public class VotedPostRepository : Repository<VotedPost>, IVotedPostRepository
     {
