@@ -8,5 +8,7 @@ namespace MyAppBackend.Repositories.PostRepositories
     public interface IPostRepository : IRepository<Post>
     {
         Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID);
+        Task<IEnumerable<PostViewModel>> GetUserPosts(int UserID);
+        Task<PostViewModel> GetPost(int UserID, int PostID);
     }
 }

@@ -9,7 +9,8 @@ namespace MyAppBackend.Repositories
     {
         Task<T> Get(int ID);
         Task<IEnumerable<T>> GetAll();
-        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate);
+        Task<T> Find(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);

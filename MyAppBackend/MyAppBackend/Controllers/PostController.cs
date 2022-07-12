@@ -31,7 +31,7 @@ namespace MyAppBackend.Controllers
         [HttpGet("posts/{UserID}")]
         public async Task<IActionResult> GetUserPosts(int UserID)
         {
-            List<PostViewModel> posts = await postService.GetUserPosts(UserID);
+            var posts = await postService.GetUserPosts(UserID);
             return Ok(posts);
         }
 

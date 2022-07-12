@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.Repositories;
 using MyAppBackend.ViewModels;
@@ -13,12 +11,10 @@ namespace MyAppBackend.Services.PostService
     public class PostService : IPostService
     {
         private readonly IMapper mapper;
-        private readonly DataContext context;
         private readonly UnitOfWork unitOfWork;
 
-        public PostService(DataContext context, IMapper mapper, UnitOfWork unitOfWork)
+        public PostService(IMapper mapper, UnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
         }
@@ -28,34 +24,26 @@ namespace MyAppBackend.Services.PostService
             return await unitOfWork.Posts.GetTimelinePosts(UserID);
         }
 
-        public async Task<List<PostViewModel>> GetUserPosts(int UserID)
+        public async Task<IEnumerable<PostViewModel>> GetUserPosts(int UserID)
         {
-            return await mapper.ProjectTo<PostViewModel>(
-                                from post in context.Posts
-                                where post.GroupID == null && post.UserID == UserID
-                                orderby post.ID descending
-                                select post, new { CurrentUserID = UserID })
-                                .ToListAsync();
+            return await unitOfWork.Posts.GetUserPosts(UserID);
         }
 
         public async Task<PostViewModel> GetPost(int UserID, int PostID)
         {
-            return await mapper.ProjectTo<PostViewModel>(
-                          from post in context.Posts
-                          where post.ID == PostID
-                          select post, new { CurrentUserID = UserID })
-                          .FirstOrDefaultAsync();
+            return await unitOfWork.Posts.GetPost(UserID, PostID);
         }
 
         public async Task<PostViewModel> CreatePost(Post post, int UserID)
         {
             var body = post.Body.Trim();
-            post.Summary = body[..200];
+            int summarySize = 200 > body.Length ? body.Length : 200;
+            post.Summary = body[..summarySize];
             post.PreHtmlBody = body;
             post.Body = ConvertBody(body);
             post.UserID = UserID;
-            await context.Posts.AddAsync(post);
-            await context.SaveChangesAsync();
+            unitOfWork.Posts.Add(post);
+            unitOfWork.Save();
             await CreatePostTags(post.ID, body);
             return mapper.Map<PostViewModel>(post);
         }
@@ -65,29 +53,29 @@ namespace MyAppBackend.Services.PostService
             //remove post tags 
             //add post tags
 
-            var postToUpdate = await context.Posts.Where(p => p.ID == PostID).FirstOrDefaultAsync();
+            var postToUpdate = await unitOfWork.Posts.Get(PostID);
 
             if (postToUpdate != null)
             {
                 postToUpdate.Body = body;
-                await context.SaveChangesAsync();
+                unitOfWork.Save();
             }
         }
 
         public async Task DeletePost(int PostID)
         {
-            var postToDelete = await context.Posts.Where(p => p.ID == PostID).FirstOrDefaultAsync();
+            var postToDelete = await unitOfWork.Posts.Get(PostID);
 
             if (postToDelete != null)
             {
-                context.Posts.Remove(postToDelete);
-                await context.SaveChangesAsync();
+                unitOfWork.Posts.Remove(postToDelete);
+                unitOfWork.Save();
             }
         }
 
         public async Task VotePost(int UserID, int PostID, bool vote)
         {
-            var votedPost = await context.VotedPosts.Where(vp => vp.PostID == PostID && vp.UserID == UserID).FirstOrDefaultAsync();
+            var votedPost = await unitOfWork.VotedPosts.Find(vp => vp.PostID == PostID && vp.UserID == UserID);
 
             if (votedPost == null)
             {
@@ -98,7 +86,7 @@ namespace MyAppBackend.Services.PostService
                     Liked = vote
                 };
 
-                await context.VotedPosts.AddAsync(newVotedPost);
+                unitOfWork.VotedPosts.Add(newVotedPost);
             } 
             else if (votedPost.Liked != vote)
             {
@@ -106,10 +94,10 @@ namespace MyAppBackend.Services.PostService
             } 
             else
             {
-                context.VotedPosts.Remove(votedPost);
+                unitOfWork.VotedPosts.Remove(votedPost);
             }
 
-            await context.SaveChangesAsync();
+            unitOfWork.Save();
         }    
 
         private static string ConvertBody(string body)
@@ -137,11 +125,11 @@ namespace MyAppBackend.Services.PostService
                 if (word[0] == '#')
                 {
                     Tag newTag = new() { Name = word, PostID = postID };
-                    await context.Tags.AddAsync(newTag);
+                    unitOfWork.Tags.Add(newTag);
                 }
             }
 
-            await context.SaveChangesAsync();
+            unitOfWork.Save();
         }
     }
 }

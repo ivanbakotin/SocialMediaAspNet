@@ -27,5 +27,27 @@ namespace MyAppBackend.Repositories.PostRepositories
                                 })
                                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<PostViewModel>> GetUserPosts(int UserID)
+        {
+            return await mapper.ProjectTo<PostViewModel>(
+                               from post in context.Posts
+                               where post.GroupID == null && post.UserID == UserID
+                               orderby post.ID descending
+                               select post, new
+                               {
+                                   CurrentUserID = UserID
+                               })
+                               .ToListAsync();
+        }
+
+        public async Task<PostViewModel> GetPost(int UserID, int PostID)
+        {
+            return await mapper.ProjectTo<PostViewModel>(
+                          from post in context.Posts
+                          where post.ID == PostID
+                          select post, new { CurrentUserID = UserID })
+                          .FirstOrDefaultAsync();
+        }
     }
 }

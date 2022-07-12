@@ -30,7 +30,12 @@ namespace MyAppBackend.Repositories
             return await context.Set<T>().FindAsync(ID);
         }
 
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> predicate)
+        public async Task<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return await context.Set<T>().Where(predicate).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> predicate)
         {
             return await context.Set<T>().Where(predicate).ToListAsync();
         }
