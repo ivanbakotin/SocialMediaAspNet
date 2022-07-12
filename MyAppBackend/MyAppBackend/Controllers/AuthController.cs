@@ -22,25 +22,13 @@ namespace MyAppBackend.Controllers
         public async Task<IActionResult> Login([FromBody] LoginUser user)
         {
             var response = await authService.Login(user);
-
-            if (response.Token == null)
-            {
-                return StatusCode(409, "Wrong email or password");
-            }
-
             return Ok(response);
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
-            bool flag = await authService.Register(user);
-
-            if (!flag)
-            {
-                return StatusCode(409, "Email or username taken!");
-            }
-
+            await authService.Register(user);
             return Ok();
         }
 

@@ -3,7 +3,9 @@ using MyAppBackend.ApiModels;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.Utilities;
+using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.Auth
@@ -23,14 +25,14 @@ namespace MyAppBackend.Services.Auth
 
             if (userObject == null)
             {
-                return null;
+                throw new Exception("Wrong email or password!");
             }
 
             string hashedPassword = CustomHash.HashString(user.Password);
 
             if (hashedPassword != userObject.Password)
             {
-                return null;
+                throw new Exception("Wrong email or password!");
             }
 
             string tokenString = CreateJwt.GetJwt(userObject.Role.Name, userObject.ID.ToString());
@@ -50,15 +52,32 @@ namespace MyAppBackend.Services.Auth
             return new AuthenticatedResponse { Token = tokenString };
         }
 
-        public async Task<bool> Register(User user)
+        public async Task Register(User user)
         {
-            //check password, email regex
+            var emailRegex = new Regex(@"^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})*$");
+            var passwordRegex = new Regex(@"(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$");
+            var usernameRegex = new Regex(@"^[a-z0-9_-]{3,16}$");
+
+            if (!emailRegex.Match(user.Email).Success)
+            {
+                throw new Exception("Incorrect!");
+            }
+
+            if (!passwordRegex.Match(user.Password).Success)
+            {
+                throw new Exception("Incorrect!");
+            }
+
+            if (!usernameRegex.Match(user.Username).Success)
+            {
+                throw new Exception("Incorrect!");
+            }
 
             bool userExists = context.Users.Any(u => u.Email == user.Email || u.Username == user.Username);
 
             if (userExists)
             {
-                return false;
+                throw new Exception("Wrong email or password!");
             }
 
             string hashedPassword = CustomHash.HashString(user.Password);
@@ -78,8 +97,6 @@ namespace MyAppBackend.Services.Auth
 
             await context.Profiles.AddAsync(newProfile);
             await context.SaveChangesAsync();
-
-            return true;
         }
 
         public async Task<AuthenticatedResponse> IsLoggedIn(string token)
