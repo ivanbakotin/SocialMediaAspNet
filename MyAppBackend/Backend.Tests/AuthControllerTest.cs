@@ -15,7 +15,7 @@ namespace Backend.Tests
         public async Task Login()
         {
             //Arrange
-            LoginUser user = new() { Username = "", Password = "", Email = "", RememberMe = false };
+            var user = A.Fake<LoginUser>();
             var response = A.Fake<AuthenticatedResponse>();
             var dataStore = A.Fake<IAuthService>();
             A.CallTo(() => dataStore.Login(user)).Returns(Task.FromResult(response));
@@ -26,17 +26,16 @@ namespace Backend.Tests
 
             //Assert
             var objectResponse = Assert.IsType<ObjectResult>(actionResult);
-            Assert.Equal(409, objectResponse.StatusCode);
+            Assert.Equal(200, objectResponse.StatusCode);
         }
 
         [Fact]
         public async Task Register()
         {
             //Arrange
-            User user = new() { Username = "", Password = "", Email = "" };
-            bool flag = false;
+            var user = A.Fake<User>();
             var dataStore = A.Fake<IAuthService>();
-            A.CallTo(() => dataStore.Register(user)).Returns(Task.FromResult(flag));
+            A.CallTo(() => dataStore.Register(user)).Returns(Task.FromResult(false));
             AuthController controller = new(dataStore);
 
             //Act

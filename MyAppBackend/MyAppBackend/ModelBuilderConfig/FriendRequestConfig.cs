@@ -19,7 +19,7 @@ namespace MyAppBackend.ModelBuilderConfig
                     .WithMany(x => x.FriendRequestsThem)
                     .HasForeignKey(x => x.UserID);
 
-            //modelBuilder.HasIndex(p => new { p.UserID, p.FollowerID }).IsUnique();
+            modelBuilder.HasIndex(p => new { p.UserID, p.FollowerID }).IsUnique();
         }
     }
 }

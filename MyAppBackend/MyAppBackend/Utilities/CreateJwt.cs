@@ -25,7 +25,7 @@ namespace MyAppBackend.Utilities
                 issuer: "https://localhost:5001",
                 audience: "https://localhost:5001",
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(300),
                 signingCredentials: signinCredentials
             );
 

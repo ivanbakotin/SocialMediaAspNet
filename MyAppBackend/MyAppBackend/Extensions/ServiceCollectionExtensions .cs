@@ -17,6 +17,8 @@ using MyAppBackend.Services.CommentService;
 using MyAppBackend.Services.GroupService;
 using MyAppBackend.Services.GroupRequestService;
 using MyAppBackend.ActionFilters;
+using MyAppBackend.Repositories;
+using MyAppBackend.Repositories.PostRepositories;
 
 namespace MyAppBackend.Extensions
 {
@@ -102,6 +104,8 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IGroupRequestService, GroupRequestService>();
             services.AddTransient<IGroupService, GroupService>();
 
+            services.AddScoped<UnitOfWork>();
+            
             services.AddScoped<PasswordFilter>();
             services.AddScoped<GroupOwnerAdminFilter>();
             services.AddScoped<GroupOwnerFilter>();
@@ -111,4 +115,6 @@ namespace MyAppBackend.Extensions
             return services;
         }
     }
+
+    internal class T { }
 }

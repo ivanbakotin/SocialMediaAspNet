@@ -7,7 +7,7 @@ namespace MyAppBackend.Services.PostService
 {
     public interface IPostService
     {
-        Task<List<PostViewModel>> GetPosts(int UserID);
+        Task<IEnumerable<PostViewModel>> GetPosts(int UserID);
         Task<List<PostViewModel>> GetUserPosts(int UserID);
         Task<PostViewModel> GetPost(int UserID, int PostID);
         Task<PostViewModel> CreatePost(Post post, int UserID);

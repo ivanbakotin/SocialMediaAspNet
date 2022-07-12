@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.Repositories;
 using MyAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +14,18 @@ namespace MyAppBackend.Services.PostService
     {
         private readonly IMapper mapper;
         private readonly DataContext context;
+        private readonly UnitOfWork unitOfWork;
 
-        public PostService(DataContext context, IMapper mapper)
+        public PostService(DataContext context, IMapper mapper, UnitOfWork unitOfWork)
         {
             this.context = context;
             this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<PostViewModel>> GetPosts(int UserID)
+        public async Task<IEnumerable<PostViewModel>> GetPosts(int UserID)
         {
-            return await mapper.ProjectTo<PostViewModel>(
-                                from post in context.Posts
-                                where  post.GroupID == null && post.UserID == UserID ||
-                                      context.Friends.Any(f => (f.UserID2 == UserID && f.UserID1 == post.UserID)
-                                                             || (f.UserID1 == UserID && f.UserID2 == post.UserID))
-                                orderby post.ID descending
-                                select post, new { CurrentUserID = UserID })
-                                .ToListAsync();
+            return await unitOfWork.Posts.GetTimelinePosts(UserID);
         }
 
         public async Task<List<PostViewModel>> GetUserPosts(int UserID)
