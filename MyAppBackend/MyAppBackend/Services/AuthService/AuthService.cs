@@ -14,12 +14,10 @@ namespace MyAppBackend.Services.Auth
     public class AuthService : IAuthService
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly DataContext context;
 
-        public AuthService(IUnitOfWork unitOfWork, DataContext context)
+        public AuthService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            this.context = context;
         }
 
         public async Task<AuthenticatedResponse> Login(LoginUser user)
@@ -48,7 +46,7 @@ namespace MyAppBackend.Services.Auth
                     Jwt = tokenString
                 };
 
-                context.Sessions.Add(session);
+                unitOfWork.Sessions.Add(session);
                 unitOfWork.Save();
             }
 
@@ -76,7 +74,7 @@ namespace MyAppBackend.Services.Auth
                 throw new Exception("Incorrect!");
             }
 
-            bool userExists = context.Users.Any(u => u.Email == user.Email || u.Username == user.Username);
+            bool userExists = await unitOfWork.Users.UserExists(user);
 
             if (userExists)
             {
@@ -98,13 +96,13 @@ namespace MyAppBackend.Services.Auth
 
             Profile newProfile = new() { UserID = newUser.ID };
 
-            await context.Profiles.AddAsync(newProfile);
+            unitOfWork.Profiles.Add(newProfile);
             unitOfWork.Save();
         }
 
         public async Task<AuthenticatedResponse> IsLoggedIn(string token)
         {
-            var session = await context.Sessions.Include(x => x.User.Role).Where(x => x.Jwt == token).FirstOrDefaultAsync();
+            var session = await unitOfWork.Sessions.FindSession(token);
 
             if (session == null)
             {
@@ -119,8 +117,8 @@ namespace MyAppBackend.Services.Auth
                 Jwt = tokenString
             };
 
-            context.Sessions.RemoveRange(session);
-            await context.Sessions.AddAsync(newSession);
+            unitOfWork.Sessions.Remove(session);
+            unitOfWork.Sessions.Add(newSession);
             unitOfWork.Save();
 
             return new AuthenticatedResponse { Token = tokenString }; ;
@@ -128,11 +126,11 @@ namespace MyAppBackend.Services.Auth
 
         public async Task Logout(int UserID)
         {
-            var sessionToDelete = await context.Sessions.Where(x => x.UserID == UserID).ToListAsync();
+            var sessionToDelete = await unitOfWork.Sessions.FindAll(x => x.UserID == UserID);
 
             if (sessionToDelete != null)
             {
-                context.Sessions.RemoveRange(sessionToDelete);
+                unitOfWork.Sessions.RemoveRange(sessionToDelete);
                 unitOfWork.Save();
             }
         }

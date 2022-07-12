@@ -16,5 +16,10 @@ namespace MyAppBackend.Repositories.UserRepositories
         {
             return await context.Users.Include(x => x.Role).Where(x => x.Email == user.Email).FirstOrDefaultAsync();
         }
+
+        public async Task<bool> UserExists(User user)
+        {
+            return await context.Users.AnyAsync(u => u.Email == user.Email || u.Username == user.Username);
+        }
     }
 }
