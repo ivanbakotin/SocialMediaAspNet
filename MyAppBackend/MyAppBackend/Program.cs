@@ -25,7 +25,7 @@ namespace MyAppBackend
     loading frontend on start - during check is loggedin
     google auth
     seperate admin panel
-    pagination - posts 10 by 10 with offset - infinite scroll - angular library not updated
+    pagination - posts 10 by 10 with offset - infinite scroll frontend // post timeline backend done
     fix dates
     email server smtp ethereal
     tags groups

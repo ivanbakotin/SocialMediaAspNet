@@ -15,6 +15,14 @@ export class PostsComponent implements OnInit {
     private sharedService: PostSharedService
   ) {}
 
+  pageNumber = 1;
+
+  onScrollDown() {
+    this.pageNumber++;
+    this.getPosts();
+    console.log('scrolled down!!');
+  }
+
   ngOnInit(): void {
     this.getPosts();
     this.sharedService.post.subscribe((posts) => (this.posts = posts));
@@ -23,9 +31,10 @@ export class PostsComponent implements OnInit {
   posts: Post[] = [];
 
   getPosts() {
-    this.postService.getPosts().subscribe((response) => {
-      this.posts = response;
-      this.sharedService.updatePosts(response);
+    this.postService.getPosts(this.pageNumber).subscribe((response) => {
+      this.posts.push(...response);
+      console.log(response, this.posts);
+      this.sharedService.updatePosts(this.posts);
     });
   }
 }

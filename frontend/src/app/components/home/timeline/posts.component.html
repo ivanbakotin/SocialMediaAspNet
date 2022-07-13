@@ -5,5 +5,13 @@
 <ul *ngIf="posts.length">
   <app-post *ngFor="let post of posts" [post]="post"></app-post>
 </ul>
+<div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollUpDistance]="1"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScrollDown()"
+></div>
 
 <p class="no-posts" *ngIf="!posts.length">No posts to show! Create some!</p>

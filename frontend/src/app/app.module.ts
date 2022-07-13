@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { ErrorService } from './services/error/error.service';
 import { AlertifyService } from './services/alertify/alertify.service';
@@ -140,7 +140,7 @@ import { GroupRequestsComponent } from './components/group/invitations/group-req
     FormsModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatPaginatorModule,
+    InfiniteScrollModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorService, multi: true },

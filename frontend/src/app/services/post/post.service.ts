@@ -12,7 +12,7 @@ import { Post } from 'src/app/interfaces/Post';
 export class PostService {
   constructor(private http: HttpClient) {}
 
-  private getPostsURL = `${HOSTNAME}Post`;
+  private getPostsURL = `${HOSTNAME}Post?PageNumber=`;
   private getUserPostURL = `${HOSTNAME}Post/posts/`;
   private getPostURL = `${HOSTNAME}Post/`;
   private createPostURL = `${HOSTNAME}Post/`;
@@ -20,8 +20,10 @@ export class PostService {
   private deletePostURL = `${HOSTNAME}Post/delete/`;
   private votePostURL = `${HOSTNAME}Post/vote/`;
 
-  public getPosts(): Observable<any> {
-    return this.http.get(this.getPostsURL, { headers: GetHeader() });
+  public getPosts(pageNumber: number): Observable<any> {
+    return this.http.get(this.getPostsURL + pageNumber, {
+      headers: GetHeader(),
+    });
   }
 
   public getUserPosts(id: number): Observable<any> {
