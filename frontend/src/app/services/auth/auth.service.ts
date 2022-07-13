@@ -36,7 +36,7 @@ export class AuthService {
   isLoggedIn(): Observable<any> {
     return this.http.post(
       this.isLoggedInURL,
-      JSON.stringify(localStorage.getItem('token')),
+      JSON.stringify(localStorage.getItem('token') || '{}'),
       {
         headers: GetJSONHeader(),
       }

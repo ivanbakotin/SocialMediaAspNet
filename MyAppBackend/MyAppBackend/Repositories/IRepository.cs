@@ -12,6 +12,7 @@ namespace MyAppBackend.Repositories
         Task<T> Find(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> FindAll(Expression<Func<T, bool>> predicate);
         void Add(T entity);
+        void Update(T entity);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities);
     }

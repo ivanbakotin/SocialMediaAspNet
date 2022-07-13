@@ -22,9 +22,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPosts()
+        public async Task<IActionResult> GetTimelinePosts()
         {
-            var posts = await postService.GetPosts(GetCurrentUserID());
+            var posts = await postService.GetTimelinePosts(GetCurrentUserID());
             return Ok(posts);
         }
 

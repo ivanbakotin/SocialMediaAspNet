@@ -16,9 +16,10 @@ export class ErrorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (typeof error.error === 'string') {
-          this.alertyfy.error(error.error);
+      catchError((error) => {
+        console.log(error.error);
+        if (typeof error.error.Error === 'string') {
+          this.alertyfy.error(error.error.Error);
         } else if (error.name) {
           this.alertyfy.error(error.name);
         }

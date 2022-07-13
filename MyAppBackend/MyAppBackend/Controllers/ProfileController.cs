@@ -28,9 +28,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProfile([FromBody] Profile profile)
+        public IActionResult UpdateProfile([FromBody] Profile profile)
         {
-            await profileService.Update(profile, GetCurrentUserID());
+            profileService.Update(profile);
             return Ok();
         }
     }

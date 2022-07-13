@@ -45,6 +45,11 @@ namespace MyAppBackend.Repositories
             context.Set<T>().Add(entity);
         }
 
+        public void Update(T entity)
+        {
+            context.Set<T>().Update(entity);
+        }
+
         public void Remove(T entity)
         {
             context.Set<T>().Remove(entity);

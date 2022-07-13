@@ -19,7 +19,7 @@ namespace MyAppBackend.Services.PostService
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<PostViewModel>> GetPosts(int UserID)
+        public async Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID)
         {
             return await unitOfWork.Posts.GetTimelinePosts(UserID);
         }

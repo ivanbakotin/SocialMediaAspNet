@@ -1,38 +1,29 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
-using MyAppBackend.Models;
+﻿using MyAppBackend.Models;
+using MyAppBackend.Repositories;
 using MyAppBackend.ViewModels;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.ProfileService
 {
     public class ProfileService : IProfileService
     {
-        private readonly AutoMapper.IMapper mapper;
-        private readonly DataContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ProfileService(AutoMapper.IMapper mapper, DataContext context)
+        public ProfileService(IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<ProfileViewModel> Get(string username, int UserID)
         {
-            var user = await context.Users.Where(x => x.Username == username).FirstOrDefaultAsync();
-
-            return await mapper.ProjectTo<ProfileViewModel>(
-                                from p in context.Profiles
-                                where p.UserID == user.ID
-                                select p, new { CurrentUserID = UserID })
-                                .FirstOrDefaultAsync();
+            User user = await unitOfWork.Users.Find(x => x.Username == username);
+            return await unitOfWork.Profiles.GetProfile(UserID, user);
         }
 
-        public async Task Update(Profile profile, int UserID)
+        public void Update(Profile profile)
         {
-            context.Profiles.Update(profile);
-            await context.SaveChangesAsync();      
+            unitOfWork.Profiles.Update(profile);
+            unitOfWork.Save();      
         }
     }
 }

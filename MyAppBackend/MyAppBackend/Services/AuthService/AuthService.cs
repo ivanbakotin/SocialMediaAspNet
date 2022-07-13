@@ -1,11 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyAppBackend.ApiModels;
-using MyAppBackend.Data;
+﻿using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
 using MyAppBackend.Repositories;
 using MyAppBackend.Utilities;
 using System;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
