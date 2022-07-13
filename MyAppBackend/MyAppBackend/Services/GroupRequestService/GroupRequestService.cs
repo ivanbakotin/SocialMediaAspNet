@@ -3,13 +3,6 @@ using MyAppBackend.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
-/*
-    Member
-        remove invite
-        accept request from user
- */
-
 namespace MyAppBackend.Services.GroupRequestService
 {
     public class GroupRequestService : IGroupRequestService
@@ -27,6 +20,7 @@ namespace MyAppBackend.Services.GroupRequestService
             unitOfWork.GroupRequests.Add(newGroupRequest);
             unitOfWork.Save();
         }
+
         public void InviteToGroup(int GroupID, int UserID, int MemberID)
         {
             GroupRequest newGroupRequest = new()
@@ -46,7 +40,7 @@ namespace MyAppBackend.Services.GroupRequestService
             unitOfWork.Save();
         }
 
-        public async Task AcceptInvitation(int UserID, int GroupID)
+        public async Task AcceptRequest(int UserID, int GroupID)
         {
             var newGroupRequest = await unitOfWork.GroupRequests.Find(x => x.UserID == UserID && x.GroupID == GroupID);
             unitOfWork.GroupRequests.Remove(newGroupRequest);
@@ -58,11 +52,6 @@ namespace MyAppBackend.Services.GroupRequestService
             };
             unitOfWork.GroupMembers.Add(newMember);
             unitOfWork.Save();
-        }
-
-        public async Task AcceptRequest(int UserID, int GroupID)
-        {
-
         }
 
         public async Task<IEnumerable<GroupRequest>> GetGroupRequestsSent(int GroupID)

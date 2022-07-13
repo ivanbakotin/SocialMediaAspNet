@@ -44,20 +44,30 @@ namespace MyAppBackend.Services.PostService
             post.UserID = UserID;
             unitOfWork.Posts.Add(post);
             unitOfWork.Save();
-            await CreatePostTags(post.ID, body);
+            CreatePostTags(post.ID, body);
             return mapper.Map<PostViewModel>(post);
         }
 
         public async Task UpdatePost(string body, int UserID, int PostID)
         {
-            //remove post tags 
-            //add post tags
+            var tags = await unitOfWork.Tags.FindAll(x => x.PostID == PostID);
 
-            var postToUpdate = await unitOfWork.Posts.Get(PostID);
-
-            if (postToUpdate != null)
+            if (tags != null)
             {
-                postToUpdate.Body = body;
+                unitOfWork.Tags.RemoveRange(tags);
+            }
+
+            var post = await unitOfWork.Posts.Get(PostID);
+
+            if (post != null)
+            {
+                var newBody = body.Trim();
+                int summarySize = 200 > newBody.Length ? newBody.Length : 200;
+                post.Summary = newBody[..summarySize];
+                post.PreHtmlBody = newBody;
+                post.Body = ConvertBody(newBody);
+                post.Body = newBody;
+                CreatePostTags(post.ID, newBody);
                 unitOfWork.Save();
             }
         }
@@ -118,7 +128,7 @@ namespace MyAppBackend.Services.PostService
             }));
         }
 
-        private async Task CreatePostTags(int postID, string body)
+        private void CreatePostTags(int postID, string body)
         {
             foreach (string word in body.Split(" "))
             {

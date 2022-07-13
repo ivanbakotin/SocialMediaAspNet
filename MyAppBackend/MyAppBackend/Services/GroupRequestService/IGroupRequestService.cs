@@ -9,7 +9,6 @@ namespace MyAppBackend.Services.GroupRequestService
         void SendGroupRequest(int id, int UserID);
         Task DeclineGroupRequest(int id, int UserID);
         void InviteToGroup(int GroupID, int UserID, int MemberID);
-        Task AcceptInvitation(int UserID, int GroupID);
         Task AcceptRequest(int UserID, int GroupID);
         Task<IEnumerable<GroupRequest>> GetGroupRequestsSent(int GroupID);
         Task<IEnumerable<GroupRequest>> GetGroupRequestsPending(int GroupID);
