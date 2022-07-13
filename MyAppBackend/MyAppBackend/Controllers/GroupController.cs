@@ -53,9 +53,9 @@ namespace MyAppBackend.Controllers
 
         [HttpPost("post")]
         [ServiceFilter(typeof(MemberFilter))]
-        public async Task<IActionResult> CreateGroupPost(Post post)
+        public IActionResult CreateGroupPost(Post post)
         {
-            var result = await groupService.CreateGroupPost(post, GetCurrentUserID());
+            var result = groupService.CreateGroupPost(post, GetCurrentUserID());
             return Ok(result);
         }
 
@@ -92,9 +92,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateGroup(Group group)
+        public IActionResult CreateGroup(Group group)
         {
-            var result = await groupService.CreateGroup(group, GetCurrentUserID());
+            var result = groupService.CreateGroup(group, GetCurrentUserID());
             return Ok(result);
         }
 

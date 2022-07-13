@@ -27,9 +27,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateComment([FromBody] Comment comment)
+        public IActionResult CreateComment([FromBody] Comment comment)
         {
-            CommentViewModel createdComment = await commentService.CreateComment(comment, GetCurrentUserID());
+            CommentViewModel createdComment = commentService.CreateComment(comment, GetCurrentUserID());
             return Ok(createdComment);
         }
 

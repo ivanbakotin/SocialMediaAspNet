@@ -43,36 +43,36 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("resetpassword")]
-        public async Task<IActionResult> ResetPassword()
+        public IActionResult ResetPassword()
         {
-            await userService.ResetPassword();
+            userService.ResetPassword();
             return Ok();
         }
 
         [HttpPut("changepassword")]
         [ServiceFilter(typeof(PasswordFilter))]
-        public async Task<IActionResult> ChangePassword([FromBody] UserChange user)
+        public IActionResult ChangePassword([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangePassword(user.ChangeField, userObject);
+            userService.ChangePassword(user.ChangeField, userObject);
             return Ok();
         }
 
         [HttpPut("changeemail")]
         [ServiceFilter(typeof(PasswordFilter))]
-        public async Task<IActionResult> ChangeEmail([FromBody] UserChange user)
+        public IActionResult ChangeEmail([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangeEmailAsync(user.ChangeField, userObject);
+            userService.ChangeEmail(user.ChangeField, userObject);
             return Ok();
         }
 
         [HttpDelete("delete")]
         [ServiceFilter(typeof(PasswordFilter))]
-        public async Task<IActionResult> DeleteUser([FromBody] UserChange user)
+        public IActionResult DeleteUser([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.DeleteUser(userObject);
+            userService.DeleteUser(userObject);
             return Ok();
         }
     }
