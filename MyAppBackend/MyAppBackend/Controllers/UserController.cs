@@ -63,7 +63,7 @@ namespace MyAppBackend.Controllers
         public async Task<IActionResult> ChangeEmail([FromBody] UserChange user)
         {
             User userObject = (User)HttpContext.Items["userObject"];
-            await userService.ChangeEmail(user.ChangeField, userObject);
+            await userService.ChangeEmailAsync(user.ChangeField, userObject);
             return Ok();
         }
 

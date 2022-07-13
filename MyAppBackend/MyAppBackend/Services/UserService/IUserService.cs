@@ -8,11 +8,11 @@ namespace MyAppBackend.Services.UserService
     public interface IUserService
     {
         Task<User> GetCurrentUser(int UserID);
-        Task<List<UserViewModel>> SearchUsers(string param);
-        Task<List<UserViewModel>> GetRecommended(int UserID);
-        Task ResetPassword();
-        Task ChangePassword(string newPassword, User userObject);
+        Task<IEnumerable<UserViewModel>> SearchUsers(string param);
+        Task<IEnumerable<UserViewModel>> GetRecommended(int UserID);
+        void ResetPassword();
+        void ChangePassword(string newPassword, User userObject);
         Task ChangeEmail(string newEmail, User userObject);
-        Task DeleteUser(User userObject);
+        void DeleteUser(User userObject);
     }
 }

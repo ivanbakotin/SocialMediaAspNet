@@ -1,77 +1,63 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
+﻿using MyAppBackend.Models;
+using MyAppBackend.Repositories;
+using MyAppBackend.Utilities;
 using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using MyAppBackend.Utilities;
-using MyAppBackend.Models;
 
 namespace MyAppBackend.Services.UserService
 {
     public class UserService : IUserService
     {
-        private readonly IMapper mapper;
-        private readonly DataContext context;
 
-        public UserService(IMapper mapper, DataContext context)
+        private readonly IUnitOfWork unitOfWork;
+
+        public UserService(IUnitOfWork unitOfWork)
         {
-            this.mapper = mapper;
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task<List<UserViewModel>> SearchUsers(string param)
+        public async Task<IEnumerable<UserViewModel>> SearchUsers(string param)
         {
-            return await mapper.ProjectTo<UserViewModel>(from user in context.Users
-                         where user.Username.Contains(param)
-                         select user
-                         ).ToListAsync();
+            return await unitOfWork.Users.SearchUsers(param);
         }
 
         public async Task<User> GetCurrentUser(int UserID)
         {
-            return await context.Users.Where(x => x.ID == UserID).FirstOrDefaultAsync();
+            return await unitOfWork.Users.Find(x => x.ID == UserID);
         }
 
-        public async Task<List<UserViewModel>> GetRecommended(int UserID)
+        public async Task<IEnumerable<UserViewModel>> GetRecommended(int UserID)
         {
-            return await mapper.ProjectTo
-                            <UserViewModel>(context.Users
-                                .Where(x => x.ID != UserID && 
-                                       !context.Friends.Any(f => (f.UserID2 == UserID )
-                                                              || (f.UserID1 == UserID )))
-                                .OrderByDescending(u => u.Posts.Count)
-                                .Take(5))
-                                .ToListAsync();
+            return await unitOfWork.Users.GetRecommended(UserID);
         }
 
-        public async Task ResetPassword()
+        public void ResetPassword()
         {
             throw new NotImplementedException();
         }
 
-        public async Task ChangePassword(string newPassword, User userObject)
+        public void ChangePassword(string newPassword, User userObject)
         {
             userObject.Password = CustomHash.HashString(newPassword);
-            await context.SaveChangesAsync();
+            unitOfWork.Save();
         }
 
         public async Task ChangeEmail(string newEmail, User userObject)
         {
-            var emailExists = context.Users.Any(x => x.Email == newEmail);
+            bool emailExists = await unitOfWork.Users.EmailExists(newEmail);
             if (!emailExists)
             {
                 userObject.Email = newEmail;
-                await context.SaveChangesAsync();        
+                unitOfWork.Save();        
             }
         }
 
-        public async Task DeleteUser(User userObject)
+        public void DeleteUser(User userObject)
         {
-            context.Users.Remove(userObject);
-            await context.SaveChangesAsync();     
+            unitOfWork.Users.Remove(userObject);
+            unitOfWork.Save();     
         }
     }
 }
