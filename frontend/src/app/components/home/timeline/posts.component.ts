@@ -20,7 +20,6 @@ export class PostsComponent implements OnInit {
   onScrollDown() {
     this.pageNumber++;
     this.getPosts();
-    console.log('scrolled down!!');
   }
 
   ngOnInit(): void {
@@ -33,7 +32,6 @@ export class PostsComponent implements OnInit {
   getPosts() {
     this.postService.getPosts(this.pageNumber).subscribe((response) => {
       this.posts.push(...response);
-      console.log(response, this.posts);
       this.sharedService.updatePosts(this.posts);
     });
   }

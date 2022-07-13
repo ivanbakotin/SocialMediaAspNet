@@ -28,8 +28,8 @@ export class GroupsComponent implements OnInit {
 
   getUserGroups() {
     this.groupService.getUserGroup().subscribe((response) => {
-      this.groups = response[0];
-      this.groupSharedService.updateGroups(response[0]);
+      this.groups = response;
+      this.groupSharedService.updateGroups(response);
     });
   }
 }
