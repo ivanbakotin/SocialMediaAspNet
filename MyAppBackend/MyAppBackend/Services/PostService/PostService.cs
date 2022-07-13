@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MyAppBackend.Models;
 using MyAppBackend.Repositories;
+using MyAppBackend.Settings;
 using MyAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,9 +20,9 @@ namespace MyAppBackend.Services.PostService
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID)
+        public async Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID, PostPagination postPagination)
         {
-            return await unitOfWork.Posts.GetTimelinePosts(UserID);
+            return await unitOfWork.Posts.GetTimelinePosts(UserID, postPagination);
         }
 
         public async Task<IEnumerable<PostViewModel>> GetUserPosts(int UserID)

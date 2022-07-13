@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyAppBackend.Models;
 using MyAppBackend.Services.PostService;
+using MyAppBackend.Settings;
 using MyAppBackend.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : BaseController
@@ -22,9 +21,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTimelinePosts()
+        public async Task<IActionResult> GetTimelinePosts([FromQuery] PostPagination postPagination)
         {
-            var posts = await postService.GetTimelinePosts(GetCurrentUserID());
+            var posts = await postService.GetTimelinePosts(1, postPagination);
             return Ok(posts);
         }
 

@@ -19,6 +19,8 @@ namespace MyAppBackend.Services.Auth
 
         public async Task<AuthenticatedResponse> Login(LoginUser user)
         {
+            
+
             var userObject = await unitOfWork.Users.FindUser(user);
 
             if (userObject == null)

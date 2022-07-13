@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.Settings;
 using MyAppBackend.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MyAppBackend.Repositories.PostRepositories
 {
@@ -13,7 +15,7 @@ namespace MyAppBackend.Repositories.PostRepositories
     {
         public PostRepository(DataContext context, IMapper mapper) : base(context, mapper) { }
 
-        public async Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID)
+        public async Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID, PostPagination postPagination)
         {
             return await mapper.ProjectTo<PostViewModel>(
                                 from post in context.Posts
@@ -25,6 +27,8 @@ namespace MyAppBackend.Repositories.PostRepositories
                                 {
                                     CurrentUserID = UserID
                                 })
+                                .Skip((postPagination.PageNumber - 1) * postPagination.PageSize)
+                                .Take(postPagination.PageSize)
                                 .ToListAsync();
         }
 
