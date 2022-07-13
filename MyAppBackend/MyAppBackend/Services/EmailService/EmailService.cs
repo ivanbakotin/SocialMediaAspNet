@@ -13,12 +13,12 @@ namespace MyAppBackend.Services.Email
     public class EmailService : IEmailService
     {
         private readonly DataContext context;
-        private readonly EmailSettings _mailSettings;
+        private readonly EmailSettings mailSettings;
 
         public EmailService(IOptions<EmailSettings> mailSettings, DataContext context)
         {
             this.context = context;
-            _mailSettings = mailSettings.Value;
+            this.mailSettings = mailSettings.Value;
         }
 
         public async Task SendEmailAsync(ResetEmail resetEmail)
@@ -26,7 +26,7 @@ namespace MyAppBackend.Services.Email
             //store code in database
             var email = new MimeMessage
             {
-                Sender = MailboxAddress.Parse(_mailSettings.Email)
+                Sender = MailboxAddress.Parse(mailSettings.Email)
             };
             email.To.Add(MailboxAddress.Parse(resetEmail.Email));
             email.Subject = "Password Reset Social Media Request";
@@ -36,8 +36,8 @@ namespace MyAppBackend.Services.Email
             };
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_mailSettings.Email, _mailSettings.Password);
+            smtp.Connect(mailSettings.Host, mailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(mailSettings.Email, mailSettings.Password);
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
         }

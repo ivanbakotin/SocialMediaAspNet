@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using MyAppBackend.Data;
 using MyAppBackend.Models;
+using MyAppBackend.Repositories;
+using MyAppBackend.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,46 +12,29 @@ namespace MyAppBackend.Services.FriendService
 {
     public class FriendService : IFriendService
     {
-        private readonly IMapper mapper;
-        private readonly DataContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public FriendService(DataContext context, IMapper mapper)
+        public FriendService(IUnitOfWork unitOfWork)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task<dynamic> GetAllRequestsPending(int UserID)
+        public async Task<IEnumerable<UserViewModel>> GetAllRequestsPending(int UserID)
         {
-            return await context.Users.Where(u => u.ID == UserID)
-                                      .Select(x => new
-                                      {
-                                          Requests = x.FriendRequestsThem.Select(p => new { p.Follower.Username, p.Follower.ID })
-                                      }).ToListAsync();
+            return await unitOfWork.FriendRequests.GetAllRequestsPending(UserID);
         }
 
-        public async Task<dynamic> GetAllRequestsSent(int UserID)
+        public async Task<IEnumerable<UserViewModel>> GetAllRequestsSent(int UserID)
         {
-            return await context.Users.Where(u => u.ID == UserID)
-                                      .Select(x => new
-                                      {
-                                          Requests = x.FriendRequestsMe.Select(p => new { p.User.Username, p.User.ID })
-                                      }).ToListAsync();
+            return await unitOfWork.FriendRequests.GetAllRequestsSent(UserID);
         }
 
-        public async Task<dynamic> GetAllFriends(int id)
+        public async Task<IEnumerable<Friend>> GetAllFriends(int id)
         {
-            return await context.Users.Where(f => f.ID == id)
-                                      .Select(x => new
-                                      {
-                                          Friends1 = x.Friends1.Where(x => x.UserID1 != id).Select(p => new { p.User1.Username, p.User1.ID }),
-                                          Friends11 = x.Friends1.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
-                                          Friends2 = x.Friends2.Where(x => x.UserID1 != id).Select(p =>  new { p.User1.Username, p.User1.ID }),
-                                          Friends22 = x.Friends2.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
-                                      }).ToListAsync();
+            return await unitOfWork.Friends.GetAllFriends(id);
         }
 
-        public async Task SendFriendRequest(int UserID, int id) 
+        public void SendFriendRequest(int UserID, int id) 
         {
             FriendRequest newFriendRequest = new()
             {
@@ -56,34 +42,30 @@ namespace MyAppBackend.Services.FriendService
                 FollowerID = UserID
             };
 
-            await context.FriendRequests.AddAsync(newFriendRequest);
-            await context.SaveChangesAsync();
+            unitOfWork.FriendRequests.Add(newFriendRequest);
+            unitOfWork.Save();
         }
 
         public async Task RemoveFriend(int UserID, int id)
         {
-            var toDeleteFriend = await context.Friends
-                                            .Where(f => (f.UserID2 == UserID && f.UserID1 == id)
-                                                     || (f.UserID1 == UserID && f.UserID2 == id))
-                                            .FirstOrDefaultAsync();
+            var toDeleteFriend = await unitOfWork.Friends.Find(f => (f.UserID2 == UserID && f.UserID1 == id)
+                                                                 || (f.UserID1 == UserID && f.UserID2 == id));
 
             if (toDeleteFriend != null)
             {
-                context.Friends.Remove(toDeleteFriend);
-                await context.SaveChangesAsync();
+                unitOfWork.Friends.Remove(toDeleteFriend);
+                unitOfWork.Save();
             }
         }
 
         public async Task AcceptFriendRequest(int UserID, int id)
         {
-            var toDeleteRequest = await context.FriendRequests
-                                            .Where(f => ((f.UserID == UserID && f.FollowerID == id)
-                                                      || (f.FollowerID == UserID && f.UserID == id)))
-                                            .FirstOrDefaultAsync();
+            var toDeleteRequest = await unitOfWork.FriendRequests.Find(f => ((f.UserID == UserID && f.FollowerID == id)
+                                                                          || (f.FollowerID == UserID && f.UserID == id)));
 
             if (toDeleteRequest != null)
             {
-                context.FriendRequests.Remove(toDeleteRequest);
+                unitOfWork.FriendRequests.Remove(toDeleteRequest);
             }
 
             var newFriend = new Friend
@@ -92,21 +74,19 @@ namespace MyAppBackend.Services.FriendService
                 UserID2 = UserID
             };
 
-            await context.Friends.AddAsync(newFriend);
-            await context.SaveChangesAsync();
+            unitOfWork.Friends.Add(newFriend);
+            unitOfWork.Save();
         }
 
         public async Task RemoveFriendRequest(int UserID, int id)
         {
-            var toDeleteRequest = await context.FriendRequests
-                                            .Where(f => ((f.UserID == UserID && f.FollowerID == id)
-                                                      || (f.FollowerID == UserID && f.UserID == id)))
-                                            .FirstOrDefaultAsync();
+            var toDeleteRequest = await unitOfWork.FriendRequests.Find(f => ((f.UserID == UserID && f.FollowerID == id)
+                                                                          || (f.FollowerID == UserID && f.UserID == id)));
 
             if (toDeleteRequest != null)
             {
-                context.FriendRequests.Remove(toDeleteRequest);
-                await context.SaveChangesAsync();
+                unitOfWork.FriendRequests.Remove(toDeleteRequest);
+                unitOfWork.Save();
             }
         }
     }

@@ -1,36 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
-using MyAppBackend.Models;
+﻿using MyAppBackend.Models;
+using MyAppBackend.Repositories;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+
+
+/*
+    Member
+        remove invite
+        accept request from user
+ */
 
 namespace MyAppBackend.Services.GroupRequestService
 {
     public class GroupRequestService : IGroupRequestService
     {
-        private readonly DataContext context;
+        private readonly IUnitOfWork unitOfWork;
 
-        public GroupRequestService(DataContext context)
+        public GroupRequestService(IUnitOfWork unitOfWork)
         {
-            this.context = context;
+            this.unitOfWork = unitOfWork;
         }
 
-        public async Task SendGroupRequest(int id, int UserID)
+        public void SendGroupRequest(int id, int UserID)
         {
             GroupRequest newGroupRequest = new() { UserID = UserID, GroupID = id };
-            await context.GroupRequests.AddAsync(newGroupRequest);
-            await context.SaveChangesAsync();
+            unitOfWork.GroupRequests.Add(newGroupRequest);
+            unitOfWork.Save();
         }
-
-        public async Task DeclineGroupRequest(int GroupID, int UserID)
-        {
-            var newGroupRequest = await context.GroupRequests.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefaultAsync();
-            context.GroupRequests.Remove(newGroupRequest);
-            await context.SaveChangesAsync();
-        }
-
-        public async Task InviteToGroup(int GroupID, int UserID, int MemberID)
+        public void InviteToGroup(int GroupID, int UserID, int MemberID)
         {
             GroupRequest newGroupRequest = new()
             {
@@ -38,22 +35,29 @@ namespace MyAppBackend.Services.GroupRequestService
                 UserID = UserID,
                 GroupID = GroupID,
             };
-            await context.GroupRequests.AddAsync(newGroupRequest);
-            await context.SaveChangesAsync();
+            unitOfWork.GroupRequests.Add(newGroupRequest);
+            unitOfWork.Save();
+        }
+
+        public async Task DeclineGroupRequest(int GroupID, int UserID)
+        {
+            var newGroupRequest = await unitOfWork.GroupRequests.Find(x => x.UserID == UserID && x.GroupID == GroupID);
+            unitOfWork.GroupRequests.Remove(newGroupRequest);
+            unitOfWork.Save();
         }
 
         public async Task AcceptInvitation(int UserID, int GroupID)
         {
-            var newGroupRequest = await context.GroupRequests.Where(x => x.UserID == UserID && x.GroupID == GroupID).FirstOrDefaultAsync();
-            context.GroupRequests.Remove(newGroupRequest);
+            var newGroupRequest = await unitOfWork.GroupRequests.Find(x => x.UserID == UserID && x.GroupID == GroupID);
+            unitOfWork.GroupRequests.Remove(newGroupRequest);
             GroupMember newMember = new()
             {
                 GroupID = newGroupRequest.GroupID,
                 UserID = UserID,
                 RoleID = 2
             };
-            await context.GroupMembers.AddAsync(newMember);
-            await context.SaveChangesAsync();
+            unitOfWork.GroupMembers.Add(newMember);
+            unitOfWork.Save();
         }
 
         public async Task AcceptRequest(int UserID, int GroupID)
@@ -61,24 +65,24 @@ namespace MyAppBackend.Services.GroupRequestService
 
         }
 
-        public async Task<List<GroupRequest>> GetGroupRequestsSent(int GroupID)
+        public async Task<IEnumerable<GroupRequest>> GetGroupRequestsSent(int GroupID)
         {
-            return await context.GroupRequests.Where(x => x.GroupID == GroupID && x.MemberID != null).ToListAsync();
+            return await unitOfWork.GroupRequests.FindAll(x => x.GroupID == GroupID && x.MemberID != null);
         }
 
-        public async Task<List<GroupRequest>> GetGroupRequestsPending(int GroupID)
+        public async Task<IEnumerable<GroupRequest>> GetGroupRequestsPending(int GroupID)
         {
-            return await context.GroupRequests.Where(x => x.GroupID == GroupID && x.MemberID == null).ToListAsync();
+            return await unitOfWork.GroupRequests.FindAll(x => x.GroupID == GroupID && x.MemberID == null);
         }
 
-        public async Task<List<GroupRequest>> GetUserGroupRequestsSent(int UserID)
+        public async Task<IEnumerable<GroupRequest>> GetUserGroupRequestsSent(int UserID)
         {
-            return await context.GroupRequests.Where(x => x.UserID == UserID && x.MemberID == null).ToListAsync();
+            return await unitOfWork.GroupRequests.FindAll(x => x.UserID == UserID && x.MemberID == null);
         }
 
-        public async Task<List<GroupRequest>> GetUserGroupRequestsPending(int UserID)
+        public async Task<IEnumerable<GroupRequest>> GetUserGroupRequestsPending(int UserID)
         {
-            return await context.GroupRequests.Where(x => x.UserID == UserID && x.MemberID != null).ToListAsync();
+            return await unitOfWork.GroupRequests.FindAll(x => x.UserID == UserID && x.MemberID != null);
         }
     }
 }

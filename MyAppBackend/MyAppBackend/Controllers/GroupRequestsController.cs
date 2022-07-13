@@ -20,9 +20,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("send/{id}")]
-        public async Task<IActionResult> SendGroupRequest(int id)
+        public IActionResult SendGroupRequest(int id)
         {
-            await groupRequestService.SendGroupRequest(id, GetCurrentUserID());
+            groupRequestService.SendGroupRequest(id, GetCurrentUserID());
             return Ok();
         }
 
@@ -35,9 +35,9 @@ namespace MyAppBackend.Controllers
 
         [HttpPost("invite/{GroupID}")]
         [ServiceFilter(typeof(GroupOwnerAdminFilter))]
-        public async Task<IActionResult> InviteToGroup(int GroupID, [FromBody] int UserID)
+        public IActionResult InviteToGroup(int GroupID, [FromBody] int UserID)
         {
-            await groupRequestService.InviteToGroup(GroupID, UserID, GetCurrentUserID());
+            groupRequestService.InviteToGroup(GroupID, UserID, GetCurrentUserID());
             return Ok();
         }
 

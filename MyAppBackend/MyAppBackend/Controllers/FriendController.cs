@@ -40,9 +40,9 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("send/{id}")]
-        public async Task<IActionResult> SendFriendRequest(int id)
+        public IActionResult SendFriendRequest(int id)
         {
-            await friendService.SendFriendRequest(GetCurrentUserID(), id);
+            friendService.SendFriendRequest(GetCurrentUserID(), id);
             return Ok();
         }
 
