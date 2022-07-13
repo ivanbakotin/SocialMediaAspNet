@@ -8,8 +8,8 @@ namespace MyAppBackend.Services.CommentService
 {
     public interface ICommentService
     {
-        Task<List<CommentViewModel>> GetComments(int UserID, int PostID);
-        Task<CommentViewModel> CreateComment(Comment comment, int UserID);
+        Task<IEnumerable<CommentViewModel>> GetComments(int UserID, int PostID);
+        CommentViewModel CreateComment(Comment comment, int UserID);
         Task UpdateComment(Comment comment, int CommnetID);
         Task DeleteComment(int CommnetID);
         Task VoteComment(int UserID, int CommnetID, bool vote);
