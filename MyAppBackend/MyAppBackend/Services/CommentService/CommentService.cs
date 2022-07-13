@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.Repositories;
 using MyAppBackend.ViewModels;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.CommentService
