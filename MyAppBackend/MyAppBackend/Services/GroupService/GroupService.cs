@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Data;
 using MyAppBackend.Models;
 using MyAppBackend.Repositories;
 using MyAppBackend.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MyAppBackend.Services.GroupService
@@ -14,12 +11,10 @@ namespace MyAppBackend.Services.GroupService
     public class GroupService : IGroupService
     {
         private readonly IMapper mapper;
-        private readonly DataContext context;
         private readonly IUnitOfWork unitOfWork;
 
-        public GroupService(DataContext context, IMapper mapper, IUnitOfWork unitOfWork)
+        public GroupService(IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
         }
@@ -29,83 +24,73 @@ namespace MyAppBackend.Services.GroupService
             return await unitOfWork.Groups.FindAll(x => x.Name.Contains(param));
         }
 
-        public async Task<dynamic> SearchGroupUsers(int GroupID, string param)
+        public async Task<IEnumerable<User>> SearchGroupUsers(int GroupID, string param)
         {
-            return await context.Groups
-                            .Where(x => x.ID == GroupID)
-                            .Select(x => x.Members
-                            .Select(x => new User { Username = x.User.Username, ID = x.User.ID}))
-                            .ToListAsync();
+            return await unitOfWork.Groups.SearchGroupUsers(GroupID, param);
         }
 
-        public async Task<List<GroupMember>> GetGroupUsers(int GroupID)
+        public async Task<IEnumerable<GroupMember>> GetGroupUsers(int GroupID)
         {
-            return await context.GroupMembers.Where(x => x.GroupID == GroupID).ToListAsync();
+            return await unitOfWork.GroupMembers.FindAll(x => x.GroupID == GroupID);
         }
 
-        public async Task<List<PostViewModel>> GetGroupPosts(int GroupID, int UserID)
+        public async Task<IEnumerable<PostViewModel>> GetGroupPosts(int GroupID, int UserID)
         {
-            return await mapper.ProjectTo<PostViewModel>(from post in context.Posts
-                                                                   where post.GroupID == GroupID
-                                                                   orderby post.ID descending
-                                                                   select post, new { CurrentUserID = UserID }).ToListAsync();
+            return await unitOfWork.Groups.GetGroupPosts(GroupID, UserID);
         }
 
-        public async Task<PostViewModel> CreateGroupPost(Post post, int UserID)
+        public PostViewModel CreateGroupPost(Post post, int UserID)
         {
             post.UserID = UserID;
-            await context.Posts.AddAsync(post);
-            await context.SaveChangesAsync();
+            unitOfWork.Posts.Add(post);
+            unitOfWork.Save();
             return mapper.Map<PostViewModel>(post);
         }
 
         public async Task<Group> GetGroupInfo(int GroupID)
         {
-            return await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
+            return await unitOfWork.Groups.Find(x => x.ID == GroupID);
         }
 
         public async Task UpdateGroupInfo(Group body, int GroupID, int UserID)
         {
-            var groupToUpdate = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
+            var groupToUpdate = await unitOfWork.Groups.Find(x => x.ID == GroupID);
 
             if (groupToUpdate != null)
             {
                 groupToUpdate.Description = body.Description;
+                unitOfWork.Save();         
             };
-
-            await context.SaveChangesAsync();         
         }
 
         public async Task DeleteGroup(int GroupID, int UserID)
         { 
-            var membersToDelete = await context.GroupMembers.Where(x => x.GroupID == GroupID).ToListAsync();
-
-            context.GroupMembers.RemoveRange(membersToDelete);
-
-            var groupToDelete = await context.Groups.Where(x => x.ID == GroupID).FirstOrDefaultAsync();
+            var groupToDelete = await unitOfWork.Groups.Find(x => x.ID == GroupID);
 
             if (groupToDelete != null)
             {
-                context.Groups.Remove(groupToDelete);
-                await context.SaveChangesAsync();
+                var membersToDelete = await unitOfWork.GroupMembers.FindAll(x => x.GroupID == GroupID);
+                unitOfWork.GroupMembers.RemoveRange(membersToDelete);
+                unitOfWork.Groups.Remove(groupToDelete);
+                unitOfWork.Save();
             }         
         }
 
         public async Task RemoveGroupUser(int UserID, int GroupID)
         {
-            var userToRemove = await context.GroupMembers.Where(x => x.UserID == UserID && x.GroupID == GroupID && !(x.RoleID == 3)).FirstOrDefaultAsync();
+            var userToRemove = await unitOfWork.GroupMembers.Find(x => x.UserID == UserID && x.GroupID == GroupID && !(x.RoleID == 3));
 
-            if (userToRemove != null && userToRemove.RoleID != 3)
+            if (userToRemove != null)
             {
-                context.GroupMembers.Remove(userToRemove);
-                await context.SaveChangesAsync();
+                unitOfWork.GroupMembers.Remove(userToRemove);
+                unitOfWork.Save();
             }      
         }
 
-        public async Task<GroupViewModel> CreateGroup(Group group, int UserID)
+        public GroupViewModel CreateGroup(Group group, int UserID)
         {
-            await context.Groups.AddAsync(group);
-            await context.SaveChangesAsync();
+            unitOfWork.Groups.Add(group);
+            unitOfWork.Save();
 
             var newMember = new GroupMember
             {
@@ -113,27 +98,17 @@ namespace MyAppBackend.Services.GroupService
                 UserID = UserID,
                 RoleID = 3     
             };
-            await context.GroupMembers.AddAsync(newMember);
-            await context.SaveChangesAsync();
+            unitOfWork.GroupMembers.Add(newMember);
+            unitOfWork.Save();
 
             GroupViewModel newGroup = mapper.Map<GroupViewModel>(newMember);
             newGroup.Role = "owner";
             return newGroup;
         }
 
-        public async Task<List<IEnumerable<GroupViewModel>>> GetUserGroups(int UserID)
+        public async Task<IEnumerable<GroupViewModel>> GetUserGroups(int UserID)
         {
-            return await context.Users
-                            .Where(x => x.ID == UserID)
-                            .Select(x => x.Groups
-                            .Select(x => 
-                                new GroupViewModel {                                       
-                                    Role = x.Role.Name,
-                                    Name = x.Group.Name,
-                                    Description = x.Group.Description,
-                                    ID = x.Group.ID,
-                                    MembersNumber = x.Group.Members.Count
-                             })).ToListAsync();
+            return await unitOfWork.Groups.GetUserGroups(UserID);
         }
 
         public Task<List<Group>> GetRecommendedGroups(int UserID)
