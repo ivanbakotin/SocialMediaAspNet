@@ -22,6 +22,9 @@ form {
 
   fieldset {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     border: none;
   }
 
@@ -36,6 +39,11 @@ form {
     flex-direction: column;
     flex-wrap: wrap;
     gap: 1rem;
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: row;
   }
 
   label {

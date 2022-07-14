@@ -13,7 +13,7 @@ namespace MyAppBackend.ModelBuilderConfig
                 .WithOne(e => e.Post);
 
             modelBuilder.Property(x => x.Title).HasMaxLength(150).IsRequired();
-            modelBuilder.Property(x => x.Body).HasMaxLength(800).IsRequired();
+            modelBuilder.Property(x => x.Body).HasMaxLength(1000).IsRequired();
         }
     }
 }

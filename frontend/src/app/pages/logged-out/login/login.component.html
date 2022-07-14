@@ -3,31 +3,29 @@
     <legend>Login</legend>
 
     <div>
-      <div>
-        <label for="email">Email:</label>
-        <input
-          ngModel
-          type="email"
-          name="email"
-          id="email"
-          placeholder="ivan@gmail.com"
-        />
-      </div>
+      <label for="email">Email:</label>
+      <input
+        ngModel
+        type="email"
+        name="email"
+        id="email"
+        placeholder="ivan@gmail.com"
+      />
+    </div>
 
-      <div>
-        <label for="password">Password:</label>
-        <input
-          ngModel
-          type="password"
-          name="password"
-          id="password"
-          placeholder="pass123"
-        />
-      </div>
-      <div>
-        <label for="rememberMe">Remember me:</label>
-        <input ngModel type="checkbox" id="rememberMe" name="rememberMe" />
-      </div>
+    <div>
+      <label for="password">Password:</label>
+      <input
+        ngModel
+        type="password"
+        name="password"
+        id="password"
+        placeholder="pass123"
+      />
+    </div>
+    <div class="flex">
+      <label for="rememberMe">Remember me:</label>
+      <input ngModel type="checkbox" id="rememberMe" name="rememberMe" />
     </div>
 
     <button type="submit">Login</button>
