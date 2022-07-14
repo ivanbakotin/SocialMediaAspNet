@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace MyAppBackend.ActionFilters
 {
-    public class PasswordFilter : ControllerBase, IActionFilter
+    public class PasswordFilter : IActionFilter
     {
         private readonly DataContext context;
 

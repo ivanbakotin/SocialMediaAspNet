@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.ActionFilters;
 using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
 using MyAppBackend.Services.Auth;
@@ -19,6 +20,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("login")]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         public async Task<IActionResult> Login([FromBody] LoginUser user)
         {
             var response = await authService.Login(user);
@@ -26,6 +28,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost("register")]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         public async Task<IActionResult> Register([FromBody] User user)
         {
             await authService.Register(user);
@@ -42,7 +45,7 @@ namespace MyAppBackend.Controllers
                 return Ok();
             }
 
-            return Ok(response);
+            return Created("Jwt", response);
         }
 
         [HttpDelete("logout")]

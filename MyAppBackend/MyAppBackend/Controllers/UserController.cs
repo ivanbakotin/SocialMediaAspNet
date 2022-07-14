@@ -50,6 +50,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("changepassword")]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         [ServiceFilter(typeof(PasswordFilter))]
         public IActionResult ChangePassword([FromBody] UserChange user)
         {
@@ -59,6 +60,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut("changeemail")]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         [ServiceFilter(typeof(PasswordFilter))]
         public IActionResult ChangeEmail([FromBody] UserChange user)
         {
@@ -68,6 +70,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpDelete("delete")]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         [ServiceFilter(typeof(PasswordFilter))]
         public IActionResult DeleteUser([FromBody] UserChange user)
         {

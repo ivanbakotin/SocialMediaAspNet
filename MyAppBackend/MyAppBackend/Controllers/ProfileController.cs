@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.ActionFilters;
 using MyAppBackend.Models;
 using MyAppBackend.Services.ProfileService;
 using MyAppBackend.ViewModels;
@@ -28,6 +29,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPut]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         public IActionResult UpdateProfile([FromBody] Profile profile)
         {
             profileService.Update(profile);

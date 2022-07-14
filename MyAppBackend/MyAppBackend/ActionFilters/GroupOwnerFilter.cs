@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MyAppBackend.ActionFilters
 {
-    public class GroupOwnerFilter : ControllerBase, IActionFilter
+    public class GroupOwnerFilter : IActionFilter
     {
         private readonly DataContext context;
 

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MyAppBackend.ActionFilters
 {
-    public class PostOwnerFilter : ControllerBase, IActionFilter
+    public class PostOwnerFilter : IActionFilter
     {
         private readonly DataContext context;
 

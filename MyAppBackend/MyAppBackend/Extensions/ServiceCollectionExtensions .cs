@@ -1,24 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using MyAppBackend.Data;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using MyAppBackend.Models;
-using MyAppBackend.Services.Auth;
-using MyAppBackend.Services.Email;
-using MyAppBackend.Services.PostService;
-using MyAppBackend.Services.FriendService;
-using MyAppBackend.Services.UserService;
-using MyAppBackend.Services.ProfileService;
-using MyAppBackend.Services.CommentService;
-using MyAppBackend.Services.GroupService;
-using MyAppBackend.Services.GroupRequestService;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MyAppBackend.ActionFilters;
+using MyAppBackend.Data;
+using MyAppBackend.Models;
 using MyAppBackend.Repositories;
-using MyAppBackend.Repositories.PostRepositories;
+using MyAppBackend.Services.Auth;
+using MyAppBackend.Services.CommentService;
+using MyAppBackend.Services.Email;
+using MyAppBackend.Services.FriendService;
+using MyAppBackend.Services.GroupRequestService;
+using MyAppBackend.Services.GroupService;
+using MyAppBackend.Services.PostService;
+using MyAppBackend.Services.ProfileService;
+using MyAppBackend.Services.UserService;
+using System.Text;
 
 namespace MyAppBackend.Extensions
 {
@@ -111,10 +110,9 @@ namespace MyAppBackend.Extensions
             services.AddTransient<GroupOwnerFilter>();
             services.AddTransient<MemberFilter>();
             services.AddTransient<PostOwnerFilter>();
+            services.AddTransient<ModelValidationFilter>();
 
             return services;
         }
     }
-
-    internal class T { }
 }

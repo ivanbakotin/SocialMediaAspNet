@@ -128,7 +128,7 @@ namespace MyAppBackend.Services.Auth
             unitOfWork.Sessions.Add(session);
         }
 
-        private string CreateJwt(string role, string ID)
+        private static string CreateJwt(string role, string ID)
         {
             var claims = new List<Claim>
             {

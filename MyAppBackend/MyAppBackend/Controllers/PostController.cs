@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyAppBackend.ActionFilters;
 using MyAppBackend.Models;
 using MyAppBackend.Services.PostService;
 using MyAppBackend.Settings;
@@ -48,6 +49,7 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(ModelValidationFilter))]
         public IActionResult CreatePost([FromBody] Post post)
         {
             PostViewModel createdPost = postService.CreatePost(post, GetCurrentUserID());
