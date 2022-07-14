@@ -19,7 +19,7 @@ namespace MyAppBackend.Repositories.FriendRepositories
                                       {
                                           Friends1 = x.Friends1.Where(x => x.UserID1 != id).Select(p => new { p.User1.Username, p.User1.ID }),
                                           Friends11 = x.Friends1.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
-                                          Friends2 = x.Friends2.Where(x => x.UserID1 != id).Select(p =>  new { p.User1.Username, p.User1.ID }),
+                                          Friends2 = x.Friends2.Where(x => x.UserID1 != id).Select(p => new { p.User1.Username, p.User1.ID }),
                                           Friends22 = x.Friends2.Where(x => x.UserID2 != id).Select(p => new { p.User2.Username, p.User2.ID }),
                                       }).ToListAsync();
         }

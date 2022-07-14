@@ -104,13 +104,13 @@ namespace MyAppBackend.Extensions
             services.AddTransient<IGroupRequestService, GroupRequestService>();
             services.AddTransient<IGroupService, GroupService>();
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
             
-            services.AddScoped<PasswordFilter>();
-            services.AddScoped<GroupOwnerAdminFilter>();
-            services.AddScoped<GroupOwnerFilter>();
-            services.AddScoped<MemberFilter>();
-            services.AddScoped<PostOwnerFilter>();
+            services.AddTransient<PasswordFilter>();
+            services.AddTransient<GroupOwnerAdminFilter>();
+            services.AddTransient<GroupOwnerFilter>();
+            services.AddTransient<MemberFilter>();
+            services.AddTransient<PostOwnerFilter>();
 
             return services;
         }

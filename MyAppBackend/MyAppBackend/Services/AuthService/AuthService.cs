@@ -1,8 +1,13 @@
-﻿using MyAppBackend.ApiModels;
+﻿using Microsoft.IdentityModel.Tokens;
+using MyAppBackend.ApiModels;
 using MyAppBackend.Models;
 using MyAppBackend.Repositories;
 using MyAppBackend.Utilities;
 using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -18,7 +23,7 @@ namespace MyAppBackend.Services.Auth
         }
 
         public async Task<AuthenticatedResponse> Login(LoginUser user)
-        {         
+        {
             var userObject = await unitOfWork.Users.FindUser(user);
 
             if (userObject == null)
@@ -33,17 +38,11 @@ namespace MyAppBackend.Services.Auth
                 throw new Exception("Wrong email or password!");
             }
 
-            string tokenString = CreateJwt.GetJwt(userObject.Role.Name, userObject.ID.ToString());
+            string tokenString = CreateJwt(userObject.Role.Name, userObject.ID.ToString());
 
             if (user.RememberMe)
             {
-                var session = new Session
-                {
-                    UserID = userObject.ID,
-                    Jwt = tokenString
-                };
-
-                unitOfWork.Sessions.Add(session);
+                CreateSession(userObject.ID, tokenString);
                 unitOfWork.Save();
             }
 
@@ -56,19 +55,11 @@ namespace MyAppBackend.Services.Auth
             var passwordRegex = new Regex(@"(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$");
             var usernameRegex = new Regex(@"^[a-z0-9_-]{3,16}$");
 
-            if (!emailRegex.Match(user.Email).Success)
+            if (!emailRegex.Match(user.Email).Success || 
+                !passwordRegex.Match(user.Password).Success ||
+                !usernameRegex.Match(user.Username).Success)
             {
-                throw new Exception("Incorrect!");
-            }
-
-            if (!passwordRegex.Match(user.Password).Success)
-            {
-                throw new Exception("Incorrect!");
-            }
-
-            if (!usernameRegex.Match(user.Username).Success)
-            {
-                throw new Exception("Incorrect!");
+                throw new Exception("Incorrect input!");
             }
 
             bool userExists = await unitOfWork.Users.UserExists(user);
@@ -106,16 +97,10 @@ namespace MyAppBackend.Services.Auth
                 return null;
             }
 
-            string tokenString = CreateJwt.GetJwt(session.User.Role.Name, session.User.ID.ToString());
+            string tokenString = CreateJwt(session.User.Role.Name, session.User.ID.ToString());
 
-            var newSession = new Session
-            {
-                UserID = session.UserID,
-                Jwt = tokenString
-            };
-
+            CreateSession(session.UserID, tokenString);
             unitOfWork.Sessions.Remove(session);
-            unitOfWork.Sessions.Add(newSession);
             unitOfWork.Save();
 
             return new AuthenticatedResponse { Token = tokenString }; ;
@@ -130,6 +115,38 @@ namespace MyAppBackend.Services.Auth
                 unitOfWork.Sessions.RemoveRange(sessionToDelete);
                 unitOfWork.Save();
             }
+        }
+
+        private void CreateSession(int UserID, string token)
+        {
+            var session = new Session
+            {
+                UserID = UserID,
+                Jwt = token
+            };
+
+            unitOfWork.Sessions.Add(session);
+        }
+
+        private string CreateJwt(string role, string ID)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim("role", role),
+                new Claim("ID", ID)
+            };
+
+            var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Yh2k7QSu4l8CZg5p6X3Pna9L0Miy4D3Bvt0JVr87UcOj69Kqw5R2Nmf4FWs03Hdx"));
+            var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+            var tokenOptions = new JwtSecurityToken(
+                issuer: "https://localhost:5001",
+                audience: "https://localhost:5001",
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(300),
+                signingCredentials: signinCredentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
     }
 }

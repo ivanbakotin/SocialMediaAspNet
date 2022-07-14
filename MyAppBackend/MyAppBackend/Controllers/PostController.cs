@@ -48,10 +48,10 @@ namespace MyAppBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromBody] Post post)
+        public IActionResult CreatePost([FromBody] Post post)
         {
-            PostViewModel createdPost = await postService.CreatePost(post, GetCurrentUserID());
-            return Ok(createdPost);
+            PostViewModel createdPost = postService.CreatePost(post, GetCurrentUserID());
+            return Created("CreatedPost", createdPost);
         }
 
         [HttpPut("update/{PostID}")]

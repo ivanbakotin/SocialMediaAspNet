@@ -35,7 +35,7 @@ namespace MyAppBackend.Services.PostService
             return await unitOfWork.Posts.GetPost(UserID, PostID);
         }
 
-        public async Task<PostViewModel> CreatePost(Post post, int UserID)
+        public PostViewModel CreatePost(Post post, int UserID)
         {
             var body = post.Body.Trim();
             int summarySize = 200 > body.Length ? body.Length : 200;

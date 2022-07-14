@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace MyAppBackend.Repositories.PostRepositories
 {
     public class PostRepository : Repository<Post>, IPostRepository

@@ -25,7 +25,7 @@ namespace Backend.Tests
             IActionResult actionResult = await controller.Login(user);
 
             //Assert
-            var objectResponse = Assert.IsType<ObjectResult>(actionResult);
+            var objectResponse = Assert.IsType<OkObjectResult>(actionResult);
             Assert.Equal(200, objectResponse.StatusCode);
         }
 
@@ -42,8 +42,8 @@ namespace Backend.Tests
             IActionResult actionResult = await controller.Register(user);
 
             //Assert
-            var objectResponse = Assert.IsType<ObjectResult>(actionResult);
-            Assert.Equal(409, objectResponse.StatusCode);
+            var objectResponse = Assert.IsType<OkResult>(actionResult);
+            Assert.Equal(200, objectResponse.StatusCode);
         }
     }
 }

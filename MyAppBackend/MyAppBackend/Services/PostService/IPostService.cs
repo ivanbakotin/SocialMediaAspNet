@@ -11,7 +11,7 @@ namespace MyAppBackend.Services.PostService
         Task<IEnumerable<PostViewModel>> GetTimelinePosts(int UserID, PostPagination postPagination);
         Task<IEnumerable<PostViewModel>> GetUserPosts(int UserID);
         Task<PostViewModel> GetPost(int UserID, int PostID);
-        Task<PostViewModel> CreatePost(Post post, int UserID);
+        PostViewModel CreatePost(Post post, int UserID);
         Task UpdatePost(string body, int UserID, int PostID);
         Task DeletePost(int PostID);
         Task VotePost(int UserID, int PostID, bool vote);
